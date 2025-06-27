@@ -1,26 +1,166 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.text-brand-yellow {
+  color: #ffbf1e;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+li {
+  list-style: none;
+  display: block;
+}
+
+/* Optional: if not using Tailwind directly for arrows */
+.slick-prev,
+.slick-next {
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.slick-prev {
+  left: 8px !important;
+}
+
+.slick-next {
+  right: 8px !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scroll-css {
+  scrollbar-color: gray transparent; /* thumb color, track color */
+  scrollbar-width: thin; /* optional: thin or auto */
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-pulse {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
+
+.headerleft > a > img {
+  margin-top: 6px;
+}
+
+.headstrip {
+  padding: 0 10px;
+}
+.headstrip .btnselectcity {
+  padding: 3px 10px;
+}
+
+.headstrip .btnselectcity span {
+  margin-right: 2px;
+  font-size: 14px;
+}
+
+/* Arshiyan css */
+
+.lead-video-container .video-container {
+  position: relative;
+}
+.lead-video-container .video-container .iframe-container {
+  width: 100%;
+  height: calc(100vw / 9 * 8);
+  margin-bottom: 64px;
+}
+.lead-video-container .video-container iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.lead-video-container .lkm-widget {
+  padding-bottom: 0px;
+}
+.video-details-container {
+  margin: 15px 20px;
+  position: absolute;
+  bottom: -74px;
+}
+.video-details-container .video-title {
+  color: #ffbf1e;
+  font-size: 18px;
+}
+.video-details-container .play-button {
+  display: inline-block;
+  background: #ffbf1e;
+  width: 91px;
+  height: 32px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  opacity: 0.8;
+  margin-top: 20px;
+}
+.video-details-container .play-button:before {
+  margin: 0px 9px 0px 11px;
+}
+@media screen and (min-width: 768px) {
+  .lead-video-container .video-container {
+    display: flex;
+    flex-direction: row-reverse;
+    overflow: hidden;
+  }
+  .lead-video-container .video-container .video-details-container {
+    width: 50%;
+    bottom: auto;
+    left: 0;
+    margin: 40px 0px 20px 60px;
+  }
+  .lead-video-container .video-container .play-button {
+    margin-top: 40px;
+  }
+  .lead-video-container .video-container .iframe-container {
+    width: calc(((100vw - 20px) / 100) * 60);
+    height: calc((((100vw - 20px) / 100) * 60) / 16 * 9);
+    margin-bottom: 0px;
+  }
+  .video-details-container .video-title {
+    font-size: 32px;
+    line-height: 42px;
+  }
+}
+
+/* Arshiyan css */
