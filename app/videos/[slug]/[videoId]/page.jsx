@@ -1,3 +1,4 @@
+import BackButton from '@/app/components/BackButton';
 import React from 'react';
 
 const page = async ({ params }) => {
@@ -13,40 +14,29 @@ const page = async ({ params }) => {
   );
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
+  const firstVideo = data.list[0] || [];
+  console.log(firstVideo);
 
   return (
     <>
-      <div class="expand-header">
-        <div class="player-header">
-          <span onclick="history.back()" class="player-back"></span>
-          <div class="expand-title">{slug} News</div> 
-        </div>
-      </div>
-      <section class="lead-video-container ">
-        <section class="video-container">
-          <div class="iframe-container lg">
+      <BackButton slug={slug} />
+      <section className="lead-video-container ">
+        <section className="video-container">
+          <div className="iframe-container lg">
             {' '}
             <iframe
-              src={`https://www.dailymotion.com/widget/preview/video/${'x9eo9v4'}?title=none&duration=none&mode=video&trigger=auto`}
+              src={`https://www.dailymotion.com/widget/preview/video/${firstVideo.id}?title=none&duration=none&mode=video&trigger=auto`}
               title="Dailymotion Video"
               allowFullScreen
               loading="lazy"
               className=""
             />
           </div>
-          <div class="video-details-container">
-            <p class="video-title">
-              Sharad Ponkshe : बीडमध्ये प्रयोग संपताच शरद पोंक्षेंच्या संतापाचा उद्रेक, कुणाकुणाला
-              सुनावलं?
-            </p>
-            <div class="">
-              <a
-                href="#"
-                class="play-button play-triangle"
-                data-player="x9eo9v4"
-                data-playlist="x9eo9v4"
-              >
+          <div className="video-details-container">
+            <p className="video-title">{firstVideo.title || 'No Title Available'}</p>
+            <div className="">
+              <a href="#" className="play-button play-triangle">
                 Play
               </a>
             </div>

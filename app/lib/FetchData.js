@@ -125,4 +125,63 @@ async function fetchCategoryDataBySlug(slug) {
   }
 }
 
-export { fetchAllDailymotionData, fetchCategoryDataBySlug };
+async function fetchPlaylistDataBySlug(playlistSlug) {
+  try {
+    // console.log(playlistSlug);
+
+    const playlistIds = API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.playlist_id;
+    if (!playlistIds) return null;
+
+    // console.log(playlistIds);
+    const ids = playlistIds.split(',');
+    // console.log(ids);
+
+    const playlistFetches = ids.map(async (playlistId) => {
+      const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
+      const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=1`;
+
+      try {
+        const [nameResponse, videosResponse] = await Promise.all([
+          fetch(nameUrl, {
+            headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
+            next: { revalidate: 300 },
+          }),
+          fetch(videosUrl, {
+            headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
+            next: { revalidate: 300 },
+          }),
+        ]);
+
+        if (!nameResponse.ok || !videosResponse.ok) {
+          throw new Error('Failed to fetch playlist data');
+        }
+
+        const [nameData, videosData] = await Promise.all([
+          nameResponse.json(),
+          videosResponse.json(),
+        ]);
+
+        const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
+
+        return {
+          playlistName: nameData.name,
+          videos: videosData.list || [],
+          slug: playlist_slug,
+          id: playlistId,
+        };
+      } catch (err) {
+        console.error(`Error fetching playlist ${playlistId}:`, err);
+        return null;
+      }
+    });
+
+    const results = await Promise.all(playlistFetches);
+    // console.log(results)
+    return results;
+  } catch (error) {
+    console.error('Error in fetchCategoryDataBySlug:', error);
+    throw error;
+  }
+}
+
+export { fetchAllDailymotionData, fetchCategoryDataBySlug, fetchPlaylistDataBySlug };

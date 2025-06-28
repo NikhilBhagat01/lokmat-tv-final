@@ -10,7 +10,7 @@ import useMounted from '../hooks/useMounted';
 
 const PlaylistCarousel = ({ data }) => {
   const { mounted, isMobile } = useMounted();
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <section className="lkm-widget">
