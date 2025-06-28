@@ -2,6 +2,15 @@
 import React from 'react';
 
 const BackButton = ({ slug }) => {
+  const deslugify = (slug) => {
+    return slug
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase())
+      .replace(/(\d+)/g, ' $1')
+      .trim();
+  };
+
+  slug = deslugify(slug);
   return (
     <div className="expand-header">
       <div className="player-header">

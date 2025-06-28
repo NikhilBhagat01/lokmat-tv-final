@@ -6,19 +6,14 @@ import React from 'react';
 
 const page = async ({ params }) => {
   const { slug, videoId } = await params;
-  console.log('slug:', slug);
-  console.log('videoId:', videoId);
 
   const data = await fetchPlaylistDataById(videoId);
-
-  console.log(data);
 
   if (!data) {
     return redirect(`/playlist/${slug}`);
   }
 
   const firstVideo = data?.videos[0] || [];
-  // console.log(firstVideo);
 
   return (
     <>
