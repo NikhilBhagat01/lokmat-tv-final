@@ -1,3 +1,4 @@
+import PlayerBack from '@/app/components/PlayerBack';
 import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
 import { Suspense } from 'react';
@@ -71,10 +72,7 @@ const VideoPlayerPage = async ({ params }) => {
 
   return (
     <>
-      <div className="player-header">
-        {/* onClick={() => window.history.back()} */}
-        <span className="player-back"></span>
-      </div>
+      <PlayerBack />
       <div className="detail-wrapper">
         <div className="video-detail-container">
           <div className="video-container">
