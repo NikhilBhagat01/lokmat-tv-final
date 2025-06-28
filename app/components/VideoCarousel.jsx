@@ -7,10 +7,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Pagination } from 'swiper/modules';
 import useMounted from '../hooks/useMounted';
+import { useRouter } from 'next/navigation';
 
 const VideoCarousel = ({ title, slug, data, id }) => {
+  const router = useRouter();
+
   const { mounted, isMobile } = useMounted();
 
+  // console.log(`/videos/${slug}/${id}`);
   //   console.log(data);
   return (
     <section className="lkm-widget">
@@ -35,7 +39,11 @@ const VideoCarousel = ({ title, slug, data, id }) => {
             >
               {data?.map((item, index) => (
                 <SwiperSlide key={index} className="swiper-slide">
-                  <div className="card-wraper" key={index}>
+                  <div
+                    className="card-wraper"
+                    key={index}
+                    onClick={() => router.push(`/videos/${slug}/${id}/${item.id}`)}
+                  >
                     <div className="card iframInsert gotovideoDetail">
                       <div className="card-image imgwrap">
                         <img
@@ -65,7 +73,11 @@ const VideoCarousel = ({ title, slug, data, id }) => {
         ) : (
           <>
             {data?.map((item, index) => (
-              <div className="card-wraper" key={index}>
+              <div
+                className="card-wraper"
+                key={index}
+                // onClick={() => router.push(`/videos/${slug}/${id}/${item.id}`)}
+              >
                 <div className="card iframInsert gotovideoDetail">
                   <div className="card-image imgwrap">
                     <img

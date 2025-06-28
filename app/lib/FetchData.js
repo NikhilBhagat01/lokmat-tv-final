@@ -184,4 +184,54 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
   }
 }
 
-export { fetchAllDailymotionData, fetchCategoryDataBySlug, fetchPlaylistDataBySlug };
+async function fetchVideoById(videoId) {
+  try {
+    const url = `https://api.dailymotion.com/video/${videoId}?fields=id,title,thumbnail_480_url,mode,onair,owner.screenname,created_time,start_time,description,thumbnail_240_url,url,channel,owner.url,tags,duration,views_total`;
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
+      },
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching video by ID:', error);
+    return null;
+  }
+}
+
+async function fetchRelatedVideos(videoId, page = 1) {
+  try {
+    const url = `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=${page}`;
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
+      },
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching related videos:', error);
+    return { list: [], has_more: false };
+  }
+}
+
+export {
+  fetchAllDailymotionData,
+  fetchCategoryDataBySlug,
+  fetchPlaylistDataBySlug,
+  fetchVideoById,
+  fetchRelatedVideos,
+};
