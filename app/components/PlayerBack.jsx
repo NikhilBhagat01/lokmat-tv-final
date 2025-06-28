@@ -3,8 +3,7 @@
 const PlayerBack = () => {
   return (
     <div className="player-header">
-      onClick={() => window.history.back()}
-      <span className="player-back"></span>
+      <span onClick={() => window.history.back()} className="player-back"></span>
     </div>
   );
 };
