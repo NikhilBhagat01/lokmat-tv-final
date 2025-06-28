@@ -52,7 +52,7 @@ export const API_URL_DATA = [
   {
     id: 9,
     title: 'Thet from the Set',
-    title_slug: 'theft-from-the-set',
+    title_slug: 'thet-from-the-set',
     playlist_id: 'x7h76b',
     isPlaylist: false,
   },
