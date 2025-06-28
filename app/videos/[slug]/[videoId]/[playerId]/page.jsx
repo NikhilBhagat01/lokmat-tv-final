@@ -1,4 +1,6 @@
+import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
+import { Suspense } from 'react';
 
 // export async function generateMetadata({ params }) {
 //   const { videoId, slug, playerId } = params;
@@ -103,13 +105,9 @@ const VideoPlayerPage = async ({ params }) => {
               </div>
             </div>
 
-            <div className="info-desc-wrapper">
-              <div className="info-desc active">{videoData?.description}</div>
-              <div className="info-tags"></div>
-              <div className="dm__more-btn">
-                <span>Learn More</span>
-              </div>
-            </div>
+            <Suspense fallback={<div>Loading...</div>}>
+              <VideoDetailCard description={videoData.description} />
+            </Suspense>
           </div>
 
           {/* <div className="list-view">
