@@ -17,7 +17,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
   const [canSlideNext, setCanSlideNext] = useState(data.length > 1);
   const swiperRef = useRef(null);
 
-  // Autoplay logic (works on all devices)
+  // Autoplay logic (works on all devices including mobile)
   useEffect(() => {
     if (!mounted || !data.length) return;
 
