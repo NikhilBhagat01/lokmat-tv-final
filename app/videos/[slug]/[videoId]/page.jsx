@@ -3,6 +3,7 @@ export const revalidate = 180;
 
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
+import Link from 'next/link';
 import React from 'react';
 
 const page = async ({ params }) => {
@@ -20,7 +21,7 @@ const page = async ({ params }) => {
   const data = await response.json();
   // console.log(data);
   const firstVideo = data.list[0] || [];
-  // console.log(firstVideo);
+  console.log(firstVideo);
 
   return (
     <>
@@ -40,9 +41,12 @@ const page = async ({ params }) => {
           <div className="video-details-container">
             <p className="video-title">{firstVideo.title || 'No Title Available'}</p>
             <div className="">
-              <a href="#" className="play-button play-triangle">
+              <Link
+                href={`/videos/${slug}/${videoId}/${firstVideo.id}`}
+                className="play-button play-triangle"
+              >
                 Play
-              </a>
+              </Link>
             </div>
           </div>
         </section>
