@@ -17,9 +17,9 @@ const NewsLayout = ({ data, title, slug, id }) => {
   const [canSlideNext, setCanSlideNext] = useState(data.length > 1);
   const swiperRef = useRef(null);
 
-  // Autoplay logic (works on all devices)
+  // Handle auto-play logic
   useEffect(() => {
-    if (!mounted || !data.length) return;
+    if (!mounted || isMobile || !data.length) return;
 
     setShowVideo(false);
 
@@ -28,14 +28,14 @@ const NewsLayout = ({ data, title, slug, id }) => {
       const nextIndex = (activeIndex + 1) % data.length;
       setActiveIndex(nextIndex);
       setSelectedItem(data[nextIndex]);
-      swiperRef.current?.slideTo?.(nextIndex);
+      swiperRef.current?.slideTo(nextIndex);
     }, 10000);
 
     return () => {
       clearTimeout(videoTimer);
       clearTimeout(slideTimer);
     };
-  }, [activeIndex, mounted, data]);
+  }, [activeIndex, isMobile, mounted]);
 
   return (
     <section className="lead-video-container">
@@ -72,22 +72,21 @@ const NewsLayout = ({ data, title, slug, id }) => {
         </div>
       </section>
 
-      {/* Carousel or Scrollable List */}
-      {mounted && (
-        <section className="lkm-widget">
-          <div className="videos-head">
-            <h3 className="head-title">{title}</h3>
-            <Link href={`/videos/${slug}`} className="read-all">
-              Explore All
-            </Link>
-          </div>
+      {/* Carousel Section */}
+      <section className="lkm-widget">
+        <div className="videos-head">
+          <h3 className="head-title">{title}</h3>
+          <Link href={`/videos/${slug}`} className="read-all">
+            Explore All
+          </Link>
+        </div>
 
-          {/* Desktop Swiper */}
-          {!isMobile ? (
-            <div className="videos-widget card-category-desktop home first">
+        <div className="videos-widget card-category-desktop home first">
+          {mounted && (
+            <>
               <Swiper
                 spaceBetween={10}
-                slidesPerView={5.7}
+                slidesPerView={isMobile ? 1.2 : 5.7}
                 onSwiper={(swiper) => {
                   swiperRef.current = swiper;
                   setCanSlidePrev(!swiper.isBeginning);
@@ -125,7 +124,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
                         data-title={item.title}
                       >
                         <div
-                          className="card-image"
+                          className="card-image "
                           style={{
                             background: `url('${item.thumbnail_240_url}') center center / cover no-repeat`,
                           }}
@@ -135,8 +134,6 @@ const NewsLayout = ({ data, title, slug, id }) => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-
-              {/* Arrows */}
               {canSlidePrev && (
                 <button
                   className="swiper-button-prev-custom"
@@ -153,61 +150,26 @@ const NewsLayout = ({ data, title, slug, id }) => {
                   &#8594;
                 </button>
               )}
-            </div>
-          ) : (
-            // Mobile Scrollable List
-            <div
-              className="scroll-container"
-              style={{ display: 'flex', overflowX: 'auto', gap: '10px' }}
-            >
-              {data.map((item, index) => (
-                <div
-                  key={item.id}
-                  onClick={() => {
-                    setSelectedItem(item);
-                    setActiveIndex(index);
-                    setShowVideo(false);
-                  }}
-                  className={`card-wraper ${item.id === selectedItem.id ? 'active' : ''}`}
-                  style={{ minWidth: '160px', cursor: 'pointer' }}
-                >
-                  <div
-                    className="card upvideo card-image"
-                    data-id={item.id}
-                    data-title={item.title}
-                  >
-                    <div
-                      className="card-image"
-                      style={{
-                        height: '90px',
-                        background: `url('${item.thumbnail_240_url}') center center / cover no-repeat`,
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            </>
           )}
+        </div>
 
-          {/* Dots (optional) */}
-          {!isMobile && (
-            <div className="dots">
-              {data.map((_, i) => (
-                <span
-                  key={i}
-                  className={`dot ${i === activeIndex ? 'active' : ''}`}
-                  onClick={() => {
-                    swiperRef.current?.slideTo(i);
-                    setSelectedItem(data[i]);
-                    setActiveIndex(i);
-                    setShowVideo(false);
-                  }}
-                ></span>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
+        {/* Optional Custom Controls */}
+        <div className="dots ">
+          {data.map((_, i) => (
+            <span
+              key={i}
+              className={`dot ${i === activeIndex ? 'active' : ''}`}
+              onClick={() => {
+                swiperRef.current?.slideTo(i);
+                setSelectedItem(data[i]);
+                setActiveIndex(i);
+                setShowVideo(false);
+              }}
+            ></span>
+          ))}
+        </div>
+      </section>
     </section>
   );
 };

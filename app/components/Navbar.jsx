@@ -30,13 +30,13 @@ const Header = () => {
             <span></span>
           </a>
 
-          <a href="index.html" className="brandlogo">
+          <Link href="/" className="brandlogo">
             <img
               src="https://d3pc1xvrcw35tl.cloudfront.net/assets/images/dm-video-tiles/lokmattv-logo-v0.0.png"
               alt="Lokmat TV"
               className="logoimage"
             />
-          </a>
+          </Link>
         </div>
 
         <div className="headerright">

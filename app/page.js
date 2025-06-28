@@ -4,11 +4,12 @@ import PlaylistCarousel from './components/PlaylistCarousel';
 import { fetchAllDailymotionData } from './lib/FetchData';
 import React from 'react';
 import Adbox from './components/Adbox';
+import VideoCarousel from './components/VideoCarousel';
 
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
-  // console.log(data);
+  console.log(data);
 
   const topStories = data[0]?.data?.list || [];
   const topStoriesTitle = data[0]?.title;
@@ -31,13 +32,12 @@ export default async function Home() {
           item?.isPlaylist ? (
             <PlaylistCarousel data={item} />
           ) : (
-            <></>
-            // <VideoCarousel
-            //   title={item?.title}
-            //   slug={item?.title_slug}
-            //   data={item?.data?.list || []}
-            //   id={item?.id}
-            // />
+            <VideoCarousel
+              title={item?.title}
+              slug={item?.title_slug}
+              data={item?.data?.list || []}
+              id={item?.id}
+            />
           )}
         </React.Fragment>
       ))}
