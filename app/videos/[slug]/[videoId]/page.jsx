@@ -1,4 +1,6 @@
 import BackButton from '@/app/components/BackButton';
+import CategoryCard from '@/app/components/CategoryCard';
+import { moveItem } from 'framer-motion';
 import React from 'react';
 
 const page = async ({ params }) => {
@@ -16,7 +18,7 @@ const page = async ({ params }) => {
   const data = await response.json();
   // console.log(data);
   const firstVideo = data.list[0] || [];
-  console.log(firstVideo);
+  // console.log(firstVideo);
 
   return (
     <>
@@ -43,6 +45,12 @@ const page = async ({ params }) => {
           </div>
         </section>
       </section>
+
+      <div className="list-view card-category-desktop">
+        {data?.list?.slice(1).map((item, index) => (
+          <CategoryCard key={index} data={item} />
+        ))}
+      </div>
     </>
   );
 };
