@@ -1,6 +1,5 @@
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
-import { moveItem } from 'framer-motion';
 import React from 'react';
 
 const page = async ({ params }) => {

@@ -8,7 +8,7 @@ const CategoryCard = ({ data }) => {
     timeZone: 'UTC',
   }).format(new Date(data.created_time * 1000));
 
-  console.log(data);
+  //   console.log(data);
   return (
     <div className="card-wraper">
       <div className="card  ">
