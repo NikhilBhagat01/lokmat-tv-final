@@ -1,3 +1,6 @@
+export const dynamic = 'auto';
+export const revalidate = 180;
+
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
 import React from 'react';
