@@ -184,6 +184,42 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
   }
 }
 
+async function fetchPlaylistDataById(playlistId) {
+  try {
+    const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
+    const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=1`;
+
+    console.log('nameUrl:', nameUrl);
+    console.log('videosUrl:', videosUrl);
+
+    const [nameResponse, videosResponse] = await Promise.all([
+      fetch(nameUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
+        next: { revalidate: 300 },
+      }),
+      fetch(videosUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
+        next: { revalidate: 300 },
+      }),
+    ]);
+    if (!nameResponse.ok || !videosResponse.ok) {
+      throw new Error('Failed to fetch playlist data');
+    }
+    const [nameData, videosData] = await Promise.all([nameResponse.json(), videosResponse.json()]);
+    const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
+
+    return {
+      playlistName: nameData.name,
+      videos: videosData.list || [],
+      slug: playlist_slug,
+      id: playlistId,
+    };
+  } catch (error) {
+    console.error('Error in fetchPlaylistDataById:', error);
+    throw error;
+  }
+}
+
 async function fetchVideoById(videoId) {
   try {
     const url = `https://api.dailymotion.com/video/${videoId}?fields=id,title,thumbnail_480_url,mode,onair,owner.screenname,created_time,start_time,description,thumbnail_240_url,url,channel,owner.url,tags,duration,views_total`;
@@ -234,4 +270,5 @@ export {
   fetchPlaylistDataBySlug,
   fetchVideoById,
   fetchRelatedVideos,
+  fetchPlaylistDataById,
 };

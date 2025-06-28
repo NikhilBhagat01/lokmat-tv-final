@@ -7,9 +7,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Pagination } from 'swiper/modules';
 import useMounted from '../hooks/useMounted';
+import { useRouter } from 'next/navigation';
 
 const PlaylistCarousel = ({ data }) => {
   const { mounted, isMobile } = useMounted();
+  const router = useRouter();
+  // const slug = data?.title_slug || 'playlist';
+
   // console.log(data);
 
   return (
@@ -36,7 +40,7 @@ const PlaylistCarousel = ({ data }) => {
                 <SwiperSlide key={index}>
                   <figure
                     onClick={() => {
-                      console.log('hello');
+                      router.push(`/playlist/${data?.title_slug}/${item?.id}`);
                     }}
                   >
                     <div className="grid-container">
@@ -65,7 +69,7 @@ const PlaylistCarousel = ({ data }) => {
               <figure
                 key={index}
                 onClick={() => {
-                  console.log('hello');
+                  router.push(`/playlist/${data?.title_slug}/${item?.id}`);
                 }}
               >
                 <div className="grid-container">
