@@ -18,6 +18,15 @@ const deslugify = (slug) => {
     .trim();
 };
 
+function slugify(str) {
+  return str
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove leading/trailing whitespace
+    .replace(/[^a-z0-9\s-]/g, '') // Remove all non-alphanumeric chars except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/-+/g, '-'); // Replace multiple - with single -
+}
+
 const getFormatedDuration = (duration) => {
   const minutes = Math.floor(duration / 60);
   const seconds = (duration % 60).toString().padStart(2, '0');
@@ -27,4 +36,4 @@ const getFormatedDuration = (duration) => {
 //                 {(item?.duration % 60).toString().padStart(2, '0')
 // }
 
-export { getFormatedData, deslugify, getFormatedDuration };
+export { getFormatedData, deslugify, getFormatedDuration, slugify };

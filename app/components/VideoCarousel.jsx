@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import useMounted from '../hooks/useMounted';
 import { useRouter } from 'next/navigation';
-import { getFormatedData, getFormatedDuration } from '../lib/utility';
+import { getFormatedData, getFormatedDuration, slugify } from '../lib/utility';
 
 const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   const router = useRouter();
@@ -83,7 +83,7 @@ const VideoCarousel = ({ title, slug, data, id }) => {
     <section className="lkm-widget">
       <div className="videos-head">
         <h3 className="head-title">{title}</h3>
-        <Link href={`/videos/${slug}/${id}`} className="read-all">
+        <Link href={`/videos/${slugify(slug)}/${id}`} className="read-all">
           Explore All
         </Link>
       </div>

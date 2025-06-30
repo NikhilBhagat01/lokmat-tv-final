@@ -7,6 +7,7 @@ import { Navigation } from 'swiper/modules';
 import useMounted from '../hooks/useMounted';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { slugify } from '../lib/utility';
 
 const NewsLayout = ({ data, title, slug, id }) => {
   const { mounted, isMobile } = useMounted();
@@ -77,7 +78,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
         <section className="lkm-widget">
           <div className="videos-head">
             <h3 className="head-title">{title}</h3>
-            <Link href={`/videos/${slug}/${id}`} className="read-all">
+            <Link href={`/videos/${slugify(slug)}/${id}`} className="read-all">
               Explore All
             </Link>
           </div>
