@@ -117,11 +117,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
                       }}
                       className={`card-wraper ${item.id === selectedItem.id ? 'active' : ''}`}
                     >
-                      <div
-                        className="card upvideo card-image"
-                        data-id={item.id}
-                        data-title={item.title}
-                      >
+                      <div className="card upvideo card-image">
                         <div
                           className="card-image"
                           style={{
@@ -169,11 +165,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
                   className={`card-wraper ${item.id === selectedItem.id ? 'active' : ''}`}
                   style={{ minWidth: '160px', cursor: 'pointer' }}
                 >
-                  <div
-                    className="card upvideo card-image"
-                    data-id={item.id}
-                    data-title={item.title}
-                  >
+                  <div className="card upvideo card-image">
                     <div
                       className="card-image"
                       style={{

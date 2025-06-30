@@ -1,6 +1,10 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const CategoryCard = ({ data }) => {
+const CategoryCard = ({ data, slug, videoId }) => {
+  const router = useRouter();
   const formattedDate = new Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
     month: 'short',
@@ -8,9 +12,12 @@ const CategoryCard = ({ data }) => {
     timeZone: 'UTC',
   }).format(new Date(data.created_time * 1000));
 
-  //   console.log(data);
+  console.log(`/videos/${slug}/${data.id}`);
   return (
-    <div className="card-wraper">
+    <div
+      className="card-wraper"
+      onClick={() => router.push(`/videos/${slug}/${videoId}/${data.id}`)}
+    >
       <div className="card  ">
         <div className="card-image imgwrap">
           <img
