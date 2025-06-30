@@ -26,14 +26,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head>
         {/* CSS */}
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
         />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-        />
+        /> */}
       </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#121212] flex flex-col h-screen text-amber-400`}

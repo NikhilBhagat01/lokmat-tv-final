@@ -73,32 +73,28 @@ const VideoCarousel = ({ title, slug, data, id }) => {
   const owlRef = useRef();
 
   useEffect(() => {
+    const el = owlRef.current;
     if (
-      typeof window !== 'undefined' &&
       mounted &&
       !isMobile &&
+      typeof window !== 'undefined' &&
       window.$ &&
       typeof window.$.fn.owlCarousel === 'function'
     ) {
-      $(owlRef.current).owlCarousel({
+      window.$(el).trigger('destroy.owl.carousel'); // destroy if exists
+      window.$(el).owlCarousel({
         loop: false,
         margin: 16,
         nav: true,
         dots: true,
         responsive: {
-          0: {
-            items: 1.5,
-          },
-          768: {
-            items: 3.5,
-          },
-          1024: {
-            items: 5.1,
-          },
+          0: { items: 1.5 },
+          768: { items: 3.5 },
+          1024: { items: 5.1 },
         },
       });
     }
-  }, [isMobile, mounted]);
+  }, [mounted, isMobile, data]);
 
   return (
     <section className="lkm-widget">
@@ -109,12 +105,12 @@ const VideoCarousel = ({ title, slug, data, id }) => {
         </Link>
       </div>
 
-      <div className="videos-widget card-category-desktop home one">
+      <div className="videos-widget card-category-desktop home one ">
         {mounted && !isMobile ? (
           <div className="owl-carousel owl-theme" ref={owlRef}>
             {data?.map((item, index) => (
               <CardItem
-                key={item.id || index}
+                key={item?.id || index}
                 item={item}
                 slug={slug}
                 categoryId={id}
@@ -126,7 +122,7 @@ const VideoCarousel = ({ title, slug, data, id }) => {
           <>
             {data?.map((item, index) => (
               <CardItem
-                key={item.id || index}
+                key={item?.id || index}
                 item={item}
                 slug={slug}
                 categoryId={id}
