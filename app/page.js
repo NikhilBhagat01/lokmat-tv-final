@@ -1,4 +1,6 @@
-import Image from 'next/image';
+export const dynamic = 'force-static';
+export const revalidate = 180; // Revalidate the page itself every 180 seconds (3 minutes)
+
 import NewsLayout from './components/NewsLayout';
 import PlaylistCarousel from './components/PlaylistCarousel';
 import { fetchAllDailymotionData } from './lib/FetchData';
@@ -9,7 +11,7 @@ import VideoCarousel from './components/VideoCarousel';
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
-  console.log(data);
+  // console.log(data);
 
   const topStories = data[0]?.data?.list || [];
   const topStoriesTitle = data[0]?.title;

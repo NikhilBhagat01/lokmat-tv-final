@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 180; // Revalidate the page itself every 180 seconds (3 minutes)
+
 import PlayerBack from '@/app/components/PlayerBack';
 import RelatedVideosCard from '@/app/components/RelatedVideosCard';
 import VideoDetailCard from '@/app/components/VideoDescription';

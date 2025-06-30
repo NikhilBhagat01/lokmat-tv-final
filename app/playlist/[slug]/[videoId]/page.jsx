@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 180; // Revalidate the page itself every 180 seconds (3 minutes)
+
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
 import { fetchPlaylistDataById } from '@/app/lib/FetchData';

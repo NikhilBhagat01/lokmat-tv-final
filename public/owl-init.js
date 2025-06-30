@@ -55,7 +55,7 @@
           dots: true,
           responsive: {
             0: { items: 1.5 },
-            768: { items: 3.5 },
+            768: { items: 3 },
             1024: { items: 5 },
           },
           onInitialized: function (event) {
