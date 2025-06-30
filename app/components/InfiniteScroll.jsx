@@ -42,7 +42,8 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
         }
       },
       {
-        rootMargin: '200px',
+        // rootMargin: '200px',
+        threshold: 0.5,
       }
     );
 
