@@ -57,10 +57,9 @@ const page = async ({ params }) => {
         {data?.list?.slice(1).map((item, index) => (
           <CategoryCard key={index} data={item} slug={slug} videoId={videoId} />
         ))}
+        {/* Infinite Scroll Client Component */}
+        <InfiniteScroll slug={slug} videoId={videoId} startPage={2} />
       </div>
-
-      {/* Infinite Scroll Client Component */}
-      <InfiniteScroll slug={slug} videoId={videoId} startPage={2} />
     </>
   );
 };

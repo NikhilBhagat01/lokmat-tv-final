@@ -9,6 +9,7 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
 
+  console.log(videos);
   const loadMore = async () => {
     if (!hasMore) return;
 
@@ -52,7 +53,7 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
 
   return (
     <>
-      {videos.map((item, index) => (
+      {videos?.map((item, index) => (
         <CategoryCard key={`auto-${index}`} data={item} slug={slug} videoId={videoId} />
       ))}
       {hasMore && (
