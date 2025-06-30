@@ -73,26 +73,32 @@ const VideoCarousel = ({ title, slug, data, id }) => {
   const owlRef = useRef();
 
   useEffect(() => {
-    const el = owlRef.current;
     if (
+      typeof window !== 'undefined' &&
       mounted &&
       !isMobile &&
-      typeof window !== 'undefined' &&
       window.$ &&
       typeof window.$.fn.owlCarousel === 'function'
     ) {
-      window.$(el).trigger('destroy.owl.carousel'); // destroy if exists
-      window.$(el).owlCarousel({
-        loop: false,
-        margin: 16,
-        nav: true,
-        dots: true,
-        responsive: {
-          0: { items: 1.5 },
-          768: { items: 3.5 },
-          1024: { items: 5.1 },
-        },
-      });
+      const $el = window.$(owlRef.current);
+
+      if ($el.hasClass('owl-loaded')) {
+        $el.trigger('destroy.owl.carousel');
+      }
+
+      setTimeout(() => {
+        $el.owlCarousel({
+          loop: false,
+          margin: 16,
+          nav: true,
+          dots: true,
+          responsive: {
+            0: { items: 1.5 },
+            768: { items: 3.5 },
+            1024: { items: 5.1 },
+          },
+        });
+      }, 100); // wait to allow DOM paint
     }
   }, [mounted, isMobile, data]);
 
