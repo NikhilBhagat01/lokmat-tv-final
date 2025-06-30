@@ -8,6 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import useMounted from '../hooks/useMounted';
+import { getFormatedData, getFormatedDuration } from '../lib/utility';
 
 const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   const router = useRouter();
@@ -61,7 +62,8 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
             <span className="card-source">Lokmat .</span>
             <span className="card-category">news</span>
             <i className="arrow-icon play-triangle">
-              <span>{item.duration}</span>
+              {/* <span>{item.duration}</span> */}
+              <span>{getFormatedDuration(item?.duration)}</span>
             </i>
           </div>
         </div>
@@ -73,6 +75,7 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
 const VideoCarousel = ({ title, slug, data, id }) => {
   const { mounted, isMobile } = useMounted();
 
+  // console.log(data);
   const isDesktop = mounted && !isMobile;
 
   return (

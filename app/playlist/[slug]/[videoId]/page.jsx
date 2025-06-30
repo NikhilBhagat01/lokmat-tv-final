@@ -43,7 +43,7 @@ const page = async ({ params }) => {
 
       <div className="list-view card-category-desktop">
         {data?.videos?.slice(1).map((item, index) => (
-          <CategoryCard key={index} data={item} />
+          <CategoryCard key={index} data={item} slug={slug} videoId={videoId} />
         ))}
       </div>
     </>

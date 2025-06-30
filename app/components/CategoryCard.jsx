@@ -2,17 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { getFormatedData, getFormatedDuration } from '../lib/utility';
 
 const CategoryCard = ({ data, slug, videoId }) => {
   const router = useRouter();
-  const formattedDate = new Intl.DateTimeFormat('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(new Date(data.created_time * 1000));
 
-  console.log(`/videos/${slug}/${data.id}`);
+  // console.log(`/videos/${slug}/${data.id}`);
   return (
     <div
       className="card-wraper"
@@ -28,16 +23,13 @@ const CategoryCard = ({ data, slug, videoId }) => {
           />
         </div>
         <div className="card-content">
-          <div className="card-date">{formattedDate}</div>
+          <div className="card-date">{getFormatedData(data?.created_time)}</div>
           <div className="card-title">{data?.title || 'No Title Available'}</div>
           <div className="card-footer">
             {/* <span className="card-source">Lokmat .</span>{' '} */}
             {/* <span className="card-category">news</span> */}
             <i className="arrow-icon play-triangle">
-              <span>
-                {Math.floor(data?.duration / 60)}:
-                {(data?.duration % 60).toString().padStart(2, '0')}
-              </span>
+              <span>{getFormatedDuration(data?.duration)}</span>
             </i>
           </div>
         </div>
