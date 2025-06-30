@@ -3,6 +3,19 @@
     return typeof window !== 'undefined' && window.innerWidth >= 768;
   }
 
+  function toggleNavVisibility(event) {
+    const carousel = event.target;
+    const totalItems = event.item.count;
+    const itemsShown = event.page.size;
+    const $nav = window.$(carousel).find('.owl-nav');
+
+    if (totalItems <= itemsShown) {
+      $nav.hide();
+    } else {
+      $nav.show();
+    }
+  }
+
   function initOwl() {
     if (!isDesktop()) return;
 
@@ -18,24 +31,39 @@
     $carousels.each(function () {
       const $el = window.$(this);
 
-      // Prevent double init
+      // Store current index before destroy
+      let currentIndex = 0;
+      const $active = $el.find('.owl-item.active');
+      if ($active.length) {
+        currentIndex = $active.first().index();
+      }
+
+      // Destroy if already initialized
       if ($el.hasClass('owl-loaded')) {
         $el.trigger('destroy.owl.carousel');
         $el.removeClass('owl-loaded owl-theme');
         $el.find('.owl-stage-outer').children().unwrap();
+        $el.find('.owl-nav, .owl-dots').remove();
       }
 
+      // Reinitialize and go to previous index
       setTimeout(() => {
         $el.owlCarousel({
           loop: false,
-          margin: 16,
+          margin: 10,
           nav: true,
           dots: true,
           responsive: {
             0: { items: 1.5 },
             768: { items: 3.5 },
-            1024: { items: 5.1 },
+            1024: { items: 5 },
           },
+          onInitialized: function (event) {
+            toggleNavVisibility(event);
+            this.to(currentIndex, 0); // Go back to saved index
+          },
+          onResized: toggleNavVisibility,
+          onRefreshed: toggleNavVisibility,
         });
       }, 100);
     });

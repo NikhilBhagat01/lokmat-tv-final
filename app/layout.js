@@ -36,10 +36,10 @@ export default function RootLayout({ children }) {
         /> */}
       </Head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#121212] flex flex-col h-screen text-amber-400`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#121212]  text-amber-400`}
       >
         <Navbar />
-        <main className="flex-1  mt-[92px] md:mt-[140px] ">{children}</main>
+        <main className="  mt-[92px] md:mt-[140px] ">{children}</main>
 
         {/* jQuery (must load BEFORE Owl Carousel) */}
         {/* <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="beforeInteractive" /> */}
