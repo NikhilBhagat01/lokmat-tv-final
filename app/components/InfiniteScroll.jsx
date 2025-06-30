@@ -9,7 +9,8 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
 
-  console.log(videos);
+  console.log(slug);
+  //   console.log(videos);
   const loadMore = async () => {
     if (!hasMore) return;
 
@@ -22,6 +23,7 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
       }
     );
     const data = await res.json();
+    // console.log(data);
 
     if (data?.list?.length > 0) {
       setVideos((prev) => [...prev, ...data.list]);

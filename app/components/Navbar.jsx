@@ -129,7 +129,7 @@ const Header = () => {
         </div>
         <ul className="navList">
           {NavLinks.map((link, key) => (
-            <li className="navitem " key={key}>
+            <li className="navitem " key={key} onClick={() => setIsOpen(false)}>
               <Link href={link.link}>{link.name}</Link>
             </li>
           ))}
