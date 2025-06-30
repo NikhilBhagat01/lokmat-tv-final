@@ -77,7 +77,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
         <section className="lkm-widget">
           <div className="videos-head">
             <h3 className="head-title">{title}</h3>
-            <Link href={`/videos/${slug}`} className="read-all">
+            <Link href={`/videos/${slug}/${id}`} className="read-all">
               Explore All
             </Link>
           </div>

@@ -9,7 +9,7 @@ import VideoCarousel from './components/VideoCarousel';
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
-  // console.log(data);
+  console.log(data);
 
   const topStories = data[0]?.data?.list || [];
   const topStoriesTitle = data[0]?.title;

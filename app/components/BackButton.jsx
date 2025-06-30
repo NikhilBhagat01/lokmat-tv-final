@@ -1,21 +1,13 @@
 'use client';
 import React from 'react';
+import { deslugify } from '../lib/utility';
 
 const BackButton = ({ slug }) => {
-  const deslugify = (slug) => {
-    return slug
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase())
-      .replace(/(\d+)/g, ' $1')
-      .trim();
-  };
-
-  slug = deslugify(slug);
   return (
     <div className="expand-header">
       <div className="player-header">
         <span onClick={() => window.history.back()} className="player-back"></span>
-        <div className="expand-title">{slug}</div> 
+        <div className="expand-title">{deslugify(slug)}</div> 
       </div>
     </div>
   );
