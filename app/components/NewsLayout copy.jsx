@@ -94,7 +94,9 @@ const NewsLayout = ({ data, title, slug, id }) => {
                   setCanSlideNext(!swiper.isEnd);
                 }}
                 onSlideChange={(swiper) => {
-                  // Do not change active video here
+                  const index = swiper.activeIndex;
+                  setActiveIndex(index);
+                  setSelectedItem(data[index]);
                   setCanSlidePrev(!swiper.isBeginning);
                   setCanSlideNext(!swiper.isEnd);
                 }}
