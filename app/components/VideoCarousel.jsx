@@ -92,7 +92,7 @@ const VideoCarousel = ({ title, slug, data, id }) => {
         },
       });
     }
-  }, [mounted, isMobile]);
+  }, [isMobile]);
 
   return (
     <section className="lkm-widget">
