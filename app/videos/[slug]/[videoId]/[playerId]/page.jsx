@@ -1,6 +1,7 @@
 import PlayerBack from '@/app/components/PlayerBack';
 import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
+import { getFormatedData } from '@/app/lib/utility';
 import { Suspense } from 'react';
 
 // export async function generateMetadata({ params }) {
@@ -56,6 +57,16 @@ import { Suspense } from 'react';
 const VideoPlayerPage = async ({ params }) => {
   const { videoId, playerId, slug } = await params;
 
+  const deslugify = (slug) => {
+    return slug
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase())
+      .replace(/(\d+)/g, ' $1')
+      .trim();
+  };
+
+  const page_slug = deslugify(slug);
+
   // Fetch initial data
   const [videoData, relatedVideos] = await Promise.all([
     fetchVideoById(playerId),
@@ -68,7 +79,7 @@ const VideoPlayerPage = async ({ params }) => {
     year: 'numeric',
     timeZone: 'UTC',
   }).format(new Date(videoData.created_time * 1000));
-  // console.log(videoData);
+  console.log(relatedVideos);
 
   return (
     <>
@@ -108,33 +119,42 @@ const VideoPlayerPage = async ({ params }) => {
             </Suspense>
           </div>
 
-          {/* <div className="list-view">
-            <div className="player-related-header">Latest News</div>
+          {/* below card start */}
 
-            <div className="card-wraper">
-              <div className="card gotovideoDetail" data-player="x9eo9v4" data-playlist="x85uxc">
-                <div className="card-image imgwrap">
-                  <img
-                    className="lazy-img"
-                    src="https://s1.dmcdn.net/v/Xvzdm1eLvHfO_KKLU/x240"
-                    alt="Sharad Ponkshe"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="card-content">
-                  <div className="card-date">19 Feb 2025</div>
-                  <div className="card-title">Sharad Ponkshe...</div>
-                  <div className="card-footer">
-                    <span className="card-source">Lokmat .</span>
-                    <span className="card-category">news</span>
-                    <i className="arrow-icon play-triangle">
-                      <span>7:03</span>
-                    </i>
+          <div className="list-view">
+            <div className="player-related-header">{page_slug}</div>
+
+            {relatedVideos?.list.map((video) => (
+              <div className="card-wraper">
+                <div className="card gotovideoDetail">
+                  <div className="card-image imgwrap">
+                    <img
+                      className="lazy-img"
+                      src={video.thumbnail_240_url}
+                      alt={video.title}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="card-content">
+                    <div className="card-date">{getFormatedData(video?.created_time)}</div>
+                    <div className="card-title">{video.title}</div>
+                    <div className="card-footer">
+                      <span className="card-source">{video['owner.screenname']}</span>
+                      <span className="card-category">{video.channel}</span>
+                      <i className="arrow-icon play-triangle">
+                        <span>
+                          {Math.floor(video?.duration / 60)}:
+                          {(video?.duration % 60).toString().padStart(2, '0')}
+                        </span>
+                      </i>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div> */}
+            ))}
+          </div>
+
+          {/* below card end */}
         </div>
       </div>
     </>
