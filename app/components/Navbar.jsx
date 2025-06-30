@@ -106,6 +106,7 @@ const Header = () => {
                       href={`/videos/${city.slug}/${city.playlist}`}
                       className=""
                       title={city.name}
+                      onClick={() => setIsCityOpen(false)}
                     >
                       {city.name}
                     </Link>
