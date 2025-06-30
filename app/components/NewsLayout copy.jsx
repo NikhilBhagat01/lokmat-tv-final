@@ -180,7 +180,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
           )}
 
           {/* Dots (optional) */}
-          {/* {!isMobile && (
+          {!isMobile && (
             <div className="dots">
               {data.map((_, i) => (
                 <span
@@ -195,7 +195,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
                 ></span>
               ))}
             </div>
-          )} */}
+          )}
         </section>
       )}
     </section>
