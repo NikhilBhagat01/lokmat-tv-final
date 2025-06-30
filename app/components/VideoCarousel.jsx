@@ -73,7 +73,7 @@ const VideoCarousel = ({ title, slug, data, id }) => {
   const owlRef = useRef();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && mounted && !isMobile && window.$) {
+    if (typeof window !== 'undefined' && !isMobile && window.$) {
       $(owlRef.current).owlCarousel({
         loop: false,
         margin: 16,
