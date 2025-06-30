@@ -41,6 +41,15 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="flex-1  mt-[92px] md:mt-[140px] ">{children}</main>
 
+        {/* jQuery (must load BEFORE Owl Carousel) */}
+        {/* <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="beforeInteractive" /> */}
+
+        {/* Owl Carousel (must load AFTER jQuery) */}
+        {/* <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+          strategy="afterInteractive"
+        /> */}
+
         <Script
           src="https://d3pc1xvrcw35tl.cloudfront.net/assets/js/jquery.min-v0.3.js"
           strategy="beforeInteractive"

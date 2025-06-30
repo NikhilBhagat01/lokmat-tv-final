@@ -73,7 +73,13 @@ const VideoCarousel = ({ title, slug, data, id }) => {
   const owlRef = useRef();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !isMobile && window.$) {
+    if (
+      typeof window !== 'undefined' &&
+      mounted &&
+      !isMobile &&
+      window.$ &&
+      typeof window.$.fn.owlCarousel === 'function'
+    ) {
       $(owlRef.current).owlCarousel({
         loop: false,
         margin: 16,
@@ -92,7 +98,7 @@ const VideoCarousel = ({ title, slug, data, id }) => {
         },
       });
     }
-  }, [isMobile]);
+  }, [isMobile, mounted]);
 
   return (
     <section className="lkm-widget">
