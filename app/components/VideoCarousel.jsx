@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { getFormatedData, getFormatedDuration } from '../lib/utility';
 
 const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
-  // console.log(item);
   const router = useRouter();
   const [showPreview, setShowPreview] = useState(false);
   const previewTimeout = useRef(null);
@@ -21,6 +20,12 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   const handleMouseLeave = useCallback(() => {
     clearTimeout(previewTimeout.current);
     setShowPreview(false);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(previewTimeout.current);
+    };
   }, []);
 
   return (
@@ -42,6 +47,8 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
               frameBorder="0"
               allow="autoplay; fullscreen"
               allowFullScreen
+              loading="lazy"
+              title={item.title}
             />
           ) : (
             <img
@@ -70,37 +77,7 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
 
 const VideoCarousel = ({ title, slug, data, id }) => {
   const { mounted, isMobile } = useMounted();
-  const owlRef = useRef();
-
-  useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      mounted &&
-      !isMobile &&
-      window.$ &&
-      typeof window.$.fn.owlCarousel === 'function'
-    ) {
-      const $el = window.$(owlRef.current);
-
-      if ($el.hasClass('owl-loaded')) {
-        $el.trigger('destroy.owl.carousel');
-      }
-
-      setTimeout(() => {
-        $el.owlCarousel({
-          loop: false,
-          margin: 16,
-          nav: true,
-          dots: true,
-          responsive: {
-            0: { items: 1.5 },
-            768: { items: 3.5 },
-            1024: { items: 5.1 },
-          },
-        });
-      }, 100); // wait to allow DOM paint
-    }
-  }, [mounted, isMobile, data]);
+  const owlRef = useRef(null);
 
   return (
     <section className="lkm-widget">
@@ -111,33 +88,35 @@ const VideoCarousel = ({ title, slug, data, id }) => {
         </Link>
       </div>
 
-      <div className="videos-widget card-category-desktop home one ">
-        {mounted && !isMobile ? (
-          <div className="owl-carousel owl-theme" ref={owlRef}>
-            {data?.map((item, index) => (
-              <CardItem
-                key={item?.id || index}
-                item={item}
-                slug={slug}
-                categoryId={id}
-                withPreview={true}
-              />
-            ))}
-          </div>
-        ) : (
-          <>
-            {data?.map((item, index) => (
-              <CardItem
-                key={item?.id || index}
-                item={item}
-                slug={slug}
-                categoryId={id}
-                withPreview={false}
-              />
-            ))}
-          </>
-        )}
-      </div>
+      {/* Desktop: Owl Carousel / Mobile: static list */}
+      {mounted && !isMobile ? (
+        <div
+          className="videos-widget card-category-desktop home one owl-carousel owl-theme"
+          ref={owlRef}
+        >
+          {data?.map((item, index) => (
+            <CardItem
+              key={item?.id || index}
+              item={item}
+              slug={slug}
+              categoryId={id}
+              withPreview={true}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="videos-widget card-category-desktop home one">
+          {data?.map((item, index) => (
+            <CardItem
+              key={item?.id || index}
+              item={item}
+              slug={slug}
+              categoryId={id}
+              withPreview={false}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };

@@ -59,6 +59,7 @@ export default function RootLayout({ children }) {
           src="https://d3pc1xvrcw35tl.cloudfront.net/assets/js/owl.carousel-min-v0.2.js"
           strategy="afterInteractive"
         />
+        <Script src="/owl-init.js" strategy="afterInteractive" />
       </body>
     </html>
   );
