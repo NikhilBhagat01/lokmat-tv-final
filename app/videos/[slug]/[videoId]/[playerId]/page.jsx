@@ -1,4 +1,5 @@
 import PlayerBack from '@/app/components/PlayerBack';
+import RelatedVideosCard from '@/app/components/RelatedVideosCard';
 import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
 import { deslugify, getFormatedData, getFormatedDuration } from '@/app/lib/utility';
@@ -105,29 +106,30 @@ const VideoPlayerPage = async ({ params }) => {
           <div className="player-related-header">{deslugify(slug)}</div>
 
           {relatedVideos?.list.map((video) => (
-            <div className="card-wraper">
-              <div className="card gotovideoDetail">
-                <div className="card-image imgwrap">
-                  <img
-                    className="lazy-img"
-                    src={video.thumbnail_240_url}
-                    alt={video.title}
-                    loading="lazy"
-                  />
-                </div>
-                <div className="card-content">
-                  <div className="card-date">{getFormatedData(video?.created_time)}</div>
-                  <div className="card-title">{video.title}</div>
-                  <div className="card-footer">
-                    <span className="card-source">{video['owner.screenname']} . </span>
-                    <span className="card-category">{video.channel}</span>
-                    <i className="arrow-icon play-triangle">
-                      <span>{getFormatedDuration(video?.duration)}</span>
-                    </i>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <RelatedVideosCard key={video.id} video={video} videoId={videoId} slug={slug} />
+            // <div className="card-wraper" key={video.id}>
+            //   <div className="card gotovideoDetail">
+            //     <div className="card-image imgwrap">
+            //       <img
+            //         className="lazy-img"
+            //         src={video.thumbnail_240_url}
+            //         alt={video.title}
+            //         loading="lazy"
+            //       />
+            //     </div>
+            //     <div className="card-content">
+            //       <div className="card-date">{getFormatedData(video?.created_time)}</div>
+            //       <div className="card-title">{video.title}</div>
+            //       <div className="card-footer">
+            //         <span className="card-source">{video['owner.screenname']} . </span>
+            //         <span className="card-category">{video.channel}</span>
+            //         <i className="arrow-icon play-triangle">
+            //           <span>{getFormatedDuration(video?.duration)}</span>
+            //         </i>
+            //       </div>
+            //     </div>
+            //   </div>
+            // </div>
           ))}
         </div>
       </div>
