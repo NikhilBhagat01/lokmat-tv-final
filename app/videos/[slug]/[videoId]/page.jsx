@@ -3,6 +3,7 @@ export const revalidate = 180;
 
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
+import InfiniteScroll from '@/app/components/InfiniteScroll';
 import Link from 'next/link';
 import React from 'react';
 
@@ -57,6 +58,9 @@ const page = async ({ params }) => {
           <CategoryCard key={index} data={item} slug={slug} videoId={videoId} />
         ))}
       </div>
+
+      {/* Infinite Scroll Client Component */}
+      <InfiniteScroll slug={slug} videoId={videoId} startPage={2} />
     </>
   );
 };
