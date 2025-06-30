@@ -1,13 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import useMounted from '../hooks/useMounted';
+import React, { useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { getFormatedData, getFormatedDuration } from '../lib/utility';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import useMounted from '../hooks/useMounted';
+import { getFormatedDuration } from '../lib/utility';
 
 const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
-  // console.log(item);
   const router = useRouter();
   const [showPreview, setShowPreview] = useState(false);
   const previewTimeout = useRef(null);
@@ -25,7 +28,7 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
 
   return (
     <div
-      className="card-wraper item"
+      className="card-wraper"
       onClick={() => router.push(`/videos/${slug}/${categoryId}/${item.id}`)}
     >
       <div
@@ -53,12 +56,13 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
           )}
         </div>
         <div className="card-content">
-          <div className="card-date">{getFormatedData(item?.created_time)}</div>
-          <div className="card-title">{item?.title}</div>
+          <div className="card-date">{item.date}</div>
+          <div className="card-title">{item.title}</div>
           <div className="card-footer">
             <span className="card-source">Lokmat .</span>
             <span className="card-category">news</span>
             <i className="arrow-icon play-triangle">
+              {/* <span>{item.duration}</span> */}
               <span>{getFormatedDuration(item?.duration)}</span>
             </i>
           </div>
@@ -70,29 +74,9 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
 
 const VideoCarousel = ({ title, slug, data, id }) => {
   const { mounted, isMobile } = useMounted();
-  const owlRef = useRef();
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && mounted && !isMobile && window.$) {
-      $(owlRef.current).owlCarousel({
-        loop: false,
-        margin: 16,
-        nav: true,
-        dots: true,
-        responsive: {
-          0: {
-            items: 1.5,
-          },
-          768: {
-            items: 3.5,
-          },
-          1024: {
-            items: 5.1,
-          },
-        },
-      });
-    }
-  }, [mounted, isMobile]);
+  // console.log(data);
+  const isDesktop = mounted && !isMobile;
 
   return (
     <section className="lkm-widget">
@@ -104,18 +88,22 @@ const VideoCarousel = ({ title, slug, data, id }) => {
       </div>
 
       <div className="videos-widget card-category-desktop home one">
-        {mounted && !isMobile ? (
-          <div className="owl-carousel owl-theme" ref={owlRef}>
+        {isDesktop ? (
+          <Swiper
+            modules={[Navigation, Pagination]}
+            spaceBetween={16}
+            slidesPerView={5.1}
+            navigation
+            pagination={{ clickable: true }}
+            style={{ paddingRight: '1rem' }}
+            className="swiper"
+          >
             {data?.map((item, index) => (
-              <CardItem
-                key={item.id || index}
-                item={item}
-                slug={slug}
-                categoryId={id}
-                withPreview={true}
-              />
+              <SwiperSlide key={item.id || index} className="swiper-slide">
+                <CardItem item={item} slug={slug} categoryId={id} withPreview />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         ) : (
           <>
             {data?.map((item, index) => (

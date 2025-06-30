@@ -1685,3 +1685,25 @@ body {
   overflow: visible !important;
   width: auto !important; 
 } */
+
+/* .card-wraper {
+  position: relative;
+  z-index: 1;
+}
+
+.card-wraper:hover {
+  transform: scale(1.1);
+  z-index: 10; 
+}
+
+.card {
+  overflow: hidden;
+  transition: height 0.3s ease;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.card:hover {
+  height: auto; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+} */

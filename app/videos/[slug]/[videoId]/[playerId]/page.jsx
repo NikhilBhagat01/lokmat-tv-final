@@ -2,7 +2,7 @@ import PlayerBack from '@/app/components/PlayerBack';
 import RelatedVideosCard from '@/app/components/RelatedVideosCard';
 import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
-import { deslugify, getFormatedData, getFormatedDuration } from '@/app/lib/utility';
+import { deslugify, getFormatedData } from '@/app/lib/utility';
 import { Suspense } from 'react';
 
 // export async function generateMetadata({ params }) {

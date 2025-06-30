@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './custom.css';
 
 import Navbar from './components/Navbar';
-import Head from 'next/head';
-import Script from 'next/script';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,32 +22,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        {/* CSS */}
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-        />
-      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#121212] flex flex-col h-screen text-amber-400`}
       >
         <Navbar />
         <main className="flex-1  mt-[92px] md:mt-[140px] ">{children}</main>
-
-        <Script
-          src="https://d3pc1xvrcw35tl.cloudfront.net/assets/js/jquery.min-v0.3.js"
-          strategy="beforeInteractive"
-        />
-
-        <Script
-          src="https://d3pc1xvrcw35tl.cloudfront.net/assets/js/owl.carousel-min-v0.2.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
