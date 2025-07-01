@@ -7,7 +7,7 @@ import RelatedVideosCardWrapper from '@/app/components/RelatedVideosCardWrapper'
 import InfiniteRelatedVideos from '@/app/components/InfiniteRelatedVideos';
 import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
-import { deslugify, getFormatedData } from '@/app/lib/utility';
+import { deslugify, getFormatedData, shortenText } from '@/app/lib/utility';
 import { Suspense } from 'react';
 
 export async function generateMetadata({ params }) {
@@ -17,10 +17,12 @@ export async function generateMetadata({ params }) {
   // console.log(videoData);
   if (!videoData) return {};
 
+  const description = shortenText(videoData?.description);
+
   return {
     title: `${videoData?.title} - Lokmat TV`,
     description:
-      videoData?.description ||
+      description ||
       `Watch ${videoData?.title} on Lokmat TV. Stay updated with latest news and videos from Maharashtra.`,
     keywords: `${videoData?.title}, ${videoData?.channel}, Lokmat TV, Marathi news, video news, Maharashtra news`,
     metadataBase: new URL('https://www.lokmat.com'),
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }) {
     },
     openGraph: {
       title: videoData?.title,
-      description: videoData?.description,
+      description: description,
       url: `https://www.lokmat.com/videos/${slug}/${videoId}/${playerId}`,
       siteName: 'LokmatTV',
       images: [
@@ -49,7 +51,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: 'player',
       title: videoData?.title,
-      description: videoData?.description,
+      description: description,
       images: [videoData?.thumbnail_480_url || videoData?.thumbnail_240_url],
     },
   };
@@ -89,7 +91,7 @@ const VideoPlayerPage = async ({ params }) => {
                 <div className="card-date">{getFormatedData(videoData?.created_time)}</div>
                 <div className="card-title">{videoData?.title}</div>
                 <div className="card-footer">
-                  <span className="card-source">{videoData['owner.screenname']}</span>
+                  <span className="card-source">{videoData['owner.screenname']} . </span>
                   <span className="card-category">{videoData?.channel}</span>
                   <i className="arrow-icon play-triangle"></i>
                 </div>

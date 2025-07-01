@@ -24,7 +24,7 @@ const Header = () => {
     <header id="headerwrapper">
       <div className="headstrip">
         <div className="headerleft">
-          <a className="btnheadMenu" onClick={() => setIsOpen(!isOpen)}>
+          <a className={`btnheadMenu ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
             <span></span>
             <span></span>
             <span></span>
@@ -55,7 +55,7 @@ const Header = () => {
                 onClick={() => setIsCityOpen(!isCityOpen)}
               >
                 Select City
-                <i className="spriticon iconcity" />
+                <i className={`spriticon iconcity ${isCityOpen ? 'up' : ''}`} />
               </div>
 
               <div className="cityWrap" style={{ display: isCityOpen ? 'block' : 'none' }}>
@@ -96,7 +96,7 @@ const Header = () => {
               onClick={() => setIsCityOpen(!isCityOpen)}
             >
               Select City
-              <i className="spriticon iconcity" />
+              <i className={`spriticon iconcity ${isCityOpen ? 'up' : ''}`} />
             </div>
 
             <div className="cityWrap" style={{ display: isCityOpen ? 'block' : 'none' }}>

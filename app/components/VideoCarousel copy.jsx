@@ -9,7 +9,6 @@ import { getFormatedData, getFormatedDuration, slugify } from '../lib/utility';
 const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   const router = useRouter();
   const [showPreview, setShowPreview] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
   const previewTimeout = useRef(null);
 
   const handleMouseEnter = useCallback(() => {
@@ -21,11 +20,12 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   const handleMouseLeave = useCallback(() => {
     clearTimeout(previewTimeout.current);
     setShowPreview(false);
-    setVideoLoaded(false);
   }, []);
 
   useEffect(() => {
-    return () => clearTimeout(previewTimeout.current);
+    return () => {
+      clearTimeout(previewTimeout.current);
+    };
   }, []);
 
   return (
@@ -38,26 +38,18 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
         onMouseEnter={withPreview ? handleMouseEnter : undefined}
         onMouseLeave={withPreview ? handleMouseLeave : undefined}
       >
-        <div className="card-image imgwrap" style={{ position: 'relative' }}>
+        <div className="card-image imgwrap">
           {withPreview && showPreview ? (
-            <>
-              {!videoLoaded && (
-                <div className="spinner-overlay">
-                  <div className="spinner" />
-                </div>
-              )}
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.dailymotion.com/widget/preview/video/${item.id}?title=none&duration=none&mode=video&trigger=auto`}
-                frameBorder="0"
-                allow="autoplay; fullscreen"
-                allowFullScreen
-                loading="lazy"
-                title={item.title}
-                onLoad={() => setVideoLoaded(true)}
-              />
-            </>
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.dailymotion.com/widget/preview/video/${item.id}?title=none&duration=none&mode=video&trigger=auto`}
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              loading="lazy"
+              title={item.title}
+            />
           ) : (
             <img
               className="lazy-img lazy-loaded"

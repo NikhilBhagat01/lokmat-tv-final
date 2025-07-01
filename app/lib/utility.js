@@ -32,8 +32,10 @@ const getFormatedDuration = (duration) => {
   const seconds = (duration % 60).toString().padStart(2, '0');
   return `${minutes}:${seconds}`;
 };
-//       Math.floor(item?.duration / 60)}:
-//                 {(item?.duration % 60).toString().padStart(2, '0')
-// }
 
-export { getFormatedData, deslugify, getFormatedDuration, slugify };
+const shortenText = (text, maxLength = 100) => {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '...';
+};
+
+export { getFormatedData, deslugify, getFormatedDuration, slugify, shortenText };
