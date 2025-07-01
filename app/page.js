@@ -8,6 +8,45 @@ import React from 'react';
 import Adbox from './components/Adbox';
 import VideoCarousel from './components/VideoCarousel';
 
+export const metadata = {
+  title: 'Lokmat TV - Latest News & Videos',
+  description:
+    'Watch the latest news, entertainment, and trending video content from Lokmat TV. Stay updated with breaking news, exclusive stories, and popular playlists.',
+  keywords:
+    'Lokmat TV, Marathi news, breaking news, latest news, video news, Maharashtra news, entertainment news, viral videos, news updates, Lokmat live',
+  metadataBase: new URL('https://www.lokmat.com'),
+  alternates: {
+    canonical: '/videos',
+  },
+  links: [
+    {
+      rel: 'amphtml',
+      href: 'https://www.lokmat.com/videos/amp/',
+    },
+  ],
+  openGraph: {
+    title: 'Lokmat TV - Latest News & Videos',
+    description: 'Watch the latest news, entertainment, and trending video content from Lokmat TV.',
+    url: 'https://www.lokmat.com/videos',
+    siteName: 'LokmatTV',
+    images: [
+      {
+        url: 'https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'mr_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Lokmat TV - Latest News & Videos',
+    description: 'Watch the latest news, entertainment, and trending video content from Lokmat TV.',
+    images: ['https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg'],
+  },
+};
+
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
