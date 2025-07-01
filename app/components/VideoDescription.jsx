@@ -12,7 +12,7 @@ export default function VideoDetailCard({ data }) {
         <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         <div className="dm__info-tags">
           {data?.tags?.map((tag, index) => (
-            <span>{`# ${tag}`}</span>
+            <span>{` #${tag}`}</span>
           ))}
         </div>
         {/* {description.length > 0 ? <DailymotionLogo /> : null} */}
