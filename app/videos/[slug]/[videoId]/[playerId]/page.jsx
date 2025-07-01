@@ -97,7 +97,10 @@ const VideoPlayerPage = async ({ params }) => {
             </div>
 
             <Suspense fallback={<div>Loading...</div>}>
-              {videoData?.description && <VideoDetailCard description={videoData?.description} />}
+              {videoData?.description && (
+                // <VideoDetailCard description={videoData?.description} />
+                <VideoDetailCard data={videoData} />
+              )}
             </Suspense>
           </div>
         </div>
