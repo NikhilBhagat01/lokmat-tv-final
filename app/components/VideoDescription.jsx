@@ -9,6 +9,14 @@ export default function VideoDetailCard({ description }) {
     <div className="info-desc-wrapper">
       <div className={`info-desc ${expanded ? 'active' : ''}`}>
         <div dangerouslySetInnerHTML={{ __html: description }} />
+        <div className="dm__info-tags">
+          <span>#Marathi batmya</span>
+          <span>#Marathi batmya</span>
+          <span>#Marathi batmya</span>
+          <span>#Marathi batmya</span>
+          <span>#Marathi batmya</span>
+          <span>#Marathi batmya</span>
+        </div>
         {/* {description.length > 0 ? <DailymotionLogo /> : null} */}
       </div>
 
