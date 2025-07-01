@@ -56,7 +56,8 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
       {videos?.map((item, index) => (
         <CategoryCard key={`auto-${index}`} data={item} slug={slug} videoId={videoId} />
       ))}
-      {hasMore && <div ref={loaderRef}>Loading...</div>}
+      {/* {hasMore && <div ref={loaderRef}>Loading...</div>} */}
+      {hasMore && <div className="skeleton-box" ref={loaderRef}></div>}
     </>
   );
 };
