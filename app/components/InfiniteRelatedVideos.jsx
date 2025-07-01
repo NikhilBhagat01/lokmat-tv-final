@@ -55,7 +55,7 @@ const InfiniteRelatedVideos = ({ videoId, slug, startPage = 2 }) => {
       ))}
       {hasMore && (
         <div ref={loaderRef} className="py-6 text-center text-gray-500">
-          Loading more...
+          Loading...
         </div>
       )}
     </>

@@ -1,20 +1,4 @@
 @font-face {
-  font-family: Geist Fallback;
-  src: local('Arial');
-  ascent-override: 95.94%;
-  descent-override: 28.16%;
-  line-gap-override: 0%;
-  size-adjust: 104.76%;
-}
-@font-face {
-  font-family: Geist Mono Fallback;
-  src: local('Arial');
-  ascent-override: 74.67%;
-  descent-override: 21.92%;
-  line-gap-override: 0%;
-  size-adjust: 134.59%;
-}
-@font-face {
   font-family: Geist;
   font-style: normal;
   font-weight: 100 900;
@@ -46,7 +30,7 @@
   src: local('Arial');
   ascent-override: 95.94%;
   descent-override: 28.16%;
-  line-gap-override: 0;
+  line-gap-override: 0%;
   size-adjust: 104.76%;
 }
 .__className_5cfdac {
@@ -88,7 +72,7 @@
   src: local('Arial');
   ascent-override: 74.67%;
   descent-override: 21.92%;
-  line-gap-override: 0;
+  line-gap-override: 0%;
   size-adjust: 134.59%;
 }
 .__className_9a8899 {
@@ -537,7 +521,7 @@ li {
   display: block;
   font-size: 18px;
   padding: 0 20px;
-  background: linear-gradient(180deg, #000, #141414 10%);
+  background: linear-gradient(180deg, #000 0, #141414 10%);
 }
 #headerwrapper .drawerwrapper .navList li.navitem a {
   color: inherit;
@@ -1029,7 +1013,7 @@ body {
   animation-name: fadeOut;
 }
 @keyframes fadeOut {
-  0% {
+  0 {
     opacity: 1;
   }
   to {
@@ -1383,7 +1367,7 @@ body {
 }
 .video-detail-container .info-desc-wrapper .info-desc {
   font-size: inherit;
-  height: 44px;
+  height: 62px;
   overflow: hidden;
   position: relative;
 }
@@ -1391,7 +1375,7 @@ body {
   content: '';
   display: block;
   width: 100%;
-  top: 28px;
+  top: 50px;
   height: 10px;
   position: absolute;
   background-image: linear-gradient(180deg, rgba(255, 0, 0, 0), #222);
@@ -1738,8 +1722,8 @@ body {
 main {
   overflow: hidden;
 }
-.swiper-button-next-custom:after,
-.swiper-button-prev-custom:after {
+.swiper-button-prev-custom::after,
+.swiper-button-next-custom::after {
   font-size: 0;
   content: '';
   margin-top: 0;
@@ -1751,10 +1735,13 @@ main {
   border-left: 4px solid #000;
   rotate: -40deg;
 }
-.swiper-button-next-custom:after {
+.swiper-button-next-custom::after {
   margin-left: 5px;
   rotate: 140deg;
 }
+
+/* test css */
+
 .spinner-overlay {
   position: absolute;
   top: 0;
@@ -1771,25 +1758,13 @@ main {
   width: 30px;
   height: 30px;
   border: 3px solid #d7c327;
-  border-top-color: #333;
+  border-top: 3px solid #333;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
+
 @keyframes spin {
   to {
-    transform: rotate(1turn);
+    transform: rotate(360deg);
   }
-}
-.dm__info-tags {
-  margin-top: 15px;
-  font-size: 12px;
-}
-.dm__info-tags span {
-  font-size: inherit;
-  font-weight: 600;
-  opacity: 0.6;
-}
-.video-detail-container .info-desc-wrapper .info-desc div {
-  font-size: 12px;
-  opacity: 0.9;
 }
