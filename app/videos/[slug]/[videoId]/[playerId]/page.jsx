@@ -11,10 +11,10 @@ import { deslugify, getFormatedData } from '@/app/lib/utility';
 import { Suspense } from 'react';
 
 export async function generateMetadata({ params }) {
-  const { videoId, slug, playerId } = params;
+  const { videoId, slug, playerId } = await params;
   const videoData = await fetchVideoById(playerId);
 
-  console.log(videoData);
+  // console.log(videoData);
   if (!videoData) return {};
 
   return {
