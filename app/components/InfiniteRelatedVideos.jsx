@@ -46,18 +46,14 @@ const InfiniteRelatedVideos = ({ videoId, slug, startPage = 2 }) => {
     return () => {
       if (current) observer.unobserve(current);
     };
-  }, [loaderRef, hasMore]);
+  }, [hasMore, page]);
 
   return (
     <>
       {videos.map((video) => (
         <RelatedVideosCardWrapper key={video.id} video={video} videoId={videoId} slug={slug} />
       ))}
-      {hasMore && (
-        <div ref={loaderRef} className="py-6 text-center text-gray-500">
-          Loading...
-        </div>
-      )}
+      {hasMore && <div ref={loaderRef}>Loading...</div>}
     </>
   );
 };

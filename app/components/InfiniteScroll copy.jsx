@@ -9,6 +9,8 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
 
+  // console.log(slug);
+  //   console.log(videos);
   const loadMore = async () => {
     if (!hasMore) return;
 
@@ -21,6 +23,8 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
       }
     );
     const data = await res.json();
+    // console.log(data);
+    // console.log(page);
 
     if (data?.list?.length > 0) {
       setVideos((prev) => [...prev, ...data.list]);
@@ -39,17 +43,17 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
         }
       },
       {
+        // rootMargin: '200px',
         threshold: 0.5,
       }
     );
 
-    const currentLoader = loaderRef.current;
-    if (currentLoader) observer.observe(currentLoader);
+    if (loaderRef.current) observer.observe(loaderRef.current);
 
     return () => {
-      if (currentLoader) observer.unobserve(currentLoader);
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
     };
-  }, [hasMore, page]); // <- remove loaderRef.current from deps
+  }, [loaderRef.current, hasMore]);
 
   return (
     <>
