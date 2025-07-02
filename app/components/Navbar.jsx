@@ -81,6 +81,11 @@ const Header = () => {
 
       <nav className="navwrapper">
         <ul className="navList">
+          <li class="navitem iconhome">
+            <Link href="/">
+              <i class="spriticon"></i>
+            </Link>
+          </li>
           {NavLinks.map((link, key) => (
             <li className="navitem " key={key}>
               <Link href={link.link}>{link.name}</Link>
