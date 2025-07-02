@@ -81,9 +81,9 @@ const Header = () => {
 
       <nav className="navwrapper">
         <ul className="navList">
-          <li class="navitem iconhome">
+          <li className="navitem iconhome">
             <Link href="/">
-              <i class="spriticon"></i>
+              <i className="spriticon"></i>
             </Link>
           </li>
           {NavLinks.map((link, key) => (
