@@ -75,6 +75,7 @@ export default async function Home() {
         };
 
         if (section?.isPlaylist) {
+          const { duration, ...rest } = base;
           return {
             '@type': 'ItemList',
             itemListOrder: 'https://schema.org/ItemListUnordered',
@@ -82,7 +83,7 @@ export default async function Home() {
             itemListElement: [
               {
                 '@type': 'VideoObject',
-                ...base,
+                ...rest,
               },
             ],
           };

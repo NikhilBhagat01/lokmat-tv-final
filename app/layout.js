@@ -32,20 +32,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <GoogleAnalytics />
         <JsonLdWebPage
           name="Marathi News Videos | ताज्या मराठी बातम्यांचे व्हिडीओ | Latest Video News from Maharashtra & Mumbai | Lokmat.com"
           description="Watch the latest Marathi news videos on Lokmat.com. Stay updated with breaking video news from Maharashtra, Mumbai, Pune and all over India. Get ताज्या मराठी बातम्यांचे व्हिडीओ including politics, entertainment, sports & more."
           keywords="Marathi News Videos, Marathi Video News, ताज्या मराठी बातम्यांचे व्हिडीओ, Video News in Marathi, Maharashtra News Videos, Mumbai News Videos, Pune News Videos, Latest Marathi Video News, Breaking Marathi News Videos"
         />
 
+        <ComscoreAnalytics />
         <JsonLdOrganization />
-        <GoogleAnalytics />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <Navbar />
         <main className="  mt-[92px] md:mt-[140px] ">{children}</main>
         <AnalyticsRouteTracker />
-        <ComscoreAnalytics />
         <Jquery />
         <OwlCarousel />
         <OwlInit />
