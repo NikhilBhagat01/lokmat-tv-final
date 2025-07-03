@@ -46,6 +46,23 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
+
+        {/* test */}
+
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`}
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {
+      page_path: window.location.pathname,
+    });
+  `}
+        </Script>
       </head>
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
@@ -53,7 +70,7 @@ export default function RootLayout({ children }) {
         <main className="  mt-[92px] md:mt-[140px] ">{children}</main>
 
         <AnalyticsRouteTracker />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA4_ID} />
+        {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA4_ID} /> */}
         <ComscoreAnalytics />
         <Script
           src="https://d3pc1xvrcw35tl.cloudfront.net/assets/js/jquery.min-v0.3.js"
