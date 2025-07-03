@@ -50,13 +50,6 @@ export const metadata = {
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
-  // console.log(data);
-
-  // console.log(jsonld);
-
-  // console.log(allVideos);
-  // console.log(data);
-
   const jsonld = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
