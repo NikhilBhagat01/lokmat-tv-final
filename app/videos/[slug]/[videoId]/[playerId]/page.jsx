@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
 }
 
 const VideoPlayerPage = async ({ params }) => {
-  const { videoId, playerId, slug } = params;
+  const { videoId, playerId, slug } = await params;
 
   const [videoData, relatedVideos] = await Promise.all([
     fetchVideoById(playerId),

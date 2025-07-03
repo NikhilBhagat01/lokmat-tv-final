@@ -114,6 +114,7 @@ async function fetchCategoryDataBySlug(slug) {
     });
 
     const results = await Promise.all(playlistFetches);
+    // console.log(results);
     return {
       categoryName: category.name,
       slug: category.slug,

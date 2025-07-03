@@ -116,13 +116,13 @@ const NewsLayout = ({ data, title, slug, id }) => {
                         setShowVideo(false);
                         swiperRef.current?.slideTo(index);
                       }}
-                      className={`card-wraper ${item.id === selectedItem.id ? 'active' : ''}`}
+                      className={`card-wraper ${item.id === selectedItem?.id ? 'active' : ''}`}
                     >
                       <div className="card upvideo card-image">
                         <div
                           className="card-image"
                           style={{
-                            background: `url('${item.thumbnail_240_url}') center center / cover no-repeat`,
+                            background: `url('${item?.thumbnail_240_url}') center center / cover no-repeat`,
                           }}
                         ></div>
                       </div>

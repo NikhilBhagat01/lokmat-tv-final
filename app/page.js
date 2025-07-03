@@ -52,37 +52,90 @@ export default async function Home() {
 
   // console.log(data);
 
+  // console.log(jsonld);
+
+  // console.log(allVideos);
+  // console.log(data);
+
+  const jsonld = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Homepage Video Sections',
+    itemListElement: data?.map((section) => ({
+      '@type': 'ItemList',
+      name: section?.title,
+      itemListElement: section?.data?.list?.slice(0, 5).map((video) => {
+        const base = {
+          name: video?.name,
+          description: video?.description,
+          thumbnailUrl: video?.thumbnail_240_url,
+          // uploadDate: new Date(video?.created_time * 1000).toISOString(),
+          duration: `PT${Math.floor(video?.duration / 60)}M${video.duration % 60}S`,
+          url: video?.url,
+        };
+
+        if (section?.isPlaylist) {
+          return {
+            '@type': 'ItemList',
+            itemListOrder: 'https://schema.org/ItemListUnordered',
+            numberOfItems: video?.videos_total,
+            itemListElement: [
+              {
+                '@type': 'VideoObject',
+                ...base,
+              },
+            ],
+          };
+        } else {
+          return {
+            '@type': 'VideoObject',
+            ...base,
+          };
+        }
+      }),
+    })),
+  };
+  // console.log(jsonld);
+
   const topStories = data[0]?.data?.list || [];
   const topStoriesTitle = data[0]?.title;
   const topStoriesSlug = data[0]?.title_slug;
   const topStoriesId = data[0]?.id;
   return (
-    <div className="video-wrapper">
-      <NewsLayout
-        data={topStories}
-        title={topStoriesTitle}
-        slug={topStoriesSlug}
-        id={topStoriesId}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonld),
+        }}
       />
-      {data?.slice(1).map((item, index) => (
-        <React.Fragment key={index}>
-          {/* {index % 2 === 0 && <Adbox key={`ad-${index}`} width="800px" height="100px" />} */}
-          {item?.isFeaturedChannel ? (
-            <></>
-          ) : // <Featuredchannel data={item} />
-          item?.isPlaylist ? (
-            <PlaylistCarousel data={item} />
-          ) : (
-            <VideoCarousel
-              title={item?.title}
-              slug={item?.title_slug}
-              data={item?.data?.list || []}
-              id={item?.id}
-            />
-          )}
-        </React.Fragment>
-      ))}
-      {/* <PlaylistCarousel /> */}
-    </div>
+      <div className="video-wrapper">
+        <NewsLayout
+          data={topStories}
+          title={topStoriesTitle}
+          slug={topStoriesSlug}
+          id={topStoriesId}
+        />
+        {data?.slice(1).map((item, index) => (
+          <React.Fragment key={index}>
+            {/* {index % 2 === 0 && <Adbox key={`ad-${index}`} width="800px" height="100px" />} */}
+            {item?.isFeaturedChannel ? (
+              <></>
+            ) : // <Featuredchannel data={item} />
+            item?.isPlaylist ? (
+              <PlaylistCarousel data={item} />
+            ) : (
+              <VideoCarousel
+                title={item?.title}
+                slug={item?.title_slug}
+                data={item?.data?.list || []}
+                id={item?.id}
+              />
+            )}
+          </React.Fragment>
+        ))}
+        {/* <PlaylistCarousel /> */}
+      </div>
+    </>
   );
 }
