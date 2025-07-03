@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const AnalyticsRouteTracker = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     // 🔁 GA4 manual route change tracking (required if you use gtag.js)
@@ -26,7 +25,7 @@ const AnalyticsRouteTracker = () => {
       s.src = 'https://sb.scorecardresearch.com/beacon.js';
       document.body.appendChild(s);
     }
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 };
