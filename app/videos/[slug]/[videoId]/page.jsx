@@ -14,15 +14,6 @@ const page = async ({ params }) => {
   const nameUrl = `https://api.dailymotion.com/playlist/${videoId}/?fields=name`;
   const playlist_url = `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=1`;
 
-  // const response = await fetch(
-  //   `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=1`,
-  //   {
-  //     headers: {
-  //       'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
-  //     },
-  //   }
-  // );
-
   const [nameResponse, playlistResponse] = await Promise.all([
     fetch(nameUrl, {
       next: { revalidate: 300 },

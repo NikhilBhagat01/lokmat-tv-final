@@ -4,6 +4,7 @@ export const revalidate = 180; // Revalidate the page itself every 180 seconds (
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
 import { fetchPlaylistDataById } from '@/app/lib/FetchData';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -36,9 +37,12 @@ const page = async ({ params }) => {
           <div className="video-details-container">
             <p className="video-title">{firstVideo.title || 'No Title Available'}</p>
             <div className="">
-              <a href="#" className="play-button play-triangle">
+              <Link
+                href={`/videos/${slug}/${videoId}/${firstVideo.id}`}
+                className="play-button play-triangle"
+              >
                 Play
-              </a>
+              </Link>
             </div>
           </div>
         </section>
