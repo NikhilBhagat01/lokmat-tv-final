@@ -8,6 +8,8 @@ import React from 'react';
 import Adbox from './components/Adbox';
 import VideoCarousel from './components/VideoCarousel';
 
+import { getBreadcrumbListJsonld, getHomePageJsonLd } from './jsonld';
+
 export const metadata = {
   title: 'Lokmat TV - Latest News & Videos',
   description:
@@ -50,46 +52,10 @@ export const metadata = {
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
-  const jsonld = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Homepage Video Sections',
-    itemListElement: data?.map((section) => ({
-      '@type': 'ItemList',
-      name: section?.title,
-      itemListElement: section?.data?.list?.slice(0, 5).map((video) => {
-        const base = {
-          name: video?.name,
-          description: video?.description,
-          thumbnailUrl: video?.thumbnail_240_url,
-          // uploadDate: new Date(video?.created_time * 1000).toISOString(),
-          duration: `PT${Math.floor(video?.duration / 60)}M${video.duration % 60}S`,
-          url: video?.url,
-        };
-
-        if (section?.isPlaylist) {
-          const { duration, ...rest } = base;
-          return {
-            '@type': 'ItemList',
-            itemListOrder: 'https://schema.org/ItemListUnordered',
-            numberOfItems: video?.videos_total,
-            itemListElement: [
-              {
-                '@type': 'VideoObject',
-                ...rest,
-              },
-            ],
-          };
-        } else {
-          return {
-            '@type': 'VideoObject',
-            ...base,
-          };
-        }
-      }),
-    })),
-  };
-  // console.log(jsonld);
+  const breadcrumbJsonld = getBreadcrumbListJsonld([
+    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+  ]);
+  const Jsonld = getHomePageJsonLd(data);
 
   const topStories = data[0]?.data?.list || [];
   const topStoriesTitle = data[0]?.title;
@@ -99,8 +65,13 @@ export default async function Home() {
     <>
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonld) }}
+      />
+
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonld),
+          __html: JSON.stringify(Jsonld),
         }}
       />
       <div className="video-wrapper">
@@ -128,7 +99,6 @@ export default async function Home() {
             )}
           </React.Fragment>
         ))}
-        {/* <PlaylistCarousel /> */}
       </div>
     </>
   );

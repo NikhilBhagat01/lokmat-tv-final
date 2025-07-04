@@ -7,8 +7,7 @@ import AnalyticsRouteTracker from './Ads/AnalyticsRouteTracker';
 import ComscoreAnalytics from './Ads/ComscoreAnalytics';
 import GoogleAnalytics from './Ads/GoogleAnalytics';
 
-import JsonLdOrganization from './jsonld/JsonLdOrganization';
-import JsonLdWebPage from './jsonld/JsonLdWebPage';
+import { JsonLdOrganization, JsonLdWebPage, SiteNavigationJsonld } from './jsonld';
 
 import { Jquery, OwlCarousel, OwlInit } from './scripts/Scripts';
 
@@ -41,6 +40,7 @@ export default function RootLayout({ children }) {
 
         {process.env.NODE_ENV === 'production' ? <ComscoreAnalytics /> : null}
         <JsonLdOrganization />
+        <SiteNavigationJsonld />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <Navbar />
