@@ -9,8 +9,8 @@ export const getPublisher = () => {
     logo: {
       '@type': 'ImageObject',
       url: 'https://s2.dmcdn.net/u/2fIYb1b9HAZZ9VCLk/240x240', // Replace with your actual logo URL
-      width: 600,
-      height: 60,
+      width: 224,
+      height: 58,
     },
   };
 };
