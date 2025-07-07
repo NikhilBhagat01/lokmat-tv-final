@@ -1,4 +1,5 @@
 import { API_URL_DATA, CATEGORY_DATA } from './apilist';
+import { slugify } from './utility';
 
 const VIDEO_FIELDS =
   'id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair';
@@ -104,7 +105,7 @@ async function fetchCategoryDataBySlug(slug) {
         return {
           playlistName: nameData.name,
           videos: videosData.list || [],
-          slug: playlist_slug,
+          slug: slugify(playlist_slug),
           id: playlistId,
         };
       } catch (err) {

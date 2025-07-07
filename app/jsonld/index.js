@@ -164,6 +164,31 @@ export const getCategoryPageJsonLd = (data) => {
   return jsonld;
 };
 
+export const HubPageJsonLd = (data) => {
+  const publisher = getPublisher();
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: data?.name,
+    itemListElement: data?.list?.map((video, index) => ({
+      '@type': 'VideoObject',
+      position: index + 1,
+      name: video?.title,
+      description: cleanVideoDescription(video?.description) || video?.title,
+      thumbnailUrl: video?.thumbnail_240_url,
+      duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
+      url:
+        GLOBAL_CONFIG.SITE_PATH + '/videos/' + data?.slug + '/' + data?.videoId + '/' + video?.id,
+      embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
+      uploadDate: toISTIso8601(video?.created_time),
+      publisher,
+    })),
+  };
+
+  return jsonLd;
+};
+
 export const getBreadcrumbListJsonld = (items) => {
   return {
     '@context': 'https://schema.org',

@@ -4,6 +4,8 @@ export const revalidate = 180;
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
 import InfiniteScroll from '@/app/components/InfiniteScroll';
+import { GLOBAL_CONFIG } from '@/app/config/config';
+import { getBreadcrumbListJsonld, HubPageJsonLd, JsonLdWebPage } from '@/app/jsonld';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
@@ -23,19 +25,42 @@ const page = async ({ params }) => {
     }),
   ]);
 
-  if (!nameResponse.ok || !playlistResponse.ok) {
-    return redirect('/');
-  }
+  // if (!nameResponse.ok || !playlistResponse.ok) {
+  //   return redirect('/');
+  // }
 
   const [nameData, playlistData] = await Promise.all([
     nameResponse.json(),
     playlistResponse.json(),
   ]);
 
+  // console.log(playlistData);
+
+  const breadcrumbJsonld = getBreadcrumbListJsonld([
+    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: nameData?.name, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}` },
+  ]);
+  const HubpageJsonLd = HubPageJsonLd({ slug, videoId, name: nameData.name, ...playlistData });
+
   const firstVideo = playlistData.list[0] || [];
 
   return (
     <>
+      <JsonLdWebPage
+        url={`${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`}
+        name={nameData.name}
+        description={nameData?.name}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonld) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(HubpageJsonLd),
+        }}
+      />
       <BackButton slug={nameData.name} />
       <section className="lead-video-container ">
         <section className="video-container">
