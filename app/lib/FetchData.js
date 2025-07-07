@@ -168,7 +168,7 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
         return {
           playlistName: nameData.name,
           videos: videosData.list || [],
-          slug: playlist_slug,
+          slug: slugify(playlist_slug),
           id: playlistId,
         };
       } catch (err) {
@@ -179,7 +179,12 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
 
     const results = await Promise.all(playlistFetches);
     // console.log(results)
-    return results;
+    // return results;
+    return {
+      playlistName: API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.title,
+      slug: playlistSlug,
+      playlist: results.filter(Boolean),
+    };
   } catch (error) {
     console.error('Error in fetchCategoryDataBySlug:', error);
     throw error;
