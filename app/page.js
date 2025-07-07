@@ -8,7 +8,7 @@ import React from 'react';
 import Adbox from './components/Adbox';
 import VideoCarousel from './components/VideoCarousel';
 
-import { getBreadcrumbListJsonld, getHomePageJsonLd } from './jsonld';
+import { getBreadcrumbListJsonld, getHomePageJsonLd, JsonLdWebPage } from './jsonld';
 
 export const metadata = {
   title: 'Lokmat TV - Latest News & Videos',
@@ -63,6 +63,11 @@ export default async function Home() {
   const topStoriesId = data[0]?.id;
   return (
     <>
+      <JsonLdWebPage
+        name="Marathi News Videos | ताज्या मराठी बातम्यांचे व्हिडीओ | Latest Video News from Maharashtra & Mumbai | Lokmat.com"
+        description="Watch the latest Marathi news videos on Lokmat.com. Stay updated with breaking video news from Maharashtra, Mumbai, Pune and all over India. Get ताज्या मराठी बातम्यांचे व्हिडीओ including politics, entertainment, sports & more."
+        keywords="Marathi News Videos, Marathi Video News, ताज्या मराठी बातम्यांचे व्हिडीओ, Video News in Marathi, Maharashtra News Videos, Mumbai News Videos, Pune News Videos, Latest Marathi Video News, Breaking Marathi News Videos"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonld) }}

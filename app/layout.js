@@ -7,7 +7,7 @@ import AnalyticsRouteTracker from './Ads/AnalyticsRouteTracker';
 import ComscoreAnalytics from './Ads/ComscoreAnalytics';
 import GoogleAnalytics from './Ads/GoogleAnalytics';
 
-import { JsonLdOrganization, JsonLdWebPage, SiteNavigationJsonld } from './jsonld';
+import { JsonLdOrganization, SiteNavigationJsonld } from './jsonld';
 
 import { Jquery, OwlCarousel, OwlInit } from './scripts/Scripts';
 
@@ -32,12 +32,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {process.env.NODE_ENV === 'production' ? <GoogleAnalytics /> : null}
-        <JsonLdWebPage
-          name="Marathi News Videos | ताज्या मराठी बातम्यांचे व्हिडीओ | Latest Video News from Maharashtra & Mumbai | Lokmat.com"
-          description="Watch the latest Marathi news videos on Lokmat.com. Stay updated with breaking video news from Maharashtra, Mumbai, Pune and all over India. Get ताज्या मराठी बातम्यांचे व्हिडीओ including politics, entertainment, sports & more."
-          keywords="Marathi News Videos, Marathi Video News, ताज्या मराठी बातम्यांचे व्हिडीओ, Video News in Marathi, Maharashtra News Videos, Mumbai News Videos, Pune News Videos, Latest Marathi Video News, Breaking Marathi News Videos"
-        />
-
         {process.env.NODE_ENV === 'production' ? <ComscoreAnalytics /> : null}
         <JsonLdOrganization />
         <SiteNavigationJsonld />

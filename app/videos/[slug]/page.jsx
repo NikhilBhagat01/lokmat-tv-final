@@ -4,6 +4,8 @@ export const revalidate = 180; // Revalidate the page itself every 180 seconds (
 import BackButton from '@/app/components/BackButton';
 import NewsLayout from '@/app/components/NewsLayout';
 import VideoCarousel from '@/app/components/VideoCarousel';
+import { GLOBAL_CONFIG } from '@/app/config/config';
+import { getBreadcrumbListJsonld, getCategoryPageJsonLd, JsonLdWebPage } from '@/app/jsonld';
 import { fetchCategoryDataBySlug } from '@/app/lib/FetchData';
 import React from 'react';
 
@@ -65,6 +67,12 @@ const page = async ({ params }) => {
   const { slug } = await params;
 
   const data = await fetchCategoryDataBySlug(slug);
+  const breadcrumbJsonld = getBreadcrumbListJsonld([
+    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: data?.categoryName, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${data.slug}` },
+  ]);
+
+  const categoryJsonLd = getCategoryPageJsonLd(data);
   // console.log(data);
 
   if (!data) return redirect('/');
@@ -78,6 +86,21 @@ const page = async ({ params }) => {
   // return;
   return (
     <>
+      <JsonLdWebPage
+        url={`${GLOBAL_CONFIG.SITE_PATH}/videos/${data.slug}`}
+        name={data?.categoryName}
+        description={data?.categoryName}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonld) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(categoryJsonLd),
+        }}
+      />
       <BackButton slug={slug} />
       <NewsLayout
         data={topStories}

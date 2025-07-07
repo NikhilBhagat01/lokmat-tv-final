@@ -130,6 +130,40 @@ export const getHomePageJsonLd = (data) => {
   return jsonld;
 };
 
+export const getCategoryPageJsonLd = (data) => {
+  const publisher = getPublisher();
+
+  const jsonld = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: data?.categoryName,
+    itemListElement: data?.playlists?.map((section, index) => ({
+      '@type': 'ItemList',
+      name: section?.playlistName,
+      itemListElement: section?.videos?.map((video, index) => ({
+        '@type': 'VideoObject',
+        name: video?.title,
+        description: cleanVideoDescription(video?.description) || video?.title,
+        thumbnailUrl: video?.thumbnail_240_url,
+        duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
+        url:
+          GLOBAL_CONFIG.SITE_PATH +
+          '/videos/' +
+          section?.slug +
+          '/' +
+          section?.id +
+          '/' +
+          video?.id,
+        embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
+        uploadDate: toISTIso8601(video?.created_time),
+        publisher,
+      })),
+    })),
+  };
+
+  return jsonld;
+};
+
 export const getBreadcrumbListJsonld = (items) => {
   return {
     '@context': 'https://schema.org',
