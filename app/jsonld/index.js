@@ -20,7 +20,7 @@ export const JsonLdOrganization = () => {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Lokmat',
-    url: 'https://www.lokmat.com',
+    url: GLOBAL_CONFIG.SITE_PATH,
     logo: {
       '@type': 'ImageObject',
       url: 'https://d3pc1xvrcw35tl.cloudfront.net/assets/images/lokmat-logo-v0.1.png',
@@ -52,7 +52,7 @@ export const JsonLdOrganization = () => {
 };
 
 export const JsonLdWebPage = ({
-  url = 'https://www.lokmat.com/videos',
+  url = `${GLOBAL_CONFIG.SITE_PATH}/videos`,
   name = '',
   description = '',
   keywords = '',
@@ -142,8 +142,9 @@ export const getCategoryPageJsonLd = (data) => {
     itemListElement: data?.playlists?.map((section, index) => ({
       '@type': 'ItemList',
       name: section?.playlistName,
-      itemListElement: section?.videos?.map((video, index) => ({
+      itemListElement: section?.videos?.slice(0, 5).map((video, index) => ({
         '@type': 'VideoObject',
+        position: index + 1,
         name: video?.title,
         description: cleanVideoDescription(video?.description) || video?.title,
         thumbnailUrl: video?.thumbnail_240_url,
@@ -226,7 +227,7 @@ export const PlaylistJsonLd = (data) => {
   return jsonLd;
 };
 
-export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId }) => {
+export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId, playerId }) => {
   const publisher = getPublisher();
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -235,12 +236,13 @@ export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId }) =
     description: cleanVideoDescription(videoData?.description) || videoData?.title,
     thumbnailUrl: videoData?.thumbnail_240_url,
     duration: `PT${Math.floor(videoData?.duration / 60)}M${videoData?.duration % 60}S`,
-    url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${videoData?.id}`,
+    url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${playerId}`,
     embedUrl: `https://www.dailymotion.com/embed/video/${videoData?.id}`,
     uploadDate: toISTIso8601(videoData?.created_time),
     publisher,
-    hasPart: relatedVideos?.list?.map((video) => ({
+    hasPart: relatedVideos?.list?.map((video, videoIndex) => ({
       '@type': 'VideoObject',
+      // position: videoIndex + 1,
       name: video?.title,
       description: cleanVideoDescription(video?.description) || video?.title,
       thumbnailUrl: video?.thumbnail_240_url,
@@ -252,7 +254,6 @@ export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId }) =
     })),
   };
 
-  console.log(jsonLd);
   return jsonLd;
 };
 
@@ -265,7 +266,7 @@ export const getBreadcrumbListJsonld = (items) => {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://www.lokmat.com/',
+        item: `${GLOBAL_CONFIG.SITE_PATH}/`,
       },
       ...items.map((item, index) => ({
         '@type': 'ListItem',

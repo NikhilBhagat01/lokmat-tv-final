@@ -22,7 +22,7 @@ const page = async ({ params }) => {
   // console.log(playlistData);
 
   const breadcrumbJsonld = getBreadcrumbListJsonld([
-    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
     {
       name: playlistData?.playlistName,
       url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/`,

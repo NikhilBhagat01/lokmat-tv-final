@@ -37,7 +37,7 @@ const page = async ({ params }) => {
   // console.log(playlistData);
 
   const breadcrumbJsonld = getBreadcrumbListJsonld([
-    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
     { name: nameData?.name, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}` },
   ]);
   const HubpageJsonLd = HubPageJsonLd({ slug, videoId, name: nameData.name, ...playlistData });

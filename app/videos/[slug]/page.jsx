@@ -24,20 +24,20 @@ export async function generateMetadata({ params }) {
     title: `${categoryName} - Lokmat TV Videos`,
     description: `Watch latest ${categoryName} videos on Lokmat TV. Stay updated with breaking news, exclusive stories, and trending videos from ${categoryName}.`,
     keywords: `${categoryName}, Lokmat TV, Marathi news, video news, latest ${categoryName} news, ${categoryName} videos, news updates, Lokmat live`,
-    metadataBase: new URL('https://www.lokmat.com'),
+    metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
     alternates: {
       canonical: `/videos/${slug}`,
     },
     links: [
       {
         rel: 'amphtml',
-        href: `https://www.lokmat.com/videos/${slug}/amp/`,
+        href: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/amp/`,
       },
     ],
     openGraph: {
       title: `${categoryName} - Lokmat TV Videos`,
       description: `Watch latest ${categoryName} videos on Lokmat TV. Breaking news and exclusive stories from ${categoryName}.`,
-      url: `https://www.lokmat.com/videos/${slug}`,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}`,
       siteName: 'LokmatTV',
       images: [
         {
@@ -68,7 +68,7 @@ const page = async ({ params }) => {
 
   const data = await fetchCategoryDataBySlug(slug);
   const breadcrumbJsonld = getBreadcrumbListJsonld([
-    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
     { name: data?.categoryName, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${data.slug}` },
   ]);
 

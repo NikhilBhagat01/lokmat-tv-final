@@ -40,12 +40,12 @@ const Header = () => {
         </div>
 
         <div className="headerright">
-          <a className="backtolokmat" href="https://www.lokmat.com">
+          <Link className="backtolokmat" href="/">
             <i className="spriticon iconback" />
             <span>
               Back to <span>Lokmat</span>.com
             </span>
-          </a>
+          </Link>
 
           {isMobile && (
             <div className="citywrapper">
@@ -126,12 +126,12 @@ const Header = () => {
 
       <div className="drawerwrapper" style={{ display: isOpen ? 'block' : 'none' }}>
         <div className="drawertop">
-          <a className="backtolokmat" href="https://www.lokmat.com">
+          <Link className="backtolokmat" href="/">
             <i className="spriticon iconback" />
             <span>
               Back to <span>Lokmat</span>.com
             </span>
-          </a>
+          </Link>
         </div>
         <ul className="navList">
           {NavLinks.map((link, key) => (

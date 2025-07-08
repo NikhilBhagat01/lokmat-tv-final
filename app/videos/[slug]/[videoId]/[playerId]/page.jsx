@@ -27,14 +27,14 @@ export async function generateMetadata({ params }) {
       description ||
       `Watch ${videoData?.title} on Lokmat TV. Stay updated with latest news and videos from Maharashtra.`,
     keywords: `${videoData?.title}, ${videoData?.channel}, Lokmat TV, Marathi news, video news, Maharashtra news`,
-    metadataBase: new URL('https://www.lokmat.com'),
+    metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
     alternates: {
       canonical: `/videos/${slug}/${videoId}/${playerId}`,
     },
     openGraph: {
       title: videoData?.title,
       description: description,
-      url: `https://www.lokmat.com/videos/${slug}/${videoId}/${playerId}`,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${playerId}`,
       siteName: 'LokmatTV',
       images: [
         {
@@ -67,10 +67,8 @@ const VideoPlayerPage = async ({ params }) => {
     fetchRelatedVideos(videoId, 1),
   ]);
 
-  console.log(relatedVideos);
-
   const breadcrumbJsonld = getBreadcrumbListJsonld([
-    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
     { name: deslugify(slug), url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}` },
     {
       name: videoData?.title,
@@ -78,7 +76,7 @@ const VideoPlayerPage = async ({ params }) => {
     },
   ]);
 
-  const videoJsonLd = videoDetailJsonLd({ videoData, relatedVideos, slug, videoId });
+  const videoJsonLd = videoDetailJsonLd({ videoData, relatedVideos, slug, videoId, playerId });
 
   return (
     <>

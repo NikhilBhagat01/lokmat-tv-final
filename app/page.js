@@ -9,6 +9,7 @@ import Adbox from './components/Adbox';
 import VideoCarousel from './components/VideoCarousel';
 
 import { getBreadcrumbListJsonld, getHomePageJsonLd, JsonLdWebPage } from './jsonld';
+import { GLOBAL_CONFIG } from './config/config';
 
 export const metadata = {
   title: 'Lokmat TV - Latest News & Videos',
@@ -16,20 +17,20 @@ export const metadata = {
     'Watch the latest news, entertainment, and trending video content from Lokmat TV. Stay updated with breaking news, exclusive stories, and popular playlists.',
   keywords:
     'Lokmat TV, Marathi news, breaking news, latest news, video news, Maharashtra news, entertainment news, viral videos, news updates, Lokmat live',
-  metadataBase: new URL('https://www.lokmat.com'),
+  metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
   alternates: {
     canonical: '/videos',
   },
   links: [
     {
       rel: 'amphtml',
-      href: 'https://www.lokmat.com/videos/amp/',
+      href: `${GLOBAL_CONFIG.SITE_PATH}/videos/amp/`,
     },
   ],
   openGraph: {
     title: 'Lokmat TV - Latest News & Videos',
     description: 'Watch the latest news, entertainment, and trending video content from Lokmat TV.',
-    url: 'https://www.lokmat.com/videos',
+    url: `${GLOBAL_CONFIG.SITE_PATH}/videos`,
     siteName: 'LokmatTV',
     images: [
       {
@@ -53,7 +54,7 @@ export default async function Home() {
   const data = await fetchAllDailymotionData();
 
   const breadcrumbJsonld = getBreadcrumbListJsonld([
-    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
   ]);
   const Jsonld = getHomePageJsonLd(data);
 
