@@ -9,7 +9,7 @@ import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
 import { deslugify, getFormatedData, shortenText } from '@/app/lib/utility';
 import { Suspense } from 'react';
-import { getBreadcrumbListJsonld, JsonLdWebPage } from '@/app/jsonld';
+import { getBreadcrumbListJsonld, JsonLdWebPage, videoDetailJsonLd } from '@/app/jsonld';
 import { GLOBAL_CONFIG } from '@/app/config/config';
 
 export async function generateMetadata({ params }) {
@@ -76,6 +76,8 @@ const VideoPlayerPage = async ({ params }) => {
     },
   ]);
 
+  const videoJsonLd = videoDetailJsonLd(videoData, relatedVideos);
+
   return (
     <>
       <JsonLdWebPage
@@ -87,6 +89,12 @@ const VideoPlayerPage = async ({ params }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonld) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(videoJsonLd),
+        }}
       />
       <PlayerBack />
       <div className="detail-wrapper">
