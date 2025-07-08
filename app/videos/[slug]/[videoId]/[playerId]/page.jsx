@@ -67,6 +67,8 @@ const VideoPlayerPage = async ({ params }) => {
     fetchRelatedVideos(videoId, 1),
   ]);
 
+  console.log(relatedVideos);
+
   const breadcrumbJsonld = getBreadcrumbListJsonld([
     { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
     { name: deslugify(slug), url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}` },
@@ -76,7 +78,7 @@ const VideoPlayerPage = async ({ params }) => {
     },
   ]);
 
-  const videoJsonLd = videoDetailJsonLd(videoData, relatedVideos);
+  const videoJsonLd = videoDetailJsonLd({ videoData, relatedVideos, slug, videoId });
 
   return (
     <>

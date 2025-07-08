@@ -226,7 +226,7 @@ export const PlaylistJsonLd = (data) => {
   return jsonLd;
 };
 
-export const videoDetailJsonLd = (videoData, relatedVideos) => {
+export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId }) => {
   const publisher = getPublisher();
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -235,23 +235,24 @@ export const videoDetailJsonLd = (videoData, relatedVideos) => {
     description: cleanVideoDescription(videoData?.description) || videoData?.title,
     thumbnailUrl: videoData?.thumbnail_240_url,
     duration: `PT${Math.floor(videoData?.duration / 60)}M${videoData?.duration % 60}S`,
-    url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${videoData?.slug}/${videoData?.id}/${videoData?.playerId}`,
+    url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${videoData?.id}`,
     embedUrl: `https://www.dailymotion.com/embed/video/${videoData?.id}`,
     uploadDate: toISTIso8601(videoData?.created_time),
     publisher,
     hasPart: relatedVideos?.list?.map((video) => ({
       '@type': 'VideoObject',
-      name: video.title,
-      description: cleanVideoDescription(video.description) || video.title,
-      thumbnailUrl: video.thumbnail_240_url,
-      duration: `PT${Math.floor(video.duration / 60)}M${video.duration % 60}S`,
-      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${video.slug}/${video.id}/${video.playerId}`,
-      embedUrl: `https://www.dailymotion.com/embed/video/${video.id}`,
-      uploadDate: toISTIso8601(video.created_time),
+      name: video?.title,
+      description: cleanVideoDescription(video?.description) || video?.title,
+      thumbnailUrl: video?.thumbnail_240_url,
+      duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${video?.id}`,
+      embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
+      uploadDate: toISTIso8601(video?.created_time),
       publisher,
     })),
   };
 
+  console.log(jsonLd);
   return jsonLd;
 };
 
