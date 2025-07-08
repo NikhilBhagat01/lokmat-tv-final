@@ -9,6 +9,8 @@ import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos } from '@/app/lib/FetchData';
 import { deslugify, getFormatedData, shortenText } from '@/app/lib/utility';
 import { Suspense } from 'react';
+import { getBreadcrumbListJsonld, JsonLdWebPage } from '@/app/jsonld';
+import { GLOBAL_CONFIG } from '@/app/config/config';
 
 export async function generateMetadata({ params }) {
   const { videoId, slug, playerId } = await params;
@@ -65,8 +67,27 @@ const VideoPlayerPage = async ({ params }) => {
     fetchRelatedVideos(videoId, 1),
   ]);
 
+  const breadcrumbJsonld = getBreadcrumbListJsonld([
+    { name: 'Videos', url: 'https://www.lokmat.com/videos/' },
+    { name: deslugify(slug), url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}` },
+    {
+      name: videoData?.title,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${playerId}`,
+    },
+  ]);
+
   return (
     <>
+      <JsonLdWebPage
+        url={`${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${playerId}`}
+        name={videoData?.title}
+        description={videoData?.description}
+        keywords={videoData?.tags}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonld) }}
+      />
       <PlayerBack />
       <div className="detail-wrapper">
         <div className="video-detail-container">
@@ -99,10 +120,7 @@ const VideoPlayerPage = async ({ params }) => {
             </div>
 
             <Suspense fallback={<div>Loading...</div>}>
-              {videoData?.description && (
-                // <VideoDetailCard description={videoData?.description} />
-                <VideoDetailCard data={videoData} />
-              )}
+              {videoData?.description && <VideoDetailCard data={videoData} />}
             </Suspense>
           </div>
         </div>

@@ -57,16 +57,18 @@ export const JsonLdWebPage = ({
   description = '',
   keywords = '',
 }) => {
+  // console.log(keywords);
   const jsonld = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: url,
     name: name,
-    description: description,
-    keywords: keywords,
+    description: cleanVideoDescription(description),
+    keywords: keywords?.join(', '),
     inLanguage: 'mr_IN',
     publisher: { '@type': 'Organization', name: 'Lokmat' },
   };
+
   return (
     <script
       type="application/ld+json"
