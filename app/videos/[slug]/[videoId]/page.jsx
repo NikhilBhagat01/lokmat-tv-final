@@ -6,12 +6,14 @@ import CategoryCard from '@/app/components/CategoryCard';
 import InfiniteScroll from '@/app/components/InfiniteScroll';
 import { GLOBAL_CONFIG } from '@/app/config/config';
 import { getBreadcrumbListJsonld, HubPageJsonLd, JsonLdWebPage } from '@/app/jsonld';
+import { slugify } from '@/app/lib/utility';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
 const page = async ({ params }) => {
   const { videoId, slug } = await params;
+  console.log(slug);
 
   const nameUrl = `https://api.dailymotion.com/playlist/${videoId}/?fields=name`;
   const playlist_url = `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=1`;
@@ -25,15 +27,20 @@ const page = async ({ params }) => {
     }),
   ]);
 
-  // if (!nameResponse.ok || !playlistResponse.ok) {
-  //   return redirect('/');
-  // }
+  if (!nameResponse.ok || !playlistResponse.ok) {
+    return redirect('/');
+  }
 
   const [nameData, playlistData] = await Promise.all([
     nameResponse.json(),
     playlistResponse.json(),
   ]);
 
+  // console.log(slugify(nameData.name));
+
+  if (slug !== slugify(nameData.name)) {
+    return redirect(`/videos/${slugify(nameData.name)}/${videoId}`);
+  }
   // console.log(playlistData);
 
   const breadcrumbJsonld = getBreadcrumbListJsonld([

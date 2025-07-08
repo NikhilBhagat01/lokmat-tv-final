@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { API_URL_DATA, CATEGORY_DATA } from './apilist';
 import { slugify } from './utility';
 
@@ -70,7 +71,7 @@ async function fetchCategoryDataBySlug(slug) {
 
     if (!category) {
       console.error(`No category found for slug: ${slug}`);
-      return null;
+      return redirect('/');
     }
 
     const playlist = category.playlist.split(',');
