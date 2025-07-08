@@ -64,7 +64,7 @@ export const JsonLdWebPage = ({
     url: url,
     name: name,
     description: cleanVideoDescription(description),
-    keywords: keywords?.join(', '),
+    keywords: Array.isArray(keywords) ? keywords?.join(', ') : keywords,
     inLanguage: 'mr_IN',
     publisher: { '@type': 'Organization', name: 'Lokmat' },
   };
