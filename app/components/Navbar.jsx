@@ -6,14 +6,14 @@ import useMounted from '../hooks/useMounted';
 
 const Header = () => {
   const NavLinks = [
-    { name: 'News', link: '/videos/news' },
-    { name: 'City News', link: '/videos/city-news' },
-    { name: 'Entertainment', link: '/videos/entertainment' },
-    { name: 'Social Viral', link: '/videos/social-viral' },
-    { name: 'Sakhi', link: '/videos/sakhi' },
-    { name: 'Bhakti', link: '/videos/bhakti' },
-    { name: 'Events', link: '/videos/events' },
-    { name: 'Inspirational', link: '/videos/inspirational' },
+    { name: 'News', link: '/playlist/news' },
+    { name: 'City News', link: '/playlist/city-news' },
+    { name: 'Entertainment', link: '/playlist/entertainment' },
+    { name: 'Social Viral', link: '/playlist/social-viral' },
+    { name: 'Sakhi', link: '/playlist/sakhi' },
+    { name: 'Bhakti', link: '/playlist/bhakti' },
+    { name: 'Events', link: '/playlist/events' },
+    { name: 'Inspirational', link: '/playlist/inspirational' },
   ];
 
   const [isOpen, setIsOpen] = useState(false);

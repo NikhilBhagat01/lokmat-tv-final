@@ -13,7 +13,6 @@ import React from 'react';
 
 const page = async ({ params }) => {
   const { videoId, slug } = await params;
-  console.log(slug);
 
   const nameUrl = `https://api.dailymotion.com/playlist/${videoId}/?fields=name`;
   const playlist_url = `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=1`;

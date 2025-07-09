@@ -132,7 +132,19 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
   try {
     // console.log(playlistSlug);
 
-    const playlistIds = API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.playlist_id;
+    // const playlistIds = API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.playlist_id;
+
+    let playlistIds = [];
+
+    const apiData = API_URL_DATA.find((item) => item.title_slug === playlistSlug);
+    if (apiData?.playlist_id) {
+      playlistIds = apiData.playlist_id;
+    } else {
+      const categoryData = CATEGORY_DATA.find((item) => item.slug === playlistSlug);
+      if (categoryData?.playlist) {
+        playlistIds = categoryData.playlist;
+      }
+    }
     if (!playlistIds) return null;
 
     // console.log(playlistIds);
