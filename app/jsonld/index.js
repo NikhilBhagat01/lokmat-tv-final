@@ -267,13 +267,19 @@ export const getBreadcrumbListJsonld = (items) => {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: `${GLOBAL_CONFIG.SITE_PATH}/`,
+        item: {
+          '@type': 'WebPage',
+          '@id': `${GLOBAL_CONFIG.SITE_PATH}/`,
+        },
       },
       ...items.map((item, index) => ({
         '@type': 'ListItem',
-        position: index + 2, // +2 because Home is position 1
+        position: index + 2,
         name: item.name,
-        item: item.url,
+        item: {
+          '@type': 'WebPage',
+          '@id': item.url,
+        },
       })),
     ],
   };

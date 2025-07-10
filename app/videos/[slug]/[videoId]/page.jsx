@@ -1,6 +1,6 @@
-// app/videos/[slug]/[videoId]/[playerId]/page.jsx
+// app/videos/[slug]/[videoId]//page.jsx
 export const dynamic = 'force-static';
-export const revalidate = 180;
+export const revalidate = 3600;
 
 import PlayerBack from '@/app/components/PlayerBack';
 import RelatedVideosCardWrapper from '@/app/components/RelatedVideosCardWrapper';
