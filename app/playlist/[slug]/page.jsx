@@ -16,16 +16,14 @@ const page = async ({ params }) => {
 
   const playlistData = await fetchPlaylistDataBySlug(slug);
 
-  // console.log(playlistData);
   if (!playlistData) return redirect('/');
 
   // console.log(playlistData);
 
   const breadcrumbJsonld = getBreadcrumbListJsonld([
-    { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
     {
       name: playlistData?.playlistName,
-      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/`,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/playlist/${playlistData?.slug}/`,
     },
   ]);
 
@@ -45,7 +43,7 @@ const page = async ({ params }) => {
   return (
     <>
       <JsonLdWebPage
-        url={`${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/`}
+        url={`${GLOBAL_CONFIG.SITE_PATH}/playlist/${slug}/`}
         name={playlistData?.playlistName}
         description={playlistData?.playlistName}
       />

@@ -22,6 +22,7 @@ function slugify(str) {
   return str
     .toLowerCase() // Convert to lowercase
     .trim() // Remove leading/trailing whitespace
+    .replace(/&/g, '-and-') // Replace & with -and-
     .replace(/[^a-z0-9\s-]/g, '') // Remove all non-alphanumeric chars except spaces and hyphens
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/-+/g, '-'); // Replace multiple - with single -

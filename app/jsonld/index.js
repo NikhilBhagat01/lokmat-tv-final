@@ -170,19 +170,20 @@ export const getCategoryPageJsonLd = (data) => {
 export const HubPageJsonLd = (data) => {
   const publisher = getPublisher();
 
+  // console.log(data);
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: data?.name,
-    itemListElement: data?.list?.map((video, index) => ({
+    itemListElement: data?.data?.map((video, index) => ({
       '@type': 'VideoObject',
       position: index + 1,
       name: video?.title,
       description: cleanVideoDescription(video?.description) || video?.title,
       thumbnailUrl: video?.thumbnail_240_url,
       duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-      url:
-        GLOBAL_CONFIG.SITE_PATH + '/videos/' + data?.slug + '/' + data?.videoId + '/' + video?.id,
+      url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + data?.slug + '/' + video?.id,
       embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
       uploadDate: toISTIso8601(video?.created_time),
       publisher,
@@ -227,7 +228,7 @@ export const PlaylistJsonLd = (data) => {
   return jsonLd;
 };
 
-export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId, playerId }) => {
+export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId }) => {
   const publisher = getPublisher();
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -236,7 +237,7 @@ export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId, pla
     description: cleanVideoDescription(videoData?.description) || videoData?.title,
     thumbnailUrl: videoData?.thumbnail_240_url,
     duration: `PT${Math.floor(videoData?.duration / 60)}M${videoData?.duration % 60}S`,
-    url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${playerId}`,
+    url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`,
     embedUrl: `https://www.dailymotion.com/embed/video/${videoData?.id}`,
     uploadDate: toISTIso8601(videoData?.created_time),
     publisher,
@@ -247,7 +248,7 @@ export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId, pla
       description: cleanVideoDescription(video?.description) || video?.title,
       thumbnailUrl: video?.thumbnail_240_url,
       duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}/${video?.id}`,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${video?.id}`,
       embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
       uploadDate: toISTIso8601(video?.created_time),
       publisher,

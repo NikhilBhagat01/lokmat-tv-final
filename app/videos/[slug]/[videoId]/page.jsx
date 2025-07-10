@@ -1,61 +1,103 @@
-export const dynamic = 'auto';
+// app/videos/[slug]/[videoId]/[playerId]/page.jsx
+export const dynamic = 'force-static';
 export const revalidate = 180;
 
-import BackButton from '@/app/components/BackButton';
-import CategoryCard from '@/app/components/CategoryCard';
-import InfiniteScroll from '@/app/components/InfiniteScroll';
+import PlayerBack from '@/app/components/PlayerBack';
+import RelatedVideosCardWrapper from '@/app/components/RelatedVideosCardWrapper';
+import InfiniteRelatedVideos from '@/app/components/InfiniteRelatedVideos';
+import VideoDetailCard from '@/app/components/VideoDescription';
+import { fetchVideoById, fetchRelatedVideos, videoDetailData } from '@/app/lib/FetchData';
+import { deslugify, getFormatedData, shortenText } from '@/app/lib/utility';
+import { Suspense } from 'react';
+import { getBreadcrumbListJsonld, JsonLdWebPage, videoDetailJsonLd } from '@/app/jsonld';
 import { GLOBAL_CONFIG } from '@/app/config/config';
-import { getBreadcrumbListJsonld, HubPageJsonLd, JsonLdWebPage } from '@/app/jsonld';
-import { slugify } from '@/app/lib/utility';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import React from 'react';
 
-const page = async ({ params }) => {
+import { promises as fs } from 'fs';
+import path from 'path';
+
+export async function generateMetadata({ params }) {
+  const { videoId, slug } = await params;
+  const videoData = await fetchVideoById(videoId);
+
+  if (!videoData) return {};
+
+  const description = shortenText(videoData?.description);
+  return {
+    title: `${videoData?.title} - Lokmat TV`,
+    description:
+      description ||
+      `Watch ${videoData?.title} on Lokmat TV. Stay updated with latest news and videos from Maharashtra.`,
+    // keywords: `${videoData?.title}, ${videoData?.channel}, Lokmat TV, Marathi news, video news, Maharashtra news`,
+    keywords: `${
+      videoData?.tags.length > 0
+        ? videoData?.tags?.join(', ')
+        : ' Lokmat TV, Marathi news, video news, Maharashtra news'
+    }`,
+    metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
+    alternates: {
+      canonical: `/videos/${slug}/${videoId}`,
+    },
+    openGraph: {
+      title: videoData?.title,
+      description: description,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`,
+      siteName: 'LokmatTV',
+      images: [
+        {
+          url: videoData?.thumbnail_480_url || videoData?.thumbnail_240_url,
+          width: 480,
+          height: 360,
+        },
+      ],
+      locale: 'mr_IN',
+      videos: [
+        {
+          url: `https://www.dailymotion.com/video/${videoData?.id}`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'player',
+      title: videoData?.title,
+      description: description,
+      images: [videoData?.thumbnail_480_url || videoData?.thumbnail_240_url],
+    },
+  };
+}
+
+const VideoPlayerPage = async ({ params }) => {
   const { videoId, slug } = await params;
 
-  const nameUrl = `https://api.dailymotion.com/playlist/${videoId}/?fields=name`;
-  const playlist_url = `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=1`;
+  const filePath = path.join(process.cwd(), 'app', 'lib', 'slug_map.json');
+  const fileContents = await fs.readFile(filePath, 'utf-8');
+  const jsonData = JSON.parse(fileContents);
+  // console.log(jsonData);
 
-  const [nameResponse, playlistResponse] = await Promise.all([
-    fetch(nameUrl, {
-      next: { revalidate: 300 },
-    }),
-    fetch(playlist_url, {
-      next: { revalidate: 300 },
-    }),
+  const relatedPlaylist = jsonData.find((item) => item.slug === slug);
+
+  const [videoData, relatedVideos] = await Promise.all([
+    fetchVideoById(videoId),
+    fetchRelatedVideos(relatedPlaylist?.id, 1),
   ]);
-
-  if (!nameResponse.ok || !playlistResponse.ok) {
-    return redirect('/');
-  }
-
-  const [nameData, playlistData] = await Promise.all([
-    nameResponse.json(),
-    playlistResponse.json(),
-  ]);
-
-  // console.log(slugify(nameData.name));
-
-  if (slug !== slugify(nameData.name)) {
-    return redirect(`/videos/${slugify(nameData.name)}/${videoId}`);
-  }
-  // console.log(playlistData);
 
   const breadcrumbJsonld = getBreadcrumbListJsonld([
     { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
-    { name: nameData?.name, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}` },
+    { name: relatedPlaylist?.name, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}` },
+    {
+      name: videoData?.title,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`,
+    },
   ]);
-  const HubpageJsonLd = HubPageJsonLd({ slug, videoId, name: nameData.name, ...playlistData });
 
-  const firstVideo = playlistData.list[0] || [];
+  const videoJsonLd = videoDetailJsonLd({ videoData, relatedVideos, slug, videoId });
 
   return (
     <>
       <JsonLdWebPage
         url={`${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`}
-        name={nameData.name}
-        description={nameData?.name}
+        name={videoData?.title}
+        description={videoData?.description}
+        keywords={videoData?.tags}
       />
       <script
         type="application/ld+json"
@@ -64,44 +106,63 @@ const page = async ({ params }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(HubpageJsonLd),
+          __html: JSON.stringify(videoJsonLd),
         }}
       />
-      <BackButton slug={nameData.name} />
-      <section className="lead-video-container ">
-        <section className="video-container">
-          <div className="iframe-container lg">
-            <iframe
-              src={`https://www.dailymotion.com/widget/preview/video/${firstVideo.id}?title=none&duration=none&mode=video&trigger=auto`}
-              title="Dailymotion Video"
-              allowFullScreen
-              loading="lazy"
-              className=""
-            />
-          </div>
-          <div className="video-details-container">
-            <p className="video-title">{firstVideo.title || 'No Title Available'}</p>
-            <div className="">
-              <Link
-                href={`/videos/${slug}/${videoId}/${firstVideo.id}`}
-                className="play-button play-triangle"
-              >
-                Play
-              </Link>
+      <PlayerBack />
+      <div className="detail-wrapper">
+        <div className="video-detail-container">
+          <div className="video-container">
+            <div className="iframe-container">
+              <iframe
+                className="dm-preview-selector"
+                frameBorder="0"
+                src={`https://www.dailymotion.com/embed/video/${videoId}?autoplay=1`}
+                allowFullScreen
+              ></iframe>
             </div>
-          </div>
-        </section>
-      </section>
 
-      <div className="list-view card-category-desktop">
-        {playlistData?.list?.slice(1).map((item, index) => (
-          <CategoryCard key={index} data={item} slug={slug} videoId={videoId} />
-        ))}
-        {/* Infinite Scroll Client Component */}
-        <InfiniteScroll slug={slug} videoId={videoId} startPage={2} />
+            <div className="card">
+              <div
+                className="card-image"
+                style={{
+                  background: `url('${videoData?.thumbnail_480_url}') center center / cover no-repeat`,
+                }}
+              ></div>
+              <div className="card-content">
+                <div className="card-date">{getFormatedData(videoData?.created_time)}</div>
+                <div className="card-title">{videoData?.title}</div>
+                <div className="card-footer">
+                  <span className="card-source">{videoData['owner.screenname']} . </span>
+                  <span className="card-category">{videoData?.channel}</span>
+                  <i className="arrow-icon play-triangle"></i>
+                </div>
+              </div>
+            </div>
+
+            <Suspense fallback={<div>Loading...</div>}>
+              {videoData?.description && <VideoDetailCard data={videoData} />}
+            </Suspense>
+          </div>
+        </div>
+
+        <div className="list-view">
+          <div className="player-related-header">{deslugify(slug)}</div>
+
+          {relatedVideos?.list.map((video) => (
+            <RelatedVideosCardWrapper
+              key={video.id}
+              video={video}
+              videoId={relatedPlaylist?.id}
+              slug={slug}
+            />
+          ))}
+
+          <InfiniteRelatedVideos videoId={relatedPlaylist?.id} slug={slug} startPage={2} />
+        </div>
       </div>
     </>
   );
 };
 
-export default page;
+export default VideoPlayerPage;

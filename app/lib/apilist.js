@@ -81,7 +81,7 @@ export const API_URL_DATA = [
   {
     id: 13,
     title: 'Sope Upay',
-    title_slug: 'sope-u1pay',
+    title_slug: 'sope-upay',
     playlist_id: 'x7h74r',
     isPlaylist: false,
   },

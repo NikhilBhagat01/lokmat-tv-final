@@ -1,8 +1,6 @@
 export const GLOBAL_CONFIG = {
   SITE_PATH:
-    process.env.NODE_ENV == 'production'
-      ? 'http://13.127.247.96'
-      : 'https://lokmat-tv-final.vercel.app',
+    process.env.NODE_ENV == 'production' ? 'http://13.127.247.96' : 'http://localhost:3000',
   SITE_NAVIGATION: {
     name: [
       'होम',

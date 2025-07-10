@@ -4,14 +4,11 @@
 import { useRouter } from 'next/navigation';
 import { getFormatedData, getFormatedDuration } from '../lib/utility';
 
-const RelatedVideosCard = ({ video, videoId, slug }) => {
+const RelatedVideosCard = ({ video, slug }) => {
   const router = useRouter();
 
   return (
-    <div
-      className="card-wraper"
-      onClick={() => router.push(`/videos/${slug}/${videoId}/${video.id}`)}
-    >
+    <div className="card-wraper" onClick={() => router.push(`/videos/${slug}/${video.id}`)}>
       <div className="card gotovideoDetail">
         <div className="card-image imgwrap">
           <img

@@ -29,10 +29,7 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   }, []);
 
   return (
-    <div
-      className="card-wraper item"
-      onClick={() => router.push(`/videos/${slug}/${categoryId}/${item.id}`)}
-    >
+    <div className="card-wraper item" onClick={() => router.push(`/videos/${slug}/${item.id}`)}>
       <div
         className="card iframInsert gotovideoDetail"
         onMouseEnter={withPreview ? handleMouseEnter : undefined}
@@ -91,7 +88,7 @@ const VideoCarousel = ({ title, slug, data, id }) => {
     <section className="lkm-widget">
       <div className="videos-head">
         <h3 className="head-title">{title}</h3>
-        <Link href={`/videos/${slugify(slug)}/${id}`} className="read-all">
+        <Link href={`/videos/${slug}`} className="read-all">
           Explore All
         </Link>
       </div>

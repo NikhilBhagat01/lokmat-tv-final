@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation';
 import { API_URL_DATA, CATEGORY_DATA } from './apilist';
 import { slugify } from './utility';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 const VIDEO_FIELDS =
   'id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair';
@@ -67,61 +69,54 @@ async function fetchAllDailymotionData() {
 
 async function fetchCategoryDataBySlug(slug) {
   try {
-    const category = CATEGORY_DATA.find((item) => item.slug === slug);
+    // const category = CATEGORY_DATA.find((item) => item.slug === slug);
+
+    const filePath = path.join(process.cwd(), 'app', 'lib', 'slug_map.json');
+    const fileContents = await fs.readFile(filePath, 'utf-8');
+    const jsonData = JSON.parse(fileContents);
+
+    const category = jsonData.find((item) => item.slug === slug);
 
     if (!category) {
-      console.error(`No category found for slug: ${slug}`);
       return redirect('/');
     }
 
-    const playlist = category.playlist.split(',');
+    const id = category?.id || null;
 
-    const playlistFetches = playlist.map(async (playlistId) => {
-      const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
-      const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=${VIDEO_FIELDS}&limit=7&page=1`;
+    const nameUrl = `https://api.dailymotion.com/playlist/${id}/?fields=name`;
+    const playlist_url = `https://api.dailymotion.com/playlist/${id}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=1`;
 
-      try {
-        const [nameResponse, videosResponse] = await Promise.all([
-          fetch(nameUrl, {
-            headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
-            next: { revalidate: 300 },
-          }),
-          fetch(videosUrl, {
-            headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
-            next: { revalidate: 300 },
-          }),
-        ]);
+    const [nameResponse, playlistResponse] = await Promise.all([
+      fetch(nameUrl, {
+        next: { revalidate: 300 },
+      }),
+      fetch(playlist_url, {
+        next: { revalidate: 300 },
+      }),
+    ]);
 
-        if (!nameResponse.ok || !videosResponse.ok) {
-          throw new Error('Failed to fetch playlist data');
-        }
+    if (!nameResponse.ok || !playlistResponse.ok) {
+      return redirect('/');
+    }
 
-        const [nameData, videosData] = await Promise.all([
-          nameResponse.json(),
-          videosResponse.json(),
-        ]);
+    const [nameData, playlistData] = await Promise.all([
+      nameResponse.json(),
+      playlistResponse.json(),
+    ]);
 
-        const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
-
-        return {
-          playlistName: nameData.name,
-          videos: videosData.list || [],
-          slug: slugify(playlist_slug),
-          id: playlistId,
-        };
-      } catch (err) {
-        console.error(`Error fetching playlist ${playlistId}:`, err);
-        return null;
-      }
-    });
-
-    const results = await Promise.all(playlistFetches);
-    // console.log(results);
     return {
-      categoryName: category.name,
-      slug: category.slug,
-      playlists: results.filter(Boolean),
+      slug: category?.slug,
+      categoryName: category?.name,
+      playlistData: playlistData?.list || [],
+      id,
     };
+    //TODO: handle case where category is not found
+    // return category || null;
+
+    // if (!category) {
+    //   console.error(`No category found for slug: ${slug}`);
+    //   return redirect('/');
+    // }
   } catch (error) {
     console.error('Error in fetchCategoryDataBySlug:', error);
     throw error;
@@ -130,26 +125,27 @@ async function fetchCategoryDataBySlug(slug) {
 
 async function fetchPlaylistDataBySlug(playlistSlug) {
   try {
-    // console.log(playlistSlug);
-
-    // const playlistIds = API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.playlist_id;
-
     let playlistIds = [];
+    let playListSlug = '';
+    let playListTitle = '';
 
     const apiData = API_URL_DATA.find((item) => item.title_slug === playlistSlug);
     if (apiData?.playlist_id) {
       playlistIds = apiData.playlist_id;
+      playlistSlug = apiData.title_slug;
+      playListTitle = apiData.title;
     } else {
       const categoryData = CATEGORY_DATA.find((item) => item.slug === playlistSlug);
       if (categoryData?.playlist) {
         playlistIds = categoryData.playlist;
+        playListSlug = categoryData.slug;
+        playListTitle = categoryData.name;
       }
     }
+
     if (!playlistIds) return null;
 
-    // console.log(playlistIds);
     const ids = playlistIds.split(',');
-    // console.log(ids);
 
     const playlistFetches = ids.map(async (playlistId) => {
       const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
@@ -191,10 +187,10 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
     });
 
     const results = await Promise.all(playlistFetches);
-    // console.log(results)
-    // return results;
+
     return {
-      playlistName: API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.title,
+      // playlistName: API_URL_DATA.find((item) => item.title_slug === playlistSlug)?.title,
+      playlistName: playListTitle,
       slug: playlistSlug,
       playlist: results.filter(Boolean),
     };

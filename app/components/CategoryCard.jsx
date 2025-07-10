@@ -4,8 +4,9 @@ import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { getFormatedData, getFormatedDuration } from '../lib/utility';
 import useMounted from '../hooks/useMounted';
+import Link from 'next/link';
 
-const CategoryCard = ({ data, slug, videoId }) => {
+const CategoryCard = ({ data, slug }) => {
   const router = useRouter();
   const { mounted, isMobile } = useMounted();
 
@@ -32,7 +33,7 @@ const CategoryCard = ({ data, slug, videoId }) => {
   return (
     <div
       className="card-wraper"
-      onClick={() => router.push(`/videos/${slug}/${videoId}/${data.id}`)}
+      onClick={() => router.push(`/videos/${slug}/${data.id}`)}
       onMouseEnter={!isMobile ? handleMouseEnter : undefined}
       onMouseLeave={!isMobile ? handleMouseLeave : undefined}
     >

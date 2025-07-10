@@ -1,0 +1,695 @@
+[
+  {
+    "id": "x86aue",
+    "name": "Eka Batmi Chi Dusri Goshta",
+    "slug": "eka-batmi-chi-dusri-goshta",
+    "description": "Eka Batmi Chi Dusri Goshta",
+    "created_time": 1708947558
+  },
+  {
+    "id": "x86au4",
+    "name": "Public Kay Mhante",
+    "slug": "public-kay-mhante",
+    "description": "Public Kay Mhante",
+    "created_time": 1708947402
+  },
+  {
+    "id": "x86au2",
+    "name": "Aatli Batmi",
+    "slug": "aatli-batmi",
+    "description": "Aatli Batmi",
+    "created_time": 1708947373
+  },
+  {
+    "id": "x86aty",
+    "name": "Maharashtrachi Batmi",
+    "slug": "maharashtrachi-batmi",
+    "description": "Maharashtrachi Batmi",
+    "created_time": 1708947298
+  },
+  {
+    "id": "x86at6",
+    "name": "News Point",
+    "slug": "news-point",
+    "description": "News point videos of analysis around Maharashtra by Ashish Jadhao",
+    "created_time": 1708946051
+  },
+  {
+    "id": "x86asy",
+    "name": "Mahayudh",
+    "slug": "mahayudh",
+    "description": "Lokmat's first in digital debate show by editor of lokmat videos - Ashish Jadhao",
+    "created_time": 1708945944
+  },
+  {
+    "id": "x86asm",
+    "name": "Politics",
+    "slug": "politics",
+    "description": "Maharahtra Political coverage in Marathi",
+    "created_time": 1708945751
+  },
+  {
+    "id": "x860li",
+    "name": "News & Views",
+    "slug": "news-and-views",
+    "description": "News & Views",
+    "created_time": 1708602063
+  },
+  {
+    "id": "x85uxc",
+    "name": "Latest News",
+    "slug": "latest-news",
+    "description": "Latest News & Current Affairs from Maharashtra",
+    "created_time": 1708489720
+  },
+  {
+    "id": "x7vjwd",
+    "name": "lokmat maharashtrian of the year awards 2023",
+    "slug": "lokmat-maharashtrian-of-the-year-awards-2023",
+    "description": null,
+    "created_time": 1684219804
+  },
+  {
+    "id": "x7vf1k",
+    "name": "Karnataka Election Result 2023",
+    "slug": "karnataka-election-result-2023",
+    "description": "<br />Karnataka Election Result 2023",
+    "created_time": 1683971600
+  },
+  {
+    "id": "x7pxcz",
+    "name": "Lokmat Money - How to Invest",
+    "slug": "lokmat-money-how-to-invest",
+    "description": "Latest Update on finance and stock market Topics",
+    "created_time": 1674460143
+  },
+  {
+    "id": "x7mmzl",
+    "name": "Lokmat Most Stylish Awards 2022",
+    "slug": "lokmat-most-stylish-awards-2022",
+    "description": null,
+    "created_time": 1667030487
+  },
+  {
+    "id": "x7mmzk",
+    "name": "Lokmat Maharashtrian of the Year Awards 2022",
+    "slug": "lokmat-maharashtrian-of-the-year-awards-2022",
+    "description": null,
+    "created_time": 1667030436
+  },
+  {
+    "id": "x7irf4",
+    "name": "Lokmat Maharashtrian Of The Year 2021",
+    "slug": "lokmat-maharashtrian-of-the-year-2021",
+    "description": null,
+    "created_time": 1656311134
+  },
+  {
+    "id": "x7irez",
+    "name": "Lokmat Most Stylish Awards - 2019",
+    "slug": "lokmat-most-stylish-awards-2019",
+    "description": null,
+    "created_time": 1656310561
+  },
+  {
+    "id": "x7ird4",
+    "name": "Sur Jyotsna Music Awards 2019",
+    "slug": "sur-jyotsna-music-awards-2019",
+    "description": null,
+    "created_time": 1656304989
+  },
+  {
+    "id": "x7ingc",
+    "name": "Lokmat Most Stylish Awards 2021",
+    "slug": "lokmat-most-stylish-awards-2021",
+    "description": "Lokmat Most Stylish Awards 2021",
+    "created_time": 1655981487
+  },
+  {
+    "id": "x7inez",
+    "name": "Lokmat SurJyotsna 2021",
+    "slug": "lokmat-surjyotsna-2021",
+    "description": "Watch all your favorite singing maestros | National Music Awards 2021",
+    "created_time": 1655977878
+  },
+  {
+    "id": "x7i5i4",
+    "name": "ताज्या बातम्या - Marathi Batmya",
+    "slug": "marathi-batmya",
+    "description": "ताज्या बातम्या - Marathi Batmya",
+    "created_time": 1654854823
+  },
+  {
+    "id": "x7h89k",
+    "name": "Trending Videos",
+    "slug": "trending-videos",
+    "description": "Trending Videos",
+    "created_time": 1652330297
+  },
+  {
+    "id": "x7h89j",
+    "name": "Top Stories Today",
+    "slug": "top-stories-today",
+    "description": "Top Stories Today",
+    "created_time": 1652330261
+  },
+  {
+    "id": "x7h77b",
+    "name": "Digital Influencer Awards 2021",
+    "slug": "digital-influencer-awards-2021",
+    "description": "DIA",
+    "created_time": 1652268994
+  },
+  {
+    "id": "x7h777",
+    "name": "SurJyotsna 2021",
+    "slug": "surjyotsna-2021",
+    "description": "Sur Jyotsna",
+    "created_time": 1652268741
+  },
+  {
+    "id": "x7h776",
+    "name": "Lokmat Maharashtrian Of The Year Awards 2019",
+    "slug": "lokmat-maharashtrian-of-the-year-awards-2019",
+    "description": null,
+    "created_time": 1652268531
+  },
+  {
+    "id": "x7h774",
+    "name": "Lokmat Most Stylish 2021",
+    "slug": "lokmat-most-stylish-2021",
+    "description": "Lokmat Most Stylish 2021",
+    "created_time": 1652268393
+  },
+  {
+    "id": "x7h75w",
+    "name": "Trending Viral Videos",
+    "slug": "trending-viral-videos",
+    "description": "Trending Viral Videos",
+    "created_time": 1652265377
+  },
+  {
+    "id": "x7h75u",
+    "name": "Latest Viral Videos",
+    "slug": "latest-viral-videos",
+    "description": "Latest Viral Videos",
+    "created_time": 1652265205
+  },
+  {
+    "id": "x7h75a",
+    "name": "Beyond Boundaries",
+    "slug": "beyond-boundaries",
+    "description": "Beyond Boundaries",
+    "created_time": 1652264396
+  },
+  {
+    "id": "x7h750",
+    "name": "Inspirational Stories",
+    "slug": "inspirational-stories",
+    "description": "Inspirational Stories",
+    "created_time": 1652263698
+  },
+  {
+    "id": "x7h74t",
+    "name": "Hello Jalgaon",
+    "slug": "hello-jalgaon",
+    "description": "Hello Jalgaon",
+    "created_time": 1652263507
+  },
+  {
+    "id": "x7h74l",
+    "name": "Hello Kolhapur",
+    "slug": "hello-kolhapur",
+    "description": "Hello Kolhapur",
+    "created_time": 1652263235
+  },
+  {
+    "id": "x7h74c",
+    "name": "Hello Nashik - नाशिक",
+    "slug": "hello-nashik",
+    "description": "Hello Nashik",
+    "created_time": 1652262671
+  },
+  {
+    "id": "x7h73y",
+    "name": "Lokmat Chhatrapati Sambhajinagar",
+    "slug": "lokmat-chhatrapati-sambhajinagar",
+    "description": "Lokmat Chhatrapati Sambhajinagar<br />",
+    "created_time": 1652261445
+  },
+  {
+    "id": "x7h73x",
+    "name": "Hello Nagpur",
+    "slug": "hello-nagpur",
+    "description": "Hello Nagpur",
+    "created_time": 1652261289
+  },
+  {
+    "id": "x7h73v",
+    "name": "Hello KDMC",
+    "slug": "hello-kdmc",
+    "description": "Hello KDMC",
+    "created_time": 1652261037
+  },
+  {
+    "id": "x7h73p",
+    "name": "Hello Thane",
+    "slug": "hello-thane",
+    "description": "Hello Thane",
+    "created_time": 1652260693
+  },
+  {
+    "id": "x7h731",
+    "name": "Hello Mumbai",
+    "slug": "hello-mumbai",
+    "description": "Hello Mumbai",
+    "created_time": 1652258837
+  },
+  {
+    "id": "x7h72r",
+    "name": "Hello Pune",
+    "slug": "hello-pune",
+    "description": "Latest updates from Pune",
+    "created_time": 1652257804
+  },
+  {
+    "id": "x7h6zp",
+    "name": "Face to Face Exclusive interview by Atul Kulkarni",
+    "slug": "face-to-face-exclusive-interview-by-atul-kulkarni",
+    "description": "Face to Face Exclusive interview by Atul Kulkarni",
+    "created_time": 1652256586
+  },
+  {
+    "id": "x7h6u5",
+    "name": "Crime Stories",
+    "slug": "crime-stories",
+    "description": "Crime Stories",
+    "created_time": 1652252865
+  },
+  {
+    "id": "x7h6u0",
+    "name": "Hello Maharashtra",
+    "slug": "hello-maharashtra",
+    "description": "Hello Maharashtra",
+    "created_time": 1652252046
+  },
+  {
+    "id": "x7h6to",
+    "name": "Special Report",
+    "slug": "special-report",
+    "description": "Special Report",
+    "created_time": 1652251366
+  },
+  {
+    "id": "x7h6tg",
+    "name": "To the Point",
+    "slug": "to-the-point",
+    "description": "To the Point",
+    "created_time": 1652250616
+  },
+  {
+    "id": "x7h6t7",
+    "name": "Aajchi News",
+    "slug": "aajchi-news",
+    "description": "Aajchi News",
+    "created_time": 1652249805
+  },
+  {
+    "id": "x7qrm9",
+    "name": "Lokmat Sakhi Awards 2023",
+    "slug": "lokmat-sakhi-awards-2023",
+    "description": null,
+    "created_time": 1676093476
+  },
+  {
+    "id": "x7qrm7",
+    "name": "Lokmat Sakhi Talks",
+    "slug": "lokmat-sakhi-talks",
+    "description": null,
+    "created_time": 1676093439
+  },
+  {
+    "id": "x7qoon",
+    "name": "Kitchen Hacks",
+    "slug": "kitchen-hacks",
+    "description": null,
+    "created_time": 1675924742
+  },
+  {
+    "id": "x7pdbk",
+    "name": "Fashion and Life Style",
+    "slug": "fashion-and-life-style",
+    "description": null,
+    "created_time": 1673357076
+  },
+  {
+    "id": "x7nbeb",
+    "name": "Love and Relationship",
+    "slug": "love-and-relationship",
+    "description": null,
+    "created_time": 1668673501
+  },
+  {
+    "id": "x7kcxg",
+    "name": "Ganpati Decoration 2022",
+    "slug": "ganpati-decoration-2022",
+    "description": null,
+    "created_time": 1660810002
+  },
+  {
+    "id": "x7kcxe",
+    "name": "Ganesh Mahotsav",
+    "slug": "ganesh-mahotsav",
+    "description": null,
+    "created_time": 1660809968
+  },
+  {
+    "id": "x7h8av",
+    "name": "Hot & Trending in Sakhi",
+    "slug": "hot-and-trending-in-sakhi",
+    "description": null,
+    "created_time": 1652335707
+  },
+  {
+    "id": "x7h7tj",
+    "name": "Health Mantra",
+    "slug": "health-mantra",
+    "description": null,
+    "created_time": 1652289644
+  },
+  {
+    "id": "x7h7tf",
+    "name": "Influencer Katta",
+    "slug": "influencer-katta",
+    "description": null,
+    "created_time": 1652289514
+  },
+  {
+    "id": "x7h7t9",
+    "name": "Ask the Expert",
+    "slug": "ask-the-expert",
+    "description": null,
+    "created_time": 1652289317
+  },
+  {
+    "id": "x7h7t5",
+    "name": "Diet & Fitness",
+    "slug": "diet-and-fitness",
+    "description": null,
+    "created_time": 1652289084
+  },
+  {
+    "id": "x7h78s",
+    "name": "Style Statement",
+    "slug": "style-statement",
+    "description": "Mrunmayi Avchat",
+    "created_time": 1652274238
+  },
+  {
+    "id": "x7h76p",
+    "name": "Stars Life & Style",
+    "slug": "stars-life-and-style",
+    "description": "Stars Life & Style",
+    "created_time": 1652267173
+  },
+  {
+    "id": "x7h76l",
+    "name": "Home Remedies",
+    "slug": "home-remedies",
+    "description": "Home Remedies",
+    "created_time": 1652266869
+  },
+  {
+    "id": "x7h76j",
+    "name": "Shopping",
+    "slug": "shopping",
+    "description": "Shopping",
+    "created_time": 1652266718
+  },
+  {
+    "id": "x7h766",
+    "name": "Beauty & Makeup",
+    "slug": "beauty-and-makeup",
+    "description": "Beauty & Makeup",
+    "created_time": 1652265773
+  },
+  {
+    "id": "x7dz53",
+    "name": "Lokmat Sakhi",
+    "slug": "lokmat-sakhi",
+    "description": null,
+    "created_time": 1643783138
+  },
+  {
+    "id": "x7zc98",
+    "name": "It's My Day",
+    "slug": "its-my-day",
+    "description": null,
+    "created_time": 1694597687
+  },
+  {
+    "id": "x7vjul",
+    "name": "Love Story",
+    "slug": "love-story",
+    "description": null,
+    "created_time": 1684216648
+  },
+  {
+    "id": "x7vev0",
+    "name": "Aai Kuthe Kay Karte Engagement  Interview",
+    "slug": "aai-kuthe-kay-karte-engagement-interview",
+    "description": null,
+    "created_time": 1683957051
+  },
+  {
+    "id": "x7uub6",
+    "name": "Biographies Of Marathi Celebrities",
+    "slug": "biographies-of-marathi-celebrities",
+    "description": null,
+    "created_time": 1682933953
+  },
+  {
+    "id": "x7sc0t",
+    "name": "New Videos",
+    "slug": "new-videos",
+    "description": null,
+    "created_time": 1679128796
+  },
+  {
+    "id": "x7q4wz",
+    "name": "No Filter",
+    "slug": "no-filter",
+    "description": null,
+    "created_time": 1674891196
+  },
+  {
+    "id": "x7pmhk",
+    "name": "Te Sadhya Kay Kartat",
+    "slug": "te-sadhya-kay-kartat",
+    "description": null,
+    "created_time": 1673849933
+  },
+  {
+    "id": "x7is1a",
+    "name": "Marathi Popular Stars",
+    "slug": "marathi-popular-stars",
+    "description": "Marathi Popular Stars",
+    "created_time": 1656330531
+  },
+  {
+    "id": "x7h7v4",
+    "name": "Celebrity Interviews",
+    "slug": "celebrity-interviews",
+    "description": null,
+    "created_time": 1652291179
+  },
+  {
+    "id": "x7h7v1",
+    "name": "Celebrity Fitness",
+    "slug": "celebrity-fitness",
+    "description": null,
+    "created_time": 1652291130
+  },
+  {
+    "id": "x7h7uy",
+    "name": "Maharashtrachi Hasya Jatra - Episodic Arcs",
+    "slug": "maharashtrachi-hasya-jatra-episodic-arcs",
+    "description": null,
+    "created_time": 1652291064
+  },
+  {
+    "id": "x7h7us",
+    "name": "Chala Hava yeu dya - Episodic Arcs",
+    "slug": "chala-hava-yeu-dya-episodic-arcs",
+    "description": null,
+    "created_time": 1652290991
+  },
+  {
+    "id": "x7h7to",
+    "name": "Filmy Panchayat",
+    "slug": "filmy-panchayat",
+    "description": null,
+    "created_time": 1652290030
+  },
+  {
+    "id": "x7h76b",
+    "name": "Thet from the Set",
+    "slug": "thet-from-the-set",
+    "description": "Thet from the Set",
+    "created_time": 1652266121
+  },
+  {
+    "id": "x7h767",
+    "name": "New Release",
+    "slug": "new-release",
+    "description": "New Release",
+    "created_time": 1652265848
+  },
+  {
+    "id": "x7h765",
+    "name": "Celebrity Gossips",
+    "slug": "celebrity-gossips",
+    "description": "Celebrity Gossips",
+    "created_time": 1652265715
+  },
+  {
+    "id": "x7h761",
+    "name": "Hot & Trending in Entertainment",
+    "slug": "hot-and-trending-in-entertainment",
+    "description": "Hot & Trending in Entertainment",
+    "created_time": 1652265603
+  },
+  {
+    "id": "x7wl6o",
+    "name": "Pandharpur Wari 2023",
+    "slug": "pandharpur-wari-2023",
+    "description": null,
+    "created_time": 1686310712
+  },
+  {
+    "id": "x7vf4r",
+    "name": "shopping",
+    "slug": "shopping",
+    "description": null,
+    "created_time": 1683980982
+  },
+  {
+    "id": "x7uuaw",
+    "name": "Shorts",
+    "slug": "shorts",
+    "description": "Shorts",
+    "created_time": 1682933402
+  },
+  {
+    "id": "x7tufo",
+    "name": "Astrology Tips for Money",
+    "slug": "astrology-tips-for-money",
+    "description": null,
+    "created_time": 1681371303
+  },
+  {
+    "id": "x7tufm",
+    "name": "Dhan Prapti Sathi Upay",
+    "slug": "dhan-prapti-sathi-upay",
+    "description": null,
+    "created_time": 1681371258
+  },
+  {
+    "id": "x7tufl",
+    "name": "Akshaya Tritiya",
+    "slug": "akshaya-tritiya",
+    "description": null,
+    "created_time": 1681371178
+  },
+  {
+    "id": "x7qpt4",
+    "name": "Vasturaviraj Dr. Raviraj Ahirrao",
+    "slug": "vasturaviraj-dr-raviraj-ahirrao",
+    "description": null,
+    "created_time": 1676006121
+  },
+  {
+    "id": "x7qou9",
+    "name": "Mahashivratri 2023",
+    "slug": "mahashivratri-2023",
+    "description": null,
+    "created_time": 1675942116
+  },
+  {
+    "id": "x7kk1m",
+    "name": "नवीन व्हिडीओज्",
+    "slug": "",
+    "description": "नवीन व्हिडीओज्",
+    "created_time": 1661429336
+  },
+  {
+    "id": "x7h760",
+    "name": "Popular Kirtans",
+    "slug": "popular-kirtans",
+    "description": "Popular Kirtans",
+    "created_time": 1652265566
+  },
+  {
+    "id": "x7h75y",
+    "name": "Jeevan Vidya",
+    "slug": "jeevan-vidya",
+    "description": "Jeevan Vidya",
+    "created_time": 1652265423
+  },
+  {
+    "id": "x7h75v",
+    "name": "Guru Mauli",
+    "slug": "guru-mauli",
+    "description": "Guru Mauli",
+    "created_time": 1652265207
+  },
+  {
+    "id": "x7h75k",
+    "name": "Bhakti Geet",
+    "slug": "bhakti-geet",
+    "description": "Bhakti Geet",
+    "created_time": 1652264700
+  },
+  {
+    "id": "x7h757",
+    "name": "Vastu Shastra",
+    "slug": "vastu-shastra",
+    "description": "Vastu Shastra",
+    "created_time": 1652264264
+  },
+  {
+    "id": "x7h753",
+    "name": "Numerology",
+    "slug": "numerology",
+    "description": "Numerology",
+    "created_time": 1652264081
+  },
+  {
+    "id": "x7h752",
+    "name": "Jyotish Shastra",
+    "slug": "jyotish-shastra",
+    "description": "Jyotish Shastra",
+    "created_time": 1652263922
+  },
+  {
+    "id": "x7h751",
+    "name": "Events & Festival",
+    "slug": "events-and-festival",
+    "description": "Events & Festival",
+    "created_time": 1652263729
+  },
+  {
+    "id": "x7h74r",
+    "name": "Sope Upay",
+    "slug": "sope-upay",
+    "description": "Sope Upay",
+    "created_time": 1652263451
+  },
+  {
+    "id": "x7dz54",
+    "name": "Lokmat Bhakti",
+    "slug": "lokmat-bhakti",
+    "description": null,
+    "created_time": 1643783180
+  }
+]
