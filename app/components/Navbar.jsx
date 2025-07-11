@@ -63,7 +63,7 @@ const Header = () => {
                   {CITY_DATA.map((city, key) => (
                     <li className="cityItem " key={key}>
                       <Link
-                        href={`/videos/${city.slug}/${city.playlist}`}
+                        href={`/videos/${city.slug}`}
                         className=""
                         title={city.name}
                         onClick={() => setIsCityOpen(false)}
@@ -109,7 +109,7 @@ const Header = () => {
                 {CITY_DATA.map((city, key) => (
                   <li className="cityItem " key={key}>
                     <Link
-                      href={`/videos/${city.slug}/${city.playlist}`}
+                      href={`/videos/${city.slug}`}
                       className=""
                       title={city.name}
                       onClick={() => setIsCityOpen(false)}
