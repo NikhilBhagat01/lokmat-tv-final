@@ -199,7 +199,7 @@ export const CITY_DATA = [
   },
   {
     name: 'Hello Kalyan Dombivili',
-    slug: 'hello-kalyan-dombivili',
+    slug: 'hello-kdmc',
     playlist: 'x7h73v',
   },
   {
@@ -209,7 +209,7 @@ export const CITY_DATA = [
   },
   {
     name: 'Hello Chhatrapati Sambhajinagar',
-    slug: 'hello-chhatrapati-sambhajinagar',
+    slug: 'lokmat-chhatrapati-sambhajinagar',
     playlist: 'x7h73y',
   },
   {
