@@ -34,9 +34,9 @@ export const metadata = {
     siteName: 'LokmatTV',
     images: [
       {
-        url: 'https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg',
-        width: 1200,
-        height: 630,
+        url: GLOBAL_CONFIG.OG_IMAGE,
+        width: 686,
+        height: 514,
       },
     ],
     locale: 'mr_IN',
@@ -46,7 +46,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Lokmat TV - Latest News & Videos',
     description: 'Watch the latest news, entertainment, and trending video content from Lokmat TV.',
-    images: ['https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg'],
+    images: [GLOBAL_CONFIG.OG_IMAGE],
   },
 };
 

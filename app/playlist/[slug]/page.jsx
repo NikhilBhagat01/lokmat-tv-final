@@ -10,6 +10,99 @@ import { fetchPlaylistDataBySlug } from '@/app/lib/FetchData';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const playlistData = await fetchPlaylistDataBySlug(slug);
+
+  if (!playlistData) return {};
+
+  const playlistName = playlistData?.playlistName || '';
+  const canonicalUrl = `${GLOBAL_CONFIG.SITE_PATH}/playlist/${slug}`;
+  const image = playlistData?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE;
+
+  // Categorized meta logic
+  const categoryMetaMap = {
+    news: {
+      title: `${playlistName} | Breaking News & Current Affairs - LokmatTV`,
+      description: `Stay updated with the latest headlines, politics, and global affairs from ${playlistName}.`,
+      keywords:
+        'breaking news, video news, politics, lokmat headlines, current affairs, news today',
+    },
+    'city-news': {
+      title: `${playlistName} | Local City News Videos - LokmatTV`,
+      description: `Watch latest updates and news from your city in ${playlistName}.`,
+      keywords: 'city news, local updates, nagpur news, pune news, maharashtra cities',
+    },
+    entertainment: {
+      title: `${playlistName} | Celebrity News & Bollywood Buzz - LokmatTV`,
+      description: `Catch up with Bollywood news, celebrity interviews and TV updates from ${playlistName}.`,
+      keywords: 'bollywood news, celebrity gossip, movie trailers, tv shows, entertainment videos',
+    },
+    'social-viral': {
+      title: `${playlistName} | Trending & Viral Social Videos - LokmatTV`,
+      description: `Watch viral stories, trending reels and internet buzz from ${playlistName}.`,
+      keywords: 'viral videos, trending news, social buzz, memes, internet trends, funny videos',
+    },
+    sakhi: {
+      title: `${playlistName} | Women Lifestyle & Empowerment - LokmatTV`,
+      description: `Explore health, fashion and inspiring women stories in ${playlistName}.`,
+      keywords: 'women videos, empowerment, health tips, fashion, sakhi, lifestyle content',
+    },
+    bhakti: {
+      title: `${playlistName} | Devotional Bhajans & Aartis - LokmatTV`,
+      description: `Spiritual content including bhajans, kirtans and aartis from ${playlistName}.`,
+      keywords: 'bhakti, devotional songs, bhajan, aarti, spiritual videos, religious content',
+    },
+    events: {
+      title: `${playlistName} | Latest Cultural & Political Events - LokmatTV`,
+      description: `Coverage of public, political and cultural events from ${playlistName}.`,
+      keywords: 'event videos, public events, cultural shows, politics, lokmat events',
+    },
+    inspirational: {
+      title: `${playlistName} | Motivational & Uplifting Stories - LokmatTV`,
+      description: `Inspirational stories, real journeys, and motivational content from ${playlistName}.`,
+      keywords: 'inspirational videos, motivational stories, life lessons, lokmat positivity',
+    },
+  };
+
+  const lowerSlug = slug.toLowerCase();
+  const meta = categoryMetaMap[lowerSlug] || {
+    title: `${playlistName} | Latest Videos on LokmatTV`,
+    description: `Watch the latest videos from ${playlistName} on LokmatTV.`,
+    keywords: 'lokmat videos, trending clips, latest news, video playlist, lokmat tv',
+  };
+
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: canonicalUrl,
+      siteName: 'LokmatTV',
+      images: [
+        {
+          url: image,
+          width: 686,
+          height: 514,
+          // alt: `${playlistName} Thumbnail`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.description,
+      images: [image],
+    },
+  };
+}
+
 const page = async ({ params }) => {
   const { slug } = await params;
   // console.log(slug);

@@ -10,59 +10,70 @@ import { fetchCategoryDataBySlug } from '@/app/lib/FetchData';
 import Link from 'next/link';
 import React from 'react';
 
-// export async function generateMetadata({ params }) {
-//   const { slug } = await params;
-//   const data = await fetchCategoryDataBySlug(slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const data = await fetchCategoryDataBySlug(slug);
 
-//   // console.log(data);
-//   if (!data) return {};
+  if (!data) return {};
 
-//   const firstPlaylist = data?.playlistData[0] || [];
-//   const firstVideo = firstPlaylist?.videos?.[0] || {};
-//   const categoryName = firstPlaylist.playlistName || '';
+  // const firstPlaylist = data?.playlistData[0] || [];
+  // const firstVideo = firstPlaylist?.videos?.[0] || {};
+  const categoryName = data?.categoryName || '';
 
-//   return {
-//     title: `${categoryName} - Lokmat TV Videos`,
-//     description: `Watch latest ${categoryName} videos on Lokmat TV. Stay updated with breaking news, exclusive stories, and trending videos from ${categoryName}.`,
-//     keywords: `${categoryName}, Lokmat TV, Marathi news, video news, latest ${categoryName} news, ${categoryName} videos, news updates, Lokmat live`,
-//     metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
-//     alternates: {
-//       canonical: `/videos/${slug}`,
-//     },
-//     links: [
-//       {
-//         rel: 'amphtml',
-//         href: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/amp/`,
-//       },
-//     ],
-//     openGraph: {
-//       title: `${categoryName} - Lokmat TV Videos`,
-//       description: `Watch latest ${categoryName} videos on Lokmat TV. Breaking news and exclusive stories from ${categoryName}.`,
-//       url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}`,
-//       siteName: 'LokmatTV',
-//       images: [
-//         {
-//           url:
-//             firstVideo?.thumbnail_240_url ||
-//             'https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg',
-//           width: 1200,
-//           height: 630,
-//         },
-//       ],
-//       locale: 'mr_IN',
-//       type: 'website',
-//     },
-//     twitter: {
-//       card: 'summary_large_image',
-//       title: `${categoryName} - Lokmat TV Videos`,
-//       description: `Watch latest ${categoryName} videos on Lokmat TV. Breaking news and exclusive stories.`,
-//       images: [
-//         firstVideo?.thumbnail_240_url ||
-//           'https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg',
-//       ],
-//     },
-//   };
-// }
+  const categoryMetadataMap = {
+    entertainment: {
+      title:
+        'Latest Enetertainment Video Galleries | Bollwood & Hollywood Movie Videos & trailers| Celebrity Videos | Lokmat.com',
+      description:
+        'Entertainment video Gallery - Explore latest & trending Videos on Bollywood,Hollywood & south movies, entertainment & television awards, TV shows & events, fashion shows. Also explore Hot & Sexy Videos of Bollywood & Hollywood actors, actress, and models at Lokmat.com',
+      keywords:
+        'Bollywood Videos, Bollywood movie trailers & Videos, Hollywood movie Videos, Bollywood celebrity Videos, hollywood celebrity Videos, hot & sexy Video Galleries, Bollywood fashion shoot, Bollywoodfashion shows, Bollywood Videos, Videos of TV celebrities',
+    },
+  };
+
+  const meta = categoryMetadataMap[categoryName] || {
+    title: `${categoryName} - Lokmat TV Videos`,
+    description: `Watch latest ${categoryName} videos on Lokmat TV. Stay updated with breaking news, exclusive stories, and trending videos from ${categoryName}.`,
+    keywords: `${categoryName}, Lokmat TV, Marathi news, video news, latest ${categoryName} news, ${categoryName} videos, news updates, Lokmat live`,
+  };
+
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
+    alternates: {
+      canonical: `/videos/${slug}`,
+    },
+    links: [
+      {
+        rel: 'amphtml',
+        href: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/amp/`,
+      },
+    ],
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}`,
+      siteName: 'LokmatTV',
+      images: [
+        {
+          url: data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE,
+          width: 686,
+          height: 514,
+        },
+      ],
+      locale: 'mr_IN',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.description,
+      images: [data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE],
+    },
+  };
+}
 
 const page = async ({ params }) => {
   const { slug } = await params;
