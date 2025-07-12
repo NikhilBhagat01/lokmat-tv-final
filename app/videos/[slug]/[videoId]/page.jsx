@@ -49,7 +49,7 @@ export async function generateMetadata({ params }) {
           height: 360,
         },
       ],
-      locale: 'mr_IN',
+      locale: 'mr',
       videos: [
         {
           url: `https://www.dailymotion.com/video/${videoData?.id}`,
@@ -61,6 +61,9 @@ export async function generateMetadata({ params }) {
       title: videoData?.title,
       description: description,
       images: [videoData?.thumbnail_480_url || videoData?.thumbnail_240_url],
+      player: `https://www.lokmat.com/embed/${videoData?.id}`, // or Dailymotion's embeddable player
+      playerWidth: 480,
+      playerHeight: 270,
     },
   };
 }

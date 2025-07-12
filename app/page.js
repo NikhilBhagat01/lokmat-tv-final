@@ -11,12 +11,19 @@ import VideoCarousel from './components/VideoCarousel';
 import { getBreadcrumbListJsonld, getHomePageJsonLd, JsonLdWebPage } from './jsonld';
 import { GLOBAL_CONFIG } from './config/config';
 
-export const metadata = {
-  title: 'Lokmat TV - Latest News & Videos',
+const meta = {
+  title:
+    'Online Marathi Videos: News Bulletin, News Videos Clips, Maharashtra, Mumbai, Pune, Entertainment, Sports, Lifestyle, Astrology, Technology, Auto Video Online from Lokmat.com',
   description:
-    'Watch the latest news, entertainment, and trending video content from Lokmat TV. Stay updated with breaking news, exclusive stories, and popular playlists.',
+    'Watch Online Marathi Videos, News Bulletin, News Video Clips, Entertainment Videos, Sports Videos, Lifestyle Videos, Astrology Videos, Technology Videos, Auto Videos Only on Lokmat.com',
   keywords:
-    'Lokmat TV, Marathi news, breaking news, latest news, video news, Maharashtra news, entertainment news, viral videos, news updates, Lokmat live',
+    'online marathi videos, online news bulletin, news video clips, Maharashtra videos, Mumbai videos, pune videos, entertainment videos, sports videos, lifestyle videos, astrology videos, technology videos, auto videos, lokmat, online Marathi news bulletin',
+};
+
+export const metadata = {
+  title: meta.title,
+  description: meta.description,
+  keywords: meta.keywords,
   metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
   alternates: {
     canonical: '/videos',
@@ -28,24 +35,27 @@ export const metadata = {
     },
   ],
   openGraph: {
-    title: 'Lokmat TV - Latest News & Videos',
-    description: 'Watch the latest news, entertainment, and trending video content from Lokmat TV.',
+    title: meta.title,
+    description: meta.description,
     url: `${GLOBAL_CONFIG.SITE_PATH}/videos`,
-    siteName: 'LokmatTV',
+    siteName: 'https://www.lokmat.com/',
     images: [
       {
         url: GLOBAL_CONFIG.OG_IMAGE,
         width: 686,
         height: 514,
+        type: 'image/jpeg',
       },
     ],
-    locale: 'mr_IN',
+    locale: 'mr',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lokmat TV - Latest News & Videos',
-    description: 'Watch the latest news, entertainment, and trending video content from Lokmat TV.',
+    title: meta.title,
+    description: meta.description,
+    site: '@lokmat',
+    creator: '@mlokmat',
     images: [GLOBAL_CONFIG.OG_IMAGE],
   },
 };

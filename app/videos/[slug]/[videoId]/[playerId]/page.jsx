@@ -43,7 +43,7 @@ export async function generateMetadata({ params }) {
           height: 360,
         },
       ],
-      locale: 'mr_IN',
+      locale: 'mr',
       videos: [
         {
           url: `https://www.dailymotion.com/video/${videoData?.id}`,

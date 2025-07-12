@@ -63,7 +63,7 @@ export async function generateMetadata({ params }) {
           height: 514,
         },
       ],
-      locale: 'mr_IN',
+      locale: 'mr',
       type: 'website',
     },
     twitter: {
