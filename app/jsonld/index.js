@@ -92,14 +92,7 @@ export const getHomePageJsonLd = (data) => {
           description: cleanVideoDescription(video?.description) || video?.title,
           thumbnailUrl: video?.thumbnail_240_url,
           duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-          url:
-            GLOBAL_CONFIG.SITE_PATH +
-            '/videos/' +
-            section?.title_slug +
-            '/' +
-            section?.id +
-            '/' +
-            video?.id,
+          url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + section?.title_slug + '/' + video?.id,
           embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
           uploadDate: toISTIso8601(video?.created_time),
           publisher,
@@ -210,14 +203,7 @@ export const PlaylistJsonLd = (data) => {
         description: cleanVideoDescription(video?.description) || video?.title,
         thumbnailUrl: video?.thumbnail_240_url,
         duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-        url:
-          GLOBAL_CONFIG.SITE_PATH +
-          '/videos/' +
-          section?.slug +
-          '/' +
-          section?.id +
-          '/' +
-          video?.id,
+        url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + section?.slug + '/' + video?.id,
         embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
         uploadDate: toISTIso8601(video?.created_time),
         publisher,
