@@ -38,7 +38,7 @@ export const metadata = {
     title: meta.title,
     description: meta.description,
     url: `${GLOBAL_CONFIG.SITE_PATH}/videos`,
-    siteName: 'https://www.lokmat.com/',
+    siteName: GLOBAL_CONFIG.OG_SITE_NAME,
     images: [
       {
         url: GLOBAL_CONFIG.OG_IMAGE,

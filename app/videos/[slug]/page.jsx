@@ -55,7 +55,7 @@ export async function generateMetadata({ params }) {
       title: meta.title,
       description: meta.description,
       url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}`,
-      siteName: 'LokmatTV',
+      siteName: GLOBAL_CONFIG.OG_SITE_NAME,
       images: [
         {
           url: data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE,

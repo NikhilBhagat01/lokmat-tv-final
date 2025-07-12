@@ -84,7 +84,7 @@ export async function generateMetadata({ params }) {
       title: meta.title,
       description: meta.description,
       url: canonicalUrl,
-      siteName: 'LokmatTV',
+      siteName: GLOBAL_CONFIG.OG_SITE_NAME,
       images: [
         {
           url: image,
