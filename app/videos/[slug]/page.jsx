@@ -61,16 +61,24 @@ export async function generateMetadata({ params }) {
           url: data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE,
           width: 686,
           height: 514,
+          type: 'image/jpeg',
         },
       ],
-      locale: 'mr',
+      locale: GLOBAL_CONFIG.META_OG_LOCALE,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: meta.title,
       description: meta.description,
+      site: GLOBAL_CONFIG.META_TW_SITE,
+      creator: GLOBAL_CONFIG.META_TW_CREATOR,
       images: [data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE],
+    },
+    other: {
+      'twitter:url': `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}`,
+      'twitter:player:width': '480',
+      'twitter:player:height': '270',
     },
   };
 }

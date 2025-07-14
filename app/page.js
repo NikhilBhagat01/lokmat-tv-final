@@ -47,16 +47,19 @@ export const metadata = {
         type: 'image/jpeg',
       },
     ],
-    locale: 'mr',
+    locale: GLOBAL_CONFIG.META_OG_LOCALE,
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: meta.title,
     description: meta.description,
-    site: '@lokmat',
-    creator: '@mlokmat',
+    site: GLOBAL_CONFIG.META_TW_SITE,
+    creator: GLOBAL_CONFIG.META_TW_CREATOR,
     images: [GLOBAL_CONFIG.OG_IMAGE],
+  },
+  other: {
+    'twitter:url': `${GLOBAL_CONFIG.SITE_PATH}/videos`,
   },
 };
 

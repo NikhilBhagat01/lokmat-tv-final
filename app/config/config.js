@@ -3,6 +3,9 @@ export const GLOBAL_CONFIG = {
     process.env.NODE_ENV == 'production' ? 'http://13.127.247.96' : 'http://localhost:3000',
   OG_IMAGE: 'https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg',
   OG_SITE_NAME: 'https://www.lokmat.com/',
+  META_OG_LOCALE: 'mr',
+  META_TW_SITE: '@Lokmat',
+  META_TW_CREATOR: '@milokmat',
   SITE_NAVIGATION: {
     name: [
       'होम',

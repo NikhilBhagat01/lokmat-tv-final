@@ -7,7 +7,7 @@ import RelatedVideosCardWrapper from '@/app/components/RelatedVideosCardWrapper'
 import InfiniteRelatedVideos from '@/app/components/InfiniteRelatedVideos';
 import VideoDetailCard from '@/app/components/VideoDescription';
 import { fetchVideoById, fetchRelatedVideos, videoDetailData } from '@/app/lib/FetchData';
-import { deslugify, getFormatedData, shortenText } from '@/app/lib/utility';
+import { cleanVideoDescription, deslugify, getFormatedData, toISTIso8601 } from '@/app/lib/utility';
 import { Suspense } from 'react';
 import { getBreadcrumbListJsonld, JsonLdWebPage, videoDetailJsonLd } from '@/app/jsonld';
 import { GLOBAL_CONFIG } from '@/app/config/config';
@@ -21,35 +21,55 @@ export async function generateMetadata({ params }) {
 
   if (!videoData) return {};
 
-  const description = shortenText(videoData?.description);
-  return {
+  const description = cleanVideoDescription(videoData?.description);
+  const canonicalUrl = `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`;
+  const embedUrl = `https://www.dailymotion.com/embed/video/${videoData?.id}`;
+  const publishDate = toISTIso8601(videoData?.created_time);
+
+  const meta = {
     title: `${videoData?.title} - Lokmat TV`,
     description:
       description ||
       `Watch ${videoData?.title} on Lokmat TV. Stay updated with latest news and videos from Maharashtra.`,
-    // keywords: `${videoData?.title}, ${videoData?.channel}, Lokmat TV, Marathi news, video news, Maharashtra news`,
     keywords: `${
       videoData?.tags.length > 0
         ? videoData?.tags?.join(', ')
         : ' Lokmat TV, Marathi news, video news, Maharashtra news'
     }`,
+  };
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
     metadataBase: new URL(GLOBAL_CONFIG.SITE_PATH),
     alternates: {
       canonical: `/videos/${slug}/${videoId}`,
     },
     openGraph: {
-      title: videoData?.title,
-      description: description,
-      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${videoId}`,
+      title: meta.title,
+      description: meta.description,
+      url: canonicalUrl,
       siteName: GLOBAL_CONFIG.OG_SITE_NAME,
       images: [
         {
           url: videoData?.thumbnail_480_url || videoData?.thumbnail_240_url,
-          width: 480,
-          height: 360,
+          width: 686,
+          height: 514,
+          type: 'image/jpeg',
+          alt: videoData?.title,
         },
       ],
-      locale: 'mr',
+      videos: [
+        {
+          url: embedUrl,
+          secureUrl: embedUrl,
+          type: 'text/html',
+          width: 480,
+          height: 270,
+        },
+      ],
+      locale: GLOBAL_CONFIG.META_OG_LOCALE,
+      type: 'video.other',
       videos: [
         {
           url: `https://www.dailymotion.com/video/${videoData?.id}`,
@@ -58,12 +78,20 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'player',
-      title: videoData?.title,
-      description: description,
+      title: meta.title,
+      description: meta.description,
+      site: GLOBAL_CONFIG.META_TW_SITE,
+      creator: GLOBAL_CONFIG.META_TW_CREATOR,
       images: [videoData?.thumbnail_480_url || videoData?.thumbnail_240_url],
       player: `https://www.lokmat.com/embed/${videoData?.id}`, // or Dailymotion's embeddable player
-      playerWidth: 480,
-      playerHeight: 270,
+    },
+    other: {
+      'twitter:url': canonicalUrl,
+      'twitter:player:width': '480',
+      'twitter:player:height': '270',
+      'og:video:secure_url': embedUrl,
+      'og:video:type': 'text/html',
+      'og:published_time': publishDate,
     },
   };
 }

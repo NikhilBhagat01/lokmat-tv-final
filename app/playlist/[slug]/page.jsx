@@ -90,15 +90,24 @@ export async function generateMetadata({ params }) {
           url: image,
           width: 686,
           height: 514,
-          // alt: `${playlistName} Thumbnail`,
+          type: 'image/jpeg',
         },
       ],
+      locale: GLOBAL_CONFIG.META_OG_LOCALE,
+      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: meta.title,
       description: meta.description,
+      site: GLOBAL_CONFIG.META_TW_SITE,
+      creator: GLOBAL_CONFIG.META_TW_CREATOR,
       images: [image],
+    },
+    other: {
+      'twitter:url': canonicalUrl,
+      'twitter:player:width': '480',
+      'twitter:player:height': '270',
     },
   };
 }
