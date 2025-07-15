@@ -42,7 +42,7 @@ const FeaturedCard = ({ channel }) => {
               background: `url(${channel?.avatar_60_url}) no-repeat center center / cover`,
             }}
           ></div>
-          <div className="dm-channel-title">Lokmat Sakhi</div>
+          <div className="dm-channel-title">{channel?.screenname}</div>
         </div>
       </div>
     </div>

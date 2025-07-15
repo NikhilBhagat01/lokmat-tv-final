@@ -3,6 +3,7 @@ export const revalidate = 180; // Revalidate the page itself every 180 seconds (
 
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
+import InfiniteScroll from '@/app/components/InfiniteScroll';
 import { fetchPlaylistDataById } from '@/app/lib/FetchData';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -13,6 +14,7 @@ const page = async ({ params }) => {
 
   const data = await fetchPlaylistDataById(videoId);
 
+  console.log(data);
   if (!data) {
     return redirect(`/playlist/${slug}`);
   }
@@ -52,6 +54,7 @@ const page = async ({ params }) => {
         {data?.videos?.slice(1).map((item, index) => (
           <CategoryCard key={index} data={item} slug={slug} videoId={videoId} />
         ))}
+        <InfiniteScroll slug={data?.slug} videoId={data?.id} startPage={2} />
       </div>
     </>
   );
