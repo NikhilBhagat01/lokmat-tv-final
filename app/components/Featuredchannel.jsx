@@ -1,30 +1,5 @@
 import React from 'react';
 
-// Sample data
-const Featuredchannels = [
-  {
-    id: 'x2jo5vs',
-    cover_250_url: 'https://s1.dmcdn.net/b/9BMx81eBh9SzWLRLC/x250',
-    avatar_60_url: 'https://s1.dmcdn.net/u/9BMx81eBh9SEsjS8M/60x60',
-    url: 'https://www.dailymotion.com/LokmatSakhi',
-    screenname: 'Lokmat Sakhi',
-  },
-  {
-    id: 'x2jo5vm',
-    cover_250_url: 'https://s1.dmcdn.net/b/9BMx21eBjztUOeLE-/x250',
-    avatar_60_url: 'https://s1.dmcdn.net/u/9BMx21eBjztwQrM0l/60x60',
-    url: 'https://www.dailymotion.com/LokmatBhakti',
-    screenname: 'Lokmat Bhakti',
-  },
-  {
-    id: 'x2jo5oz',
-    cover_250_url: 'https://s1.dmcdn.net/b/9BMtJ1e0HJF-HSUeW/x250',
-    avatar_60_url: 'https://s1.dmcdn.net/u/9BMtJ1e0HJFOApNs1/60x60',
-    url: 'https://www.dailymotion.com/LokmatFilmy',
-    screenname: 'Lokmat Filmy',
-  },
-];
-
 const FeaturedCard = ({ channel }) => {
   return (
     <div className="card-wraper">
@@ -50,14 +25,14 @@ const FeaturedCard = ({ channel }) => {
 };
 
 const Featuredchannel = ({ data }) => {
-  console.log(data);
+  // console.log(data.data.list);
   return (
     <section className="lkm-widget channelpro">
       <div className="videos-head">
         <h3 className="head-title">Featured Channels</h3>
       </div>
       <div className="videos-widget card-category-desktop home owl-carousel owl-theme ">
-        {Featuredchannels.map((channel) => (
+        {data?.data?.list?.map((channel) => (
           <FeaturedCard key={channel.id} channel={channel} />
         ))}
       </div>

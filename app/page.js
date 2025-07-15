@@ -67,6 +67,8 @@ export const metadata = {
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
+  console.log(data);
+
   const breadcrumbJsonld = getBreadcrumbListJsonld([
     { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
   ]);
