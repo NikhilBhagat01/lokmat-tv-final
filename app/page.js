@@ -10,6 +10,7 @@ import VideoCarousel from './components/VideoCarousel';
 
 import { getBreadcrumbListJsonld, getHomePageJsonLd, JsonLdWebPage } from './jsonld';
 import { GLOBAL_CONFIG } from './config/config';
+import Featuredchannel from './components/Featuredchannel';
 
 const meta = {
   title:
@@ -104,9 +105,8 @@ export default async function Home() {
           <React.Fragment key={index}>
             {/* {index % 2 === 0 && <Adbox key={`ad-${index}`} width="800px" height="100px" />} */}
             {item?.isFeaturedChannel ? (
-              <></>
-            ) : // <Featuredchannel data={item} />
-            item?.isPlaylist ? (
+              <Featuredchannel data={item} /> // <Featuredchannel data={item} />
+            ) : item?.isPlaylist ? (
               <PlaylistCarousel data={item} />
             ) : (
               <VideoCarousel
