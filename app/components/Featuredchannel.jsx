@@ -32,7 +32,7 @@ const Featuredchannel = ({ data }) => {
         <h3 className="head-title">Featured Channels</h3>
       </div>
       <div className="videos-widget card-category-desktop home owl-carousel owl-theme ">
-        {data?.data?.list?.map((channel) => (
+        {data?.data?.map((channel) => (
           <FeaturedCard key={channel.id} channel={channel} />
         ))}
       </div>

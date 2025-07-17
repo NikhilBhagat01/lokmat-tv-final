@@ -8,7 +8,7 @@ const RelatedVideosCard = ({ video, slug }) => {
   const router = useRouter();
 
   return (
-    <div className="card-wraper" onClick={() => router.push(`/videos/${slug}/${video.id}`)}>
+    <div className="card-wraper" onClick={() => router.push(`/videos/${slug}/${video?.slug}`)}>
       <div className="card gotovideoDetail">
         <div className="card-image imgwrap">
           <img

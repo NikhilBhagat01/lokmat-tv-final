@@ -134,7 +134,7 @@ const page = async ({ params }) => {
             <p className="video-title">{firstVideo?.title || 'No Title Available'}</p>
             <div className="">
               <Link
-                href={`/videos/${data?.slug}/${firstVideo?.id}`}
+                href={`/videos/${data?.slug}/${firstVideo?.slug}`}
                 className="play-button play-triangle"
               >
                 Play

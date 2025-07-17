@@ -14,7 +14,6 @@ const page = async ({ params }) => {
 
   const data = await fetchPlaylistDataById(videoId);
 
-  console.log(data);
   if (!data) {
     return redirect(`/playlist/${slug}`);
   }
@@ -40,7 +39,7 @@ const page = async ({ params }) => {
             <p className="video-title">{firstVideo.title || 'No Title Available'}</p>
             <div className="">
               <Link
-                href={`/videos/${slug}/${videoId}/${firstVideo.id}`}
+                href={`/videos/${videoId}/${firstVideo.slug}`}
                 className="play-button play-triangle"
               >
                 Play

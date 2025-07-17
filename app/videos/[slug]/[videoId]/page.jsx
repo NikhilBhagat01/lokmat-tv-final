@@ -1,12 +1,14 @@
 // app/videos/[slug]/[videoId]//page.jsx
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+// export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
+
+// export const revalidate = 3600;
 
 import PlayerBack from '@/app/components/PlayerBack';
 import RelatedVideosCardWrapper from '@/app/components/RelatedVideosCardWrapper';
 import InfiniteRelatedVideos from '@/app/components/InfiniteRelatedVideos';
 import VideoDetailCard from '@/app/components/VideoDescription';
-import { fetchVideoById, fetchRelatedVideos, videoDetailData } from '@/app/lib/FetchData';
+import { fetchVideoById, fetchRelatedVideos, getVideoBySlug } from '@/app/lib/FetchData';
 import { cleanVideoDescription, deslugify, getFormatedData, toISTIso8601 } from '@/app/lib/utility';
 import { Suspense } from 'react';
 import { getBreadcrumbListJsonld, JsonLdWebPage, videoDetailJsonLd } from '@/app/jsonld';
@@ -17,7 +19,8 @@ import path from 'path';
 
 export async function generateMetadata({ params }) {
   const { videoId, slug } = await params;
-  const videoData = await fetchVideoById(videoId);
+  const videoData = await getVideoBySlug(videoId);
+  // console.log(videoData);
 
   if (!videoData) return {};
 
@@ -107,7 +110,7 @@ const VideoPlayerPage = async ({ params }) => {
   const relatedPlaylist = jsonData.find((item) => item.slug === slug);
 
   const [videoData, relatedVideos] = await Promise.all([
-    fetchVideoById(videoId),
+    getVideoBySlug(videoId),
     fetchRelatedVideos(relatedPlaylist?.id, 1),
   ]);
 
@@ -148,7 +151,7 @@ const VideoPlayerPage = async ({ params }) => {
               <iframe
                 className="dm-preview-selector"
                 frameBorder="0"
-                src={`https://www.dailymotion.com/embed/video/${videoId}?autoplay=1`}
+                src={`https://www.dailymotion.com/embed/video/${videoData?.id}?autoplay=1`}
                 allowFullScreen
               ></iframe>
             </div>
@@ -157,7 +160,7 @@ const VideoPlayerPage = async ({ params }) => {
               <div
                 className="card-image"
                 style={{
-                  background: `url('${videoData?.thumbnail_480_url}') center center / cover no-repeat`,
+                  background: `url('${videoData?.thumbnail_240_url}') center center / cover no-repeat`,
                 }}
               ></div>
               <div className="card-content">

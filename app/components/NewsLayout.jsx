@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { slugify } from '../lib/utility';
 
-const NewsLayout = ({ data, title, slug, id }) => {
+const NewsLayout = ({ data, title, slug }) => {
   const { mounted, isMobile } = useMounted();
   const [selectedItem, setSelectedItem] = useState(data[0]);
   const [showVideo, setShowVideo] = useState(false);
@@ -64,7 +64,7 @@ const NewsLayout = ({ data, title, slug, id }) => {
           <p className="video-title">{selectedItem?.title}</p>
           <div>
             <Link
-              href={`/videos/${slug}/${selectedItem?.id}`}
+              href={`/videos/${slug}/${selectedItem?.slug}`}
               className="play-button play-triangle"
             >
               Play

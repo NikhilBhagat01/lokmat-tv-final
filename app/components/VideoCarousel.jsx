@@ -29,7 +29,7 @@ const CardItem = React.memo(({ item, slug, categoryId, withPreview }) => {
   }, []);
 
   return (
-    <div className="card-wraper item" onClick={() => router.push(`/videos/${slug}/${item.id}`)}>
+    <div className="card-wraper item" onClick={() => router.push(`/videos/${slug}/${item?.slug}`)}>
       <div
         className="card iframInsert gotovideoDetail"
         onMouseEnter={withPreview ? handleMouseEnter : undefined}

@@ -3,13 +3,12 @@ import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import useMounted from '../hooks/useMounted';
+import { slugify } from '../lib/utility';
 
 const PlaylistCarousel = ({ data }) => {
   const { mounted, isMobile } = useMounted();
   const router = useRouter();
   // const slug = data?.title_slug || 'playlist';
-
-  // console.log(data);
 
   return (
     <section className="lkm-widget">
@@ -23,10 +22,10 @@ const PlaylistCarousel = ({ data }) => {
       {/* DESKTOP: owl-carousel */}
       {mounted && !isMobile ? (
         <section className="owl-carousel owl-theme grid-view multiple">
-          {data?.data?.list.map((item, index) => (
+          {data?.data?.map((item, index) => (
             <figure
               key={index}
-              onClick={() => router.push(`/playlist/${data?.title_slug}/${item?.id}`)}
+              onClick={() => router.push(`/playlist/${data?.title_slug}/${slugify(item?.name)}`)}
             >
               <div className="grid-container">
                 <div className="imgwrap">
@@ -51,10 +50,10 @@ const PlaylistCarousel = ({ data }) => {
       ) : (
         // MOBILE: normal stacked/grid layout
         <section className=" grid-view multiple">
-          {data?.data?.list.map((item, index) => (
+          {data?.data?.map((item, index) => (
             <figure
               key={index}
-              onClick={() => router.push(`/playlist/${data?.title_slug}/${item?.id}`)}
+              onClick={() => router.push(`/playlist/${data?.title_slug}/${slugify(item?.name)}`)}
             >
               <div className="grid-container">
                 <div className="imgwrap">

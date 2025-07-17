@@ -67,17 +67,14 @@ export const metadata = {
 export default async function Home() {
   const data = await fetchAllDailymotionData();
 
-  console.log(data);
-
   const breadcrumbJsonld = getBreadcrumbListJsonld([
     { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
   ]);
   const Jsonld = getHomePageJsonLd(data);
 
-  const topStories = data[0]?.data?.list || [];
+  const topStories = data[0]?.data || [];
   const topStoriesTitle = data[0]?.title;
   const topStoriesSlug = data[0]?.title_slug;
-  const topStoriesId = data[0]?.id;
   return (
     <>
       <JsonLdWebPage
@@ -97,12 +94,7 @@ export default async function Home() {
         }}
       />
       <div className="video-wrapper">
-        <NewsLayout
-          data={topStories}
-          title={topStoriesTitle}
-          slug={topStoriesSlug}
-          id={topStoriesId}
-        />
+        <NewsLayout data={topStories} title={topStoriesTitle} slug={topStoriesSlug} />
         {data?.slice(1).map((item, index) => (
           <React.Fragment key={index}>
             {/* {index % 2 === 0 && <Adbox key={`ad-${index}`} width="800px" height="100px" />} */}
@@ -114,7 +106,7 @@ export default async function Home() {
               <VideoCarousel
                 title={item?.title}
                 slug={item?.title_slug}
-                data={item?.data?.list || []}
+                data={item?.data || []}
                 id={item?.id}
               />
             )}

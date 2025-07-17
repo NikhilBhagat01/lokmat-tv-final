@@ -3,6 +3,8 @@ import { API_URL_DATA, CATEGORY_DATA } from './apilist';
 import { slugify } from './utility';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { detectAndTranslate } from './translate';
+import { db } from './db';
 
 const VIDEO_FIELDS =
   'id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair';
@@ -38,13 +40,24 @@ async function fetchAllDailymotionData() {
         }
 
         const data = await response.json();
-        // console.log(data);
+        const listData = data?.list
+          ? await Promise.all(
+              data.list.map(async (video) => {
+                const slug = await detectAndTranslate(video);
+                return {
+                  ...video,
+                  slug,
+                };
+              })
+            )
+          : [];
+
         return {
           title,
           title_slug: item.title_slug,
           isPlaylist,
           isFeaturedChannel,
-          data,
+          data: listData,
           id,
         };
       } catch (err) {
@@ -104,10 +117,22 @@ async function fetchCategoryDataBySlug(slug) {
       playlistResponse.json(),
     ]);
 
+    const { list, ...rest } = playlistData;
+
+    const playlistDataWithSlugs = await Promise.all(
+      list.map(async (video) => {
+        const slug = await detectAndTranslate(video);
+        return {
+          ...video,
+          slug,
+        };
+      })
+    );
+
     return {
       slug: category?.slug,
       categoryName: category?.name,
-      playlistData: playlistData?.list || [],
+      playlistData: playlistDataWithSlugs || [],
       id,
     };
     //TODO: handle case where category is not found
@@ -172,11 +197,22 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
           videosResponse.json(),
         ]);
 
+        const { list, ...rest } = videosData;
+        const videosWithSlugs = await Promise.all(
+          list.map(async (video) => {
+            const slug = await detectAndTranslate(video);
+            return {
+              ...video,
+              slug,
+            };
+          })
+        );
+
         const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
 
         return {
           playlistName: nameData.name,
-          videos: videosData.list || [],
+          videos: videosWithSlugs || [],
           slug: slugify(playlist_slug),
           id: playlistId,
         };
@@ -200,8 +236,15 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
   }
 }
 
-async function fetchPlaylistDataById(playlistId) {
+async function fetchPlaylistDataById(slug) {
   try {
+    const filePath = path.join(process.cwd(), 'app', 'lib', 'slug_map.json');
+    const fileContents = await fs.readFile(filePath, 'utf-8');
+    const jsonData = JSON.parse(fileContents);
+
+    const category = jsonData.find((item) => item.slug === slug);
+    const playlistId = category?.id;
+
     const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
     const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=1`;
 
@@ -219,11 +262,23 @@ async function fetchPlaylistDataById(playlistId) {
       throw new Error('Failed to fetch playlist data');
     }
     const [nameData, videosData] = await Promise.all([nameResponse.json(), videosResponse.json()]);
+
+    const { list, ...rest } = videosData;
+    const videosWithSlugs = await Promise.all(
+      list.map(async (video) => {
+        const slug = await detectAndTranslate(video);
+        return {
+          ...video,
+          slug,
+        };
+      })
+    );
+
     const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
 
     return {
       playlistName: nameData.name,
-      videos: videosData.list || [],
+      videos: videosWithSlugs || [],
       slug: playlist_slug,
       id: playlistId,
     };
@@ -270,10 +325,45 @@ async function fetchRelatedVideos(videoId, page = 1) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return response.json();
+    const data = await response.json();
+
+    const { list, ...rest } = data;
+
+    const listWithSlugs = await Promise.all(
+      list.map(async (video) => {
+        const slug = await detectAndTranslate(video);
+        return {
+          ...video,
+          slug,
+        };
+      })
+    );
+
+    return { ...rest, list: listWithSlugs };
   } catch (error) {
     console.error('Error fetching related videos:', error);
     return { list: [], has_more: false };
+  }
+}
+
+async function getVideoBySlug(slug) {
+  try {
+    const [rows] = await db.execute('SELECT * FROM dm_videos WHERE slug = ? LIMIT 1', [slug]);
+
+    const videoId = rows.length > 0 ? rows[0].video_id : null;
+    if (!videoId) {
+      return redirect('/');
+    }
+
+    const videoData = await fetchVideoById(videoId);
+    if (!videoData) {
+      // return redirect('/');
+    }
+
+    return videoData;
+  } catch (err) {
+    console.error('Error fetching video by slug:', err);
+    throw err;
   }
 }
 
@@ -284,4 +374,5 @@ export {
   fetchVideoById,
   fetchRelatedVideos,
   fetchPlaylistDataById,
+  getVideoBySlug,
 };

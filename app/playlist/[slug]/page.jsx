@@ -120,8 +120,6 @@ const page = async ({ params }) => {
 
   if (!playlistData) return redirect('/');
 
-  // console.log(playlistData);
-
   const breadcrumbJsonld = getBreadcrumbListJsonld([
     {
       name: playlistData?.playlistName,

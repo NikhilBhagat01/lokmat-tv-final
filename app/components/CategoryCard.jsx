@@ -33,7 +33,7 @@ const CategoryCard = ({ data, slug }) => {
   return (
     <div
       className="card-wraper"
-      onClick={() => router.push(`/videos/${slug}/${data.id}`)}
+      onClick={() => router.push(`/videos/${slug}/${data.slug}`)}
       onMouseEnter={!isMobile ? handleMouseEnter : undefined}
       onMouseLeave={!isMobile ? handleMouseLeave : undefined}
     >

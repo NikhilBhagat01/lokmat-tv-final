@@ -86,13 +86,13 @@ export const getHomePageJsonLd = (data) => {
     itemListElement: data?.map((section) => ({
       '@type': 'ItemList',
       name: section?.title,
-      itemListElement: section?.data?.list?.slice(0, 5).map((video, index) => {
+      itemListElement: section?.data?.slice(0, 5).map((video, index) => {
         const base = {
           name: video?.title || video?.name,
           description: cleanVideoDescription(video?.description) || video?.title,
           thumbnailUrl: video?.thumbnail_240_url,
           duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-          url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + section?.title_slug + '/' + video?.id,
+          url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + section?.title_slug + '/' + video?.slug,
           embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
           uploadDate: toISTIso8601(video?.created_time),
           publisher,
@@ -176,7 +176,7 @@ export const HubPageJsonLd = (data) => {
       description: cleanVideoDescription(video?.description) || video?.title,
       thumbnailUrl: video?.thumbnail_240_url,
       duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-      url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + data?.slug + '/' + video?.id,
+      url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + data?.slug + '/' + video?.slug,
       embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
       uploadDate: toISTIso8601(video?.created_time),
       publisher,
@@ -203,7 +203,7 @@ export const PlaylistJsonLd = (data) => {
         description: cleanVideoDescription(video?.description) || video?.title,
         thumbnailUrl: video?.thumbnail_240_url,
         duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-        url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + section?.slug + '/' + video?.id,
+        url: GLOBAL_CONFIG.SITE_PATH + '/videos/' + section?.slug + '/' + video?.slug,
         embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
         uploadDate: toISTIso8601(video?.created_time),
         publisher,
@@ -234,7 +234,7 @@ export const videoDetailJsonLd = ({ videoData, relatedVideos, slug, videoId }) =
       description: cleanVideoDescription(video?.description) || video?.title,
       thumbnailUrl: video?.thumbnail_240_url,
       duration: `PT${Math.floor(video?.duration / 60)}M${video?.duration % 60}S`,
-      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${video?.id}`,
+      url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}/${video?.slug}`,
       embedUrl: `https://www.dailymotion.com/embed/video/${video?.id}`,
       uploadDate: toISTIso8601(video?.created_time),
       publisher,
