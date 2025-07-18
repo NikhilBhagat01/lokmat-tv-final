@@ -6,7 +6,9 @@ import { getFormatedData, getFormatedDuration } from '../lib/utility';
 import useMounted from '../hooks/useMounted';
 import Link from 'next/link';
 
-const CategoryCard = ({ data, slug }) => {
+const CategoryCard = ({ data, slug, isPlayList = false, videoId = '' }) => {
+  const url = isPlayList ? `/videos/${videoId}/${data?.slug}` : `/videos/${slug}/${data.slug}`;
+  console.log(url);
   const router = useRouter();
   const { mounted, isMobile } = useMounted();
 
@@ -33,7 +35,7 @@ const CategoryCard = ({ data, slug }) => {
   return (
     <div
       className="card-wraper"
-      onClick={() => router.push(`/videos/${slug}/${data.slug}`)}
+      onClick={() => router.push(url)}
       onMouseEnter={!isMobile ? handleMouseEnter : undefined}
       onMouseLeave={!isMobile ? handleMouseLeave : undefined}
     >

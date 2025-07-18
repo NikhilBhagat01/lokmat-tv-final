@@ -1,6 +1,6 @@
 import { Translate } from '@google-cloud/translate/build/src/v2';
 import slugify from 'slugify';
-import { db } from '../lib/db.js'; // adjust path as per your structure
+import { db } from '../lib/db.js';
 
 const translate = new Translate({
   keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
@@ -12,6 +12,11 @@ export async function detectAndTranslate(video) {
 
   if (!video_id || !title) {
     console.warn('Missing video_id or title. Skipping translation.');
+    return null;
+  }
+
+  if (!video_id.startsWith('x') && !video_id.startsWith('X')) {
+    console.log(`Skipping private video ${video_id}`);
     return null;
   }
 
