@@ -104,7 +104,7 @@ const VideoPlayerPage = async ({ params }) => {
               <iframe
                 className="dm-preview-selector"
                 frameBorder="0"
-                src={`https://www.dailymotion.com/embed/video/${playerId}?autoplay=1`}
+                src={`https://www.dailymotion.com/embed/video/${playerId}?autoplay=1&mute=0`}
                 allowFullScreen
               ></iframe>
             </div>

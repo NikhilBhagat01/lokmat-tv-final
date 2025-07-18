@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <Navbar />
-        <main className="  mt-[92px] md:mt-[140px] ">{children}</main>
+        {children}
         {process.env.NODE_ENV === 'production' ? <AnalyticsRouteTracker /> : null}
         <Jquery />
         <OwlCarousel />
