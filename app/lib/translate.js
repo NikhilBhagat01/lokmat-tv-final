@@ -15,7 +15,7 @@ export async function detectAndTranslate(video) {
     return null;
   }
 
-  if (!video_id.startsWith('x') && !video_id.startsWith('X')) {
+  if (!video_id.startsWith('x')) {
     console.log(`Skipping private video ${video_id}`);
     return null;
   }

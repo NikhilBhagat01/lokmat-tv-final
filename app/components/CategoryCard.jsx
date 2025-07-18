@@ -8,7 +8,6 @@ import Link from 'next/link';
 
 const CategoryCard = ({ data, slug, isPlayList = false, videoId = '' }) => {
   const url = isPlayList ? `/videos/${videoId}/${data?.slug}` : `/videos/${slug}/${data.slug}`;
-  console.log(url);
   const router = useRouter();
   const { mounted, isMobile } = useMounted();
 

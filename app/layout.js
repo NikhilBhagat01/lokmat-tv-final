@@ -25,6 +25,11 @@ export const metadata = {
   title: 'Lokmat TV - Latest News & Videos',
   description:
     'Watch the latest news, entertainment, and trending video content from Lokmat TV. Stay updated with breaking news, exclusive stories, and popular playlists.',
+  icons: {
+    icon: [
+      { rel: 'icon', url: 'https://d3pc1xvrcw35tl.cloudfront.net/static/favicons/favicon-32.png' },
+    ],
+  },
   robots: 'max-image-preview:large',
 };
 
