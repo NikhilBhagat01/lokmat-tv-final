@@ -7,6 +7,7 @@ import VideoCarousel from '@/app/components/VideoCarousel';
 import { GLOBAL_CONFIG } from '@/app/config/config';
 import { getBreadcrumbListJsonld, JsonLdWebPage, PlaylistJsonLd } from '@/app/jsonld';
 import { fetchPlaylistDataBySlug } from '@/app/lib/FetchData';
+import { deslugify } from '@/app/lib/utility';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -117,6 +118,7 @@ const page = async ({ params }) => {
   // console.log(slug);
 
   const playlistData = await fetchPlaylistDataBySlug(slug);
+  // console.log(playlistData);
 
   if (!playlistData) return redirect('/');
 
@@ -157,7 +159,7 @@ const page = async ({ params }) => {
           __html: JSON.stringify(HubpageJsonLd),
         }}
       />
-      <BackButton slug={slug} />
+      <BackButton title={deslugify(slug)} />
       <NewsLayout
         data={topStories}
         title={topStoriesTitle}

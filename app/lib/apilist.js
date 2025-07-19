@@ -228,3 +228,21 @@ export const CITY_DATA = [
     playlist: 'x7h74t',
   },
 ];
+
+export const FEATURED_CHANNELS = [
+  {
+    screenname: 'Lokmat Sakhi',
+    slug: 'lokmat-sakhi',
+    id: 'x2jo5vs',
+  },
+  {
+    screenname: 'Lokmat Bhakti',
+    slug: 'lokmat-bhakti',
+    id: 'x2jo5vm',
+  },
+  {
+    screenname: 'Lokmat Filmy',
+    slug: 'lokmat-filmy',
+    id: 'x2jo5oz',
+  },
+];

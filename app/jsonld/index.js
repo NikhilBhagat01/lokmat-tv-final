@@ -163,8 +163,6 @@ export const getCategoryPageJsonLd = (data) => {
 export const HubPageJsonLd = (data) => {
   const publisher = getPublisher();
 
-  // console.log(data);
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',

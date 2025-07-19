@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { API_URL_DATA, CATEGORY_DATA } from './apilist';
+import { API_URL_DATA, CATEGORY_DATA, FEATURED_CHANNELS } from './apilist';
 import { slugify } from './utility';
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -367,6 +367,87 @@ async function getVideoBySlug(slug) {
   }
 }
 
+async function getChannnelDataBySlug(channelSlug) {
+  const channelData = FEATURED_CHANNELS.find((item) => item.slug === channelSlug);
+  if (!channelData) {
+    return redirect('/');
+  }
+
+  try {
+    const url = `https://api.dailymotion.com/playlists/?fields=name,id,thumbnail_240_url,videos_total&limit=10&owner=${channelData?.id}`;
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
+      },
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // in each data there is a list of playlist with id fetch name and playlist data based on id
+
+    const playlistFetches = data?.list.map(async (playlistid) => {
+      const playlistUrl = `https://api.dailymotion.com/playlist/${playlistid.id}/videos?fields=${VIDEO_FIELDS}&limit=7&page=1`;
+
+      const nameUrl = `https://api.dailymotion.com/playlist/${playlistid.id}/?fields=name`;
+
+      const [nameResponse, playlistResponse] = await Promise.all([
+        fetch(nameUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
+          },
+          next: { revalidate: 300 },
+        }),
+        fetch(playlistUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
+          },
+          next: { revalidate: 300 },
+        }),
+      ]);
+
+      const [nameData, playlistData] = await Promise.all([
+        nameResponse.json(),
+        playlistResponse.json(),
+      ]);
+
+      if (!nameResponse.ok || !playlistResponse.ok) {
+        throw new Error(`HTTP error! status: ${playlistResponse.status}`);
+      }
+
+      const { list, ...rest } = playlistData;
+
+      const listWithSlugs = await Promise.all(
+        list.map(async (video) => {
+          const slug = await detectAndTranslate(video);
+          return {
+            ...video,
+            slug,
+          };
+        })
+      );
+
+      return {
+        playlistName: nameData.name,
+        videos: listWithSlugs || [],
+        slug: slugify(nameData.name),
+        id: playlistid.id,
+      };
+    });
+    const playlists = await Promise.all(playlistFetches);
+    // console.log(playlists);
+    return { playlists, screenname: channelData.screenname, id: channelData.id };
+  } catch (error) {
+    console.error('Error fetching channel data:', error);
+    return { list: [], has_more: false };
+  }
+}
+
 export {
   fetchAllDailymotionData,
   fetchCategoryDataBySlug,
@@ -375,4 +456,5 @@ export {
   fetchRelatedVideos,
   fetchPlaylistDataById,
   getVideoBySlug,
+  getChannnelDataBySlug,
 };
