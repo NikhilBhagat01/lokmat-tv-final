@@ -1,14 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { slugify } from '../lib/utility';
+import Link from 'next/link';
 
 const FeaturedCard = ({ channel }) => {
-  const router = useRouter();
   const url = `/videos/channel/${slugify(channel?.screenname)}`;
 
   return (
-    <div className="card-wraper" onClick={() => router.push(url)}>
+    <Link href={url} className="card-wraper">
       <div className="cover">
         <div
           className="card-image"
@@ -26,7 +25,7 @@ const FeaturedCard = ({ channel }) => {
           <div className="dm-channel-title">{channel?.screenname}</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

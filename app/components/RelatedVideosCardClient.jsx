@@ -1,15 +1,15 @@
 // components/RelatedVideosCardClient.jsx
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { getFormatedData, getFormatedDuration } from '../lib/utility';
+import Link from 'next/link';
 
 const RelatedVideosCard = ({ video, slug }) => {
-  const router = useRouter();
+  const url = `/videos/${slug}/${video?.slug}`;
 
   return (
-    <div className="card-wraper" onClick={() => router.push(`/videos/${slug}/${video?.slug}`)}>
-      <div className="card gotovideoDetail">
+    <div className="card-wraper">
+      <Link href={url} className="card gotovideoDetail">
         <div className="card-image imgwrap">
           <img
             className="lazy-img"
@@ -29,7 +29,7 @@ const RelatedVideosCard = ({ video, slug }) => {
             </i>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

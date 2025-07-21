@@ -12,18 +12,13 @@ const InfiniteRelatedVideos = ({ videoId, slug, startPage = 2 }) => {
 
   const fetchMore = async () => {
     try {
-      // const res = await fetch(
-      //   `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=${page}`
-      // );
-
-      const res = await fetch(`/api/videos/${videoId}/page/${page}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const res = await fetch(
+        `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=${page}`
+      );
       const data = await res.json();
 
-      if (data?.data?.length > 0) {
-        setVideos((prev) => [...prev, ...data.data]);
+      if (data?.list?.length > 0) {
+        setVideos((prev) => [...prev, ...data.list]);
         setPage((prev) => prev + 1);
         if (!data.has_more) setHasMore(false);
       } else {
