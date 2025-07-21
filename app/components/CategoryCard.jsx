@@ -34,11 +34,10 @@ const CategoryCard = ({ data, slug, isPlayList = false, videoId = '' }) => {
   return (
     <div
       className="card-wraper"
-      onClick={() => router.push(url)}
       onMouseEnter={!isMobile ? handleMouseEnter : undefined}
       onMouseLeave={!isMobile ? handleMouseLeave : undefined}
     >
-      <div className="card  ">
+      <Link href={url} className="card  ">
         <div className="card-image imgwrap">
           {showPreview ? (
             <>
@@ -79,7 +78,7 @@ const CategoryCard = ({ data, slug, isPlayList = false, videoId = '' }) => {
             </i>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

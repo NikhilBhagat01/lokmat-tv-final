@@ -119,6 +119,10 @@ async function fetchCategoryDataBySlug(slug) {
 
     const { list, ...rest } = playlistData;
 
+    // Filter out private videos
+    // const filterlist = list.filter((video) => video?.id.startsWith('x')); // Filter out private videos
+    // console.log(filterlist);
+
     const playlistDataWithSlugs = await Promise.all(
       list.map(async (video) => {
         const slug = await detectAndTranslate(video);
