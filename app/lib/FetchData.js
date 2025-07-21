@@ -257,7 +257,6 @@ async function fetchPlaylistDataById(slug, page = 1) {
     const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
     const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=${page}`;
 
-    console.log(videosUrl);
     const [nameResponse, videosResponse] = await Promise.all([
       fetch(nameUrl, {
         headers: { 'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36' },
