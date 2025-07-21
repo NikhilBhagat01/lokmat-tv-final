@@ -12,23 +12,18 @@ const InfiniteScroll = ({ slug, videoId, startPage }) => {
   const loadMore = async () => {
     if (!hasMore) return;
 
-    // const res = await fetch(
-    //   `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=${page}`,
-    //   {
-    //     headers: {
-    //       'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
-    //     },
-    //   }
-    // );
-
-    const res = await fetch(`/api/videos/${videoId}/page/${page}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const res = await fetch(
+      `https://api.dailymotion.com/playlist/${videoId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=${page}`,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 Chrome/90.0 Safari/537.36',
+        },
+      }
+    );
     const data = await res.json();
 
-    if (data?.data?.length > 0) {
-      setVideos((prev) => [...prev, ...data?.data]);
+    if (data?.list?.length > 0) {
+      setVideos((prev) => [...prev, ...data.list]);
       setPage((prev) => prev + 1);
       if (!data.has_more) setHasMore(false);
     } else {
