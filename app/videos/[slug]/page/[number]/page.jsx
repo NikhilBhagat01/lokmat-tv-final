@@ -12,8 +12,6 @@ const page = async ({ params }) => {
 
   const firstVideo = data?.playlistData[0] || [];
 
-  console.log(data);
-
   return (
     <>
       <BackButton title={data?.categoryName} />

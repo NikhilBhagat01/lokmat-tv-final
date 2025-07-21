@@ -117,6 +117,11 @@ async function fetchCategoryDataBySlug(slug, page = 1) {
       playlistResponse.json(),
     ]);
 
+    // console.log(playlistData);
+    if (playlistData.list.length <= 0) {
+      redirect('/');
+    }
+
     const { list, ...rest } = playlistData;
 
     // Filter out private videos
