@@ -157,7 +157,7 @@ async function fetchCategoryDataBySlug(slug, page = 1) {
   }
 }
 
-async function fetchPlaylistDataBySlug(playlistSlug) {
+async function fetchPlaylistDataBySlug(playlistSlug, page = 1) {
   try {
     let playlistIds = [];
     let playListSlug = '';
@@ -183,8 +183,9 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
 
     const playlistFetches = ids.map(async (playlistId) => {
       const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
-      const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=1`;
+      const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=${page}`;
 
+      console.log(videosUrl);
       try {
         const [nameResponse, videosResponse] = await Promise.all([
           fetch(nameUrl, {
