@@ -1,24 +1,25 @@
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
-import { fetchCategoryDataBySlug } from '@/app/lib/FetchData';
+import { fetchPlaylistDataById } from '@/app/lib/FetchData';
 import Link from 'next/link';
 import React from 'react';
 
 const page = async ({ params }) => {
-  const { slug, number } = await params;
+  const { slug, videoId, number } = await params;
 
-  const data = await fetchCategoryDataBySlug(slug, number);
+  const data = await fetchPlaylistDataById(videoId, number);
 
-  const firstVideo = data?.playlistData[0] || [];
+  const firstVideo = data?.videos[0] || [];
 
   return (
     <>
-      <BackButton title={data?.categoryName} />
+      <BackButton slug={data.playlistName} />
       <section className="lead-video-container ">
         <section className="video-container">
           <div className="iframe-container lg">
+            {' '}
             <iframe
-              src={`https://www.dailymotion.com/widget/preview/video/${firstVideo?.id}?title=none&duration=none&mode=video&trigger=auto`}
+              src={`https://www.dailymotion.com/widget/preview/video/${firstVideo.id}?title=none&duration=none&mode=video&trigger=auto`}
               title="Dailymotion Video"
               allowFullScreen
               loading="lazy"
@@ -26,10 +27,10 @@ const page = async ({ params }) => {
             />
           </div>
           <div className="video-details-container">
-            <p className="video-title">{firstVideo?.title || 'No Title Available'}</p>
+            <p className="video-title">{firstVideo.title || 'No Title Available'}</p>
             <div className="">
               <Link
-                href={`/videos/${data?.slug}/${firstVideo?.slug}`}
+                href={`/videos/${videoId}/${firstVideo.slug}`}
                 className="play-button play-triangle"
               >
                 Play
@@ -40,8 +41,8 @@ const page = async ({ params }) => {
       </section>
 
       <div className="list-view card-category-desktop">
-        {data?.playlistData?.slice(1).map((item, index) => (
-          <CategoryCard key={index} data={item} slug={data?.slug} />
+        {data?.videos?.slice(1).map((item, index) => (
+          <CategoryCard key={index} data={item} slug={slug} videoId={videoId} isPlayList />
         ))}
       </div>
     </>

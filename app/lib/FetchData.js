@@ -245,7 +245,7 @@ async function fetchPlaylistDataBySlug(playlistSlug) {
   }
 }
 
-async function fetchPlaylistDataById(slug) {
+async function fetchPlaylistDataById(slug, page = 1) {
   try {
     const filePath = path.join(process.cwd(), 'app', 'lib', 'slug_map.json');
     const fileContents = await fs.readFile(filePath, 'utf-8');
@@ -255,7 +255,7 @@ async function fetchPlaylistDataById(slug) {
     const playlistId = category?.id;
 
     const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
-    const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=1`;
+    const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=${page}`;
 
     const [nameResponse, videosResponse] = await Promise.all([
       fetch(nameUrl, {
