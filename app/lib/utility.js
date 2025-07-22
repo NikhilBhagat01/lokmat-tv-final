@@ -1,4 +1,4 @@
-const getFormatedData = (timestamp) => {
+export const getFormatedData = (timestamp) => {
   const formattedDate = new Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
     month: 'short',
@@ -9,7 +9,7 @@ const getFormatedData = (timestamp) => {
   return formattedDate;
 };
 
-const deslugify = (slug) => {
+export const deslugify = (slug) => {
   return decodeURIComponent(slug) // Decode %26, %20, etc.
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitalize each word
@@ -18,7 +18,7 @@ const deslugify = (slug) => {
     .trim();
 };
 
-function slugify(str) {
+export const slugify = (str) => {
   return str
     .toLowerCase() // Convert to lowercase
     .trim() // Remove leading/trailing whitespace
@@ -26,20 +26,20 @@ function slugify(str) {
     .replace(/[^a-z0-9\s-]/g, '') // Remove all non-alphanumeric chars except spaces and hyphens
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/-+/g, '-'); // Replace multiple - with single -
-}
+};
 
-const getFormatedDuration = (duration) => {
+export const getFormatedDuration = (duration) => {
   const minutes = Math.floor(duration / 60);
   const seconds = (duration % 60).toString().padStart(2, '0');
   return `${minutes}:${seconds}`;
 };
 
-const shortenText = (text, maxLength = 100) => {
+export const shortenText = (text, maxLength = 100) => {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength) + '...';
 };
 
-function toISTIso8601(timestampInSeconds) {
+export const toISTIso8601 = (timestampInSeconds) => {
   if (typeof timestampInSeconds !== 'number' || isNaN(timestampInSeconds)) {
     return null;
   }
@@ -67,9 +67,9 @@ function toISTIso8601(timestampInSeconds) {
   return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get(
     'second'
   )}+05:30`;
-}
+};
 
-function cleanVideoDescription(rawDescription) {
+export const cleanVideoDescription = (rawDescription) => {
   if (!rawDescription || typeof rawDescription !== 'string') return '';
 
   return rawDescription
@@ -85,14 +85,30 @@ function cleanVideoDescription(rawDescription) {
     .replace(/\s{2,}/g, ' ')
     .trim()
     .slice(0, 400);
-}
-
-export {
-  getFormatedData,
-  deslugify,
-  getFormatedDuration,
-  slugify,
-  shortenText,
-  toISTIso8601,
-  cleanVideoDescription,
 };
+
+export const getPaginationUrls = ({ slug, page, hasMore, isPlayList = false, videoId = '' }) => {
+  const basePath = isPlayList ? `/playlist/${slug}/${videoId}` : `/videos/${slug}`;
+
+  const nextUrl = hasMore ? `${basePath}/page/${page + 1}` : '';
+
+  let prevUrl = '';
+  if (page > 2) {
+    prevUrl = `${basePath}/page/${page - 1}`;
+  } else if (page === 2) {
+    prevUrl = basePath;
+  }
+
+  return { nextUrl, prevUrl };
+};
+
+// export {
+//   getFormatedData,
+//   deslugify,
+//   getFormatedDuration,
+//   slugify,
+//   shortenText,
+//   toISTIso8601,
+//   cleanVideoDescription,
+//   getPaginationUrls,
+// };

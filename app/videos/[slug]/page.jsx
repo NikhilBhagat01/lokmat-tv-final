@@ -4,21 +4,22 @@ export const revalidate = 180; // Revalidate the page itself every 180 seconds (
 import BackButton from '@/app/components/BackButton';
 import CategoryCard from '@/app/components/CategoryCard';
 import InfiniteScroll from '@/app/components/InfiniteScroll';
+import PrevNext from '@/app/components/PrevNext';
 import { GLOBAL_CONFIG } from '@/app/config/config';
 import { getBreadcrumbListJsonld, HubPageJsonLd, JsonLdWebPage } from '@/app/jsonld';
 import { fetchCategoryDataBySlug } from '@/app/lib/FetchData';
+import { deslugify, getPaginationUrls } from '@/app/lib/utility';
 import Link from 'next/link';
 import React from 'react';
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const data = await fetchCategoryDataBySlug(slug);
+  // const data = await fetchCategoryDataBySlug(slug);
 
-  if (!data) return {};
+  // if (!data) return {};
 
-  // const firstPlaylist = data?.playlistData[0] || [];
-  // const firstVideo = firstPlaylist?.videos?.[0] || {};
-  const categoryName = data?.categoryName || '';
+  // const categoryName = data?.categoryName || '';
+  const categoryName = deslugify(slug);
 
   const categoryMetadataMap = {
     entertainment: {
@@ -58,7 +59,7 @@ export async function generateMetadata({ params }) {
       siteName: GLOBAL_CONFIG.OG_SITE_NAME,
       images: [
         {
-          url: data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE,
+          url: GLOBAL_CONFIG.OG_IMAGE,
           width: 686,
           height: 514,
           type: 'image/jpeg',
@@ -73,7 +74,7 @@ export async function generateMetadata({ params }) {
       description: meta.description,
       site: GLOBAL_CONFIG.META_TW_SITE,
       creator: GLOBAL_CONFIG.META_TW_CREATOR,
-      images: [data?.thumbnail_240_url || GLOBAL_CONFIG.OG_IMAGE],
+      images: [GLOBAL_CONFIG.OG_IMAGE],
     },
     other: {
       'twitter:url': `${GLOBAL_CONFIG.SITE_PATH}/videos/${slug}`,
@@ -84,10 +85,18 @@ export async function generateMetadata({ params }) {
 }
 
 const page = async ({ params }) => {
+  // variables
   const { slug } = await params;
 
+  // Data
   const data = await fetchCategoryDataBySlug(slug);
 
+  // Next prev
+  const page = typeof number !== 'undefined' ? number : 1;
+
+  const { nextUrl, prevUrl } = getPaginationUrls({ slug, page, hasMore: data?.has_more });
+
+  // Jsonld
   const breadcrumbJsonld = getBreadcrumbListJsonld([
     { name: 'Videos', url: `${GLOBAL_CONFIG.SITE_PATH}/videos/` },
     { name: data?.categoryName, url: `${GLOBAL_CONFIG.SITE_PATH}/videos/${data?.slug}` },
@@ -150,6 +159,7 @@ const page = async ({ params }) => {
         ))}
         {/* <InfiniteScroll slug={data?.slug} videoId={data?.id} startPage={2} /> */}
       </div>
+      <PrevNext prevUrl={prevUrl} nextUrl={nextUrl} />
     </>
   );
 };

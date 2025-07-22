@@ -97,7 +97,7 @@ async function fetchCategoryDataBySlug(slug, page = 1) {
     const id = category?.id || null;
 
     const nameUrl = `https://api.dailymotion.com/playlist/${id}/?fields=name`;
-    const playlist_url = `https://api.dailymotion.com/playlist/${id}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=12&page=${page}`;
+    const playlist_url = `https://api.dailymotion.com/playlist/${id}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=13&page=${page}`;
 
     const [nameResponse, playlistResponse] = await Promise.all([
       fetch(nameUrl, {
@@ -140,6 +140,7 @@ async function fetchCategoryDataBySlug(slug, page = 1) {
 
     return {
       slug: category?.slug,
+      has_more: playlistData?.has_more,
       categoryName: category?.name,
       playlistData: playlistDataWithSlugs || [],
       id,
@@ -185,7 +186,6 @@ async function fetchPlaylistDataBySlug(playlistSlug, page = 1) {
       const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
       const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=${page}`;
 
-      console.log(videosUrl);
       try {
         const [nameResponse, videosResponse] = await Promise.all([
           fetch(nameUrl, {
@@ -256,7 +256,7 @@ async function fetchPlaylistDataById(slug, page = 1) {
     const playlistId = category?.id;
 
     const nameUrl = `https://api.dailymotion.com/playlist/${playlistId}/?fields=name`;
-    const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=7&page=${page}`;
+    const videosUrl = `https://api.dailymotion.com/playlist/${playlistId}/videos?fields=id,thumbnail_240_url,url,title,description,created_time,duration,owner.screenname,owner.username,channel,onair&limit=13&page=${page}`;
 
     const [nameResponse, videosResponse] = await Promise.all([
       fetch(nameUrl, {
@@ -288,10 +288,12 @@ async function fetchPlaylistDataById(slug, page = 1) {
       })
     );
 
-    const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
+    // const playlist_slug = nameData.name.replace(/\s+/g, '-').toLowerCase();
+    const playlist_slug = slugify(nameData.name);
 
     return {
       playlistName: nameData.name,
+      has_more: videosData?.has_more,
       videos: videosWithSlugs || [],
       slug: playlist_slug,
       id: playlistId,

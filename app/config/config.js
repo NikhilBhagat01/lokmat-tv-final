@@ -1,6 +1,7 @@
 export const GLOBAL_CONFIG = {
   SITE_PATH:
     process.env.NODE_ENV == 'production' ? 'http://13.127.247.96' : 'http://localhost:3000',
+  SITE_LOGO: 'https://d3pc1xvrcw35tl.cloudfront.net/assets/images/lokmat-logo-v0.1.png',
   OG_IMAGE: 'https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/homepage-og_201912337337.jpg',
   OG_SITE_NAME: 'https://www.lokmat.com/',
   META_OG_LOCALE: 'mr',

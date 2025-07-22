@@ -23,7 +23,7 @@ export const JsonLdOrganization = () => {
     url: GLOBAL_CONFIG.SITE_PATH,
     logo: {
       '@type': 'ImageObject',
-      url: 'https://d3pc1xvrcw35tl.cloudfront.net/assets/images/lokmat-logo-v0.1.png',
+      url: GLOBAL_CONFIG.SITE_LOGO,
       width: 224,
       height: 58,
     },
@@ -253,7 +253,8 @@ export const getBreadcrumbListJsonld = (items) => {
         name: 'Home',
         item: {
           '@type': 'WebPage',
-          '@id': `${GLOBAL_CONFIG.SITE_PATH}/`,
+          '@id': `${GLOBAL_CONFIG.SITE_PATH}`,
+          image: GLOBAL_CONFIG.SITE_LOGO,
         },
       },
       ...items.map((item, index) => ({
@@ -263,6 +264,7 @@ export const getBreadcrumbListJsonld = (items) => {
         item: {
           '@type': 'WebPage',
           '@id': item.url,
+          image: GLOBAL_CONFIG.SITE_LOGO,
         },
       })),
     ],

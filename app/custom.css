@@ -1825,3 +1825,21 @@ main {
 .card {
   color: inherit;
 }
+
+/* Test */
+
+.tempclass {
+  margin-bottom: 10px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px;
+}
+
+.tempclass .prev,
+.next {
+  background-color: #222;
+  border-radius: 5px;
+  padding: 10px;
+  color: #ffbf1e !important;
+}
