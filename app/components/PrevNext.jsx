@@ -7,13 +7,13 @@ const PrevNext = ({ prevUrl = '', nextUrl = '' }) => {
       <div className="tempclass">
         {prevUrl && (
           <Link className="prev" href={prevUrl}>
-            Prev
+            Previous Page
           </Link>
         )}
 
         {nextUrl && (
           <Link className="next" href={nextUrl}>
-            Next
+            Next Page
           </Link>
         )}
       </div>
